@@ -18,6 +18,7 @@ const metaBlurb = $('#metaBlurb');
 const metaRole = $('#metaRole');
 const metaTags = $('#metaTags');
 const metaOutcome = $('#metaOutcome');
+const metaEl = $('#meta');
 const nav = $('#projectNav');
 const yearEl = $('#year');
 
@@ -30,24 +31,121 @@ function paintNav() {
   nav.innerHTML = PROJECTS.map(
     (p, i) => `
     <button class="rail-item${i === current ? ' is-active' : ''}" data-i="${i}" aria-current="${i === current}">
-      <span class="rail-dot"></span>
+      <span class="rail-thumb" data-i="${i}" aria-hidden="true"></span>
       <span class="rail-body">
         <span class="rail-name">${p.name}</span>
-        <span class="rail-meta">${p.year} · ${p.tags.join(' / ')}</span>
+        <span class="rail-meta">${p.year} · ${p.tags.join(' · ')}</span>
       </span>
     </button>`
   ).join('');
   nav.querySelectorAll('.rail-item').forEach((b) => {
     b.onclick = () => select(+b.dataset.i);
   });
+  paintThumbs();
+}
+
+/* Small rounded-rect path helper */
+function roundRectPath(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.roundRect(x, y, w, h, r);
+}
+
+/* Render a project thumbnail: tablet screen behind, phone screen in front. */
+function drawThumb(canvasEl, p) {
+  const t = buildTextures(p);
+  const W = 480;
+  const H = 640;
+  const c = canvasEl.ownerDocument.createElement('canvas');
+  c.width = W;
+  c.height = H;
+  const ctx = c.getContext('2d');
+
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#0d1220');
+  bg.addColorStop(1, '#0a0f1d');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  /* soft top glow */
+  const glow = ctx.createRadialGradient(W * 0.5, -40, 20, W * 0.5, -40, W * 0.9);
+  glow.addColorStop(0, 'rgba(127,136,255,.32)');
+  glow.addColorStop(1, 'rgba(127,136,255,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H * 0.7);
+
+  /* tablet screen card */
+  const tw = W * 0.6;
+  const th = tw * (1860 / 1400);
+  const tx = (W - tw) / 2;
+  const ty = H * 0.06;
+  ctx.save();
+  roundRectPath(ctx, tx, ty, tw, th, 18);
+  ctx.clip();
+  ctx.drawImage(t.desktop.image, tx, ty, tw, th);
+  ctx.restore();
+  ctx.strokeStyle = 'rgba(255,255,255,.14)';
+  ctx.lineWidth = 2;
+  roundRectPath(ctx, tx, ty, tw, th, 18);
+  ctx.stroke();
+
+  /* phone screen card, overlapping bottom-right */
+  const pw = W * 0.3;
+  const ph = pw * (1640 / 760);
+  const px = W * 0.62;
+  const py = H * 0.42;
+  ctx.save();
+  ctx.shadowColor = 'rgba(0,0,0,.7)';
+  ctx.shadowBlur = 30;
+  ctx.shadowOffsetY = 10;
+  ctx.fillStyle = '#05070c';
+  roundRectPath(ctx, px, py, pw, ph, 16);
+  ctx.fill();
+  ctx.restore();
+  ctx.save();
+  roundRectPath(ctx, px, py, pw, ph, 16);
+  ctx.clip();
+  ctx.drawImage(t.mobile.image, px, py, pw, ph);
+  ctx.restore();
+  ctx.strokeStyle = 'rgba(255,255,255,.18)';
+  ctx.lineWidth = 2;
+  roundRectPath(ctx, px, py, pw, ph, 16);
+  ctx.stroke();
+
+  /* bottom fade so text on the card stays legible */
+  const fade = ctx.createLinearGradient(0, H - 150, 0, H);
+  fade.addColorStop(0, 'rgba(8,11,18,0)');
+  fade.addColorStop(1, 'rgba(8,11,18,.85)');
+  ctx.fillStyle = fade;
+  ctx.fillRect(0, H - 150, W, 150);
+
+  /* fill the actual thumb element */
+  const box = canvasEl;
+  box.innerHTML = '';
+  c.style.width = '100%';
+  c.style.height = '100%';
+  c.style.objectFit = 'cover';
+  box.appendChild(c);
+
+  t.mobile.dispose();
+  t.desktop.dispose();
+}
+
+function paintThumbs() {
+  document.querySelectorAll('.rail-thumb').forEach((el) => {
+    drawThumb(el, PROJECTS[+el.dataset.i]);
+  });
 }
 
 function paintMeta(p) {
-  metaName.textContent = p.name;
-  metaBlurb.textContent = p.blurb;
-  metaRole.textContent = p.role;
-  metaOutcome.textContent = p.outcome;
-  metaTags.innerHTML = p.tags.map((t) => `<span class="tag">${t}</span>`).join('');
+  metaEl.classList.add('swap');
+  setTimeout(() => {
+    metaName.textContent = p.name;
+    metaBlurb.textContent = p.blurb;
+    metaRole.textContent = p.role;
+    metaOutcome.textContent = p.outcome;
+    metaTags.innerHTML = p.tags.map((t) => `<span class="tag">${t}</span>`).join('');
+    metaEl.classList.remove('swap');
+  }, 120);
 }
 
 /* ================= Renderer ================= */
