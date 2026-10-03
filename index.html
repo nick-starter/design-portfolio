@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Portfolio | 3D Device Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <div class="container">
+        <h1 class="hero-title">Design Portfolio</h1>
+        <p class="hero-subtitle">Interactive 3D showcase of mobile and desktop designs</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="flipBtn">Flip Device</button>
+          <button class="btn btn-secondary" id="resetView">Reset View</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="showcase">
+      <div class="canvas-container">
+        <canvas id="webgl-canvas"></canvas>
+      </div>
+      <div class="info-panel" id="infoPanel">
+        <div class="info-content">
+          <span class="device-label" id="deviceLabel">iPhone</span>
+          <h2 class="design-title" id="designTitle">Mobile App Design</h2>
+          <p class="design-desc" id="designDesc">Explore the mobile experience with smooth interactions and thoughtful UI.</p>
+          <div class="design-tags" id="designTags"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
