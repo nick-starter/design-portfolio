@@ -1,50 +1,160 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Design Portfolio | 3D Device Showcase</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Nicholas Child — Design Folio</title>
+<meta name="description" content="Design folio with an interactive 3D device showcase. Flip an iPhone into a portrait iPad to compare mobile and desktop design work." />
+<meta name="theme-color" content="#05070c" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main>
-    <header class="hero">
-      <div class="container">
-        <h1 class="hero-title">Design Portfolio</h1>
-        <p class="hero-subtitle">Interactive 3D showcase of mobile and desktop designs</p>
-        <div class="hero-actions">
-          <button class="btn btn-primary" id="flipBtn">Flip Device</button>
-          <button class="btn btn-secondary" id="resetView">Reset View</button>
-        </div>
-      </div>
-    </header>
 
-    <section class="showcase">
-      <div class="canvas-container">
-        <canvas id="webgl-canvas"></canvas>
-      </div>
-      <div class="info-panel" id="infoPanel">
-        <div class="info-content">
-          <span class="device-label" id="deviceLabel">iPhone</span>
-          <h2 class="design-title" id="designTitle">Mobile App Design</h2>
-          <p class="design-desc" id="designDesc">Explore the mobile experience with smooth interactions and thoughtful UI.</p>
-          <div class="design-tags" id="designTags"></div>
-        </div>
-      </div>
-    </section>
-  </main>
+<!-- ambient background -->
+<div class="bg" aria-hidden="true">
+  <span class="orb orb-a"></span>
+  <span class="orb orb-b"></span>
+  <span class="grain"></span>
+</div>
 
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-      }
-    }
-  </script>
-  <script type="module" src="main.js"></script>
+<!-- boot loader -->
+<div class="loader" id="loader">
+  <div class="loader-ring"></div>
+  <p>Building the device…</p>
+</div>
+
+<header class="topbar">
+  <a class="brand" href="#top">
+    <span class="brand-mark"></span>
+    <span class="brand-name">Nicholas Child</span>
+  </a>
+  <nav class="topnav">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a class="btn btn-sm" href="https://github.com" target="_blank" rel="noopener">GitHub ↗</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO / 3D STAGE ============ -->
+  <section class="stage" id="work">
+
+    <div class="stage-col stage-col-copy">
+      <div class="stage-copy">
+        <p class="eyebrow">Product &amp; interface design</p>
+        <h1 class="stage-title">
+          One product,<br />
+          <em>every screen size.</em>
+        </h1>
+        <p class="stage-lede">
+          A single interactive 3D device sits at the centre of this folio. Flip it to move
+          between the phone and tablet builds of the same product — then drag it, zoom it,
+          and load a different project onto both screens.
+        </p>
+
+        <div class="stage-controls">
+          <button class="btn btn-primary" id="flipBtn" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="7" y="2.5" width="10" height="19" rx="2.4" />
+              <path d="M3.5 9.5h17M3.5 14.5h17" opacity=".5" />
+            </svg>
+            <span>Show iPad</span>
+          </button>
+          <button class="btn" id="autoBtn" aria-pressed="true">Auto-orbit: on</button>
+          <button class="btn btn-ghost" id="resetBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 12a9 9 0 1 0 2.6-6.4" /><path d="M3 4v5h5" />
+            </svg>
+            Reset view
+          </button>
+        </div>
+
+        <p class="hint" id="hint">Drag to orbit · scroll to zoom · ← → to change project</p>
+      </div>
+
+      <aside class="meta" id="meta">
+        <div class="meta-head">
+          <h2 id="metaName">Aurora Health</h2>
+          <p class="meta-outcome" id="metaOutcome"></p>
+        </div>
+        <p class="meta-blurb" id="metaBlurb"></p>
+        <dl class="meta-facts">
+          <div><dt>Role</dt><dd id="metaRole"></dd></div>
+        </dl>
+        <div class="meta-tags" id="metaTags"></div>
+      </aside>
+    </div>
+
+    <div class="stage-col stage-col-canvas">
+      <canvas id="stage-canvas" class="stage-canvas"
+        aria-label="Interactive 3D device showcase. Drag to orbit and scroll to zoom. Use the Show iPad button to switch between phone and tablet."></canvas>
+    </div>
+
+  </section>
+
+  <!-- ============ PROJECT RAIL ============ -->
+  <section class="rail-wrap" aria-label="Projects">
+    <p class="rail-title">Selected work</p>
+    <div class="rail" id="projectNav"></div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <p class="eyebrow">About</p>
+      <h2 class="about-title">I design interfaces that hold up <em>at every size</em> — and in the hand.</h2>
+      <div class="about-cols">
+        <p>
+          I'm a product and interface designer working across mobile, tablet and web. Most of my
+          work lives in the seam between those three: the same product, rethought for a 6.1-inch
+          phone, an 11-inch tablet and a 27-inch display — without losing the idea that made it
+          good in the first place.
+        </p>
+        <p>
+          I care about the unglamorous parts. Type scales that survive translation. Touch targets
+          that survive gloves. Focus rings that survive a redesign. The 3D device above is a
+          small argument for the same thing: the presentation only works because the geometry
+          underneath it is actually built, not faked with a flat image.
+        </p>
+      </div>
+      <ul class="about-stats">
+        <li><b>7+</b><span>years designing</span></li>
+        <li><b>20+</b><span>products shipped</span></li>
+        <li><b>3</b><span>platforms, one system</span></li>
+        <li><b>AA+</b><span>accessibility as default</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="contact" id="contact">
+    <p class="eyebrow">Contact</p>
+    <h2 class="contact-title">Got something worth building?</h2>
+    <p class="contact-sub">Available for product design, design systems and front-end work.</p>
+    <div class="contact-actions">
+      <a class="btn btn-primary btn-lg" href="mailto:hello@example.com">hello@example.com</a>
+      <a class="btn btn-lg" href="https://github.com" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>© <span id="year"></span> Nicholas Child — built with Three.js.</p>
+  </footer>
+</main>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module" src="main.js"></script>
 </body>
 </html>
