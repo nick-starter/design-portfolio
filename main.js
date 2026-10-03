@@ -71,6 +71,101 @@ floor.position.y = -1.8;
 floor.receiveShadow = true;
 scene.add(floor);
 
+// Create screen textures
+function createScreenTexture(isMobile) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  
+  if (isMobile) {
+    canvas.width = 680;
+    canvas.height = 1480;
+    // Mobile gradient design
+    const gradient = ctx.createLinearGradient(0, 0, 0, 1480);
+    gradient.addColorStop(0, '#4F46E5');
+    gradient.addColorStop(1, '#818CF8');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 680, 1480);
+    
+    // Header bar
+    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    ctx.fillRect(0, 0, 680, 120);
+    
+    // App title
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 48px Plus Jakarta Sans';
+    ctx.textAlign = 'center';
+    ctx.fillText('Mobile App', 340, 80);
+    
+    // Content cards
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.beginPath();
+    ctx.roundRect(60, 180, 560, 300, 40);
+    ctx.fill();
+    
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.beginPath();
+    ctx.roundRect(60, 520, 560, 200, 40);
+    ctx.fill();
+    
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.beginPath();
+    ctx.roundRect(60, 760, 560, 400, 40);
+    ctx.fill();
+  } else {
+    canvas.width = 1650;
+    canvas.height = 2200;
+    // Desktop/iPad gradient design
+    const gradient = ctx.createLinearGradient(0, 0, 1650, 2200);
+    gradient.addColorStop(0, '#0F172A');
+    gradient.addColorStop(1, '#1E293B');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 1650, 2200);
+    
+    // Navbar
+    ctx.fillStyle = 'rgba(79,70,229,0.9)';
+    ctx.fillRect(0, 0, 1650, 120);
+    
+    // Logo
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 40px Plus Jakarta Sans';
+    ctx.textAlign = 'left';
+    ctx.fillText('Design System', 60, 75);
+    
+    // Sidebar
+    ctx.fillStyle = 'rgba(255,255,255,0.05)';
+    ctx.fillRect(0, 120, 350, 2080);
+    
+    // Main content
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.beginPath();
+    ctx.roundRect(400, 180, 1150, 400, 32);
+    ctx.fill();
+    
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.beginPath();
+    ctx.roundRect(400, 620, 550, 350, 32);
+    ctx.fill();
+    
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.beginPath();
+    ctx.roundRect(1000, 620, 550, 350, 32);
+    ctx.fill();
+    
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.beginPath();
+    ctx.roundRect(400, 1010, 1150, 500, 32);
+    ctx.fill();
+  }
+  
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.flipY = false;
+  texture.anisotropy = 4;
+  return texture;
+}
+
+const mobileScreenTexture = createScreenTexture(true);
+const desktopScreenTexture = createScreenTexture(false);
+
 const deviceGroup = new THREE.Group();
 scene.add(deviceGroup);
 
@@ -82,7 +177,7 @@ const phoneFrameMat = new THREE.MeshStandardMaterial({
 });
 
 const phoneScreenMat = new THREE.MeshBasicMaterial({
-  color: 0x1a1a1a,
+  map: mobileScreenTexture,
 });
 
 const ipadFrameMat = new THREE.MeshStandardMaterial({
@@ -92,7 +187,7 @@ const ipadFrameMat = new THREE.MeshStandardMaterial({
 });
 
 const ipadScreenMat = new THREE.MeshBasicMaterial({
-  color: 0xffffff,
+  map: desktopScreenTexture,
 });
 
 // Phone
@@ -127,6 +222,7 @@ phoneCamera.rotation.x = Math.PI / 2;
 phoneCamera.position.set(0, 0.65, 0.042);
 phoneBody.add(phoneCamera);
 
+// iPad
 const ipadBody = new THREE.Mesh(
   new THREE.BoxGeometry(1.8, 2.4, 0.08),
   ipadFrameMat
