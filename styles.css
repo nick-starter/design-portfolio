@@ -595,6 +595,17 @@ button { font: inherit; }
 .pj-frame--phone { border: 6px solid #1b232a; border-radius: 30px; max-width: 340px; margin-inline: auto; }
 .pj-frame--poster { aspect-ratio: 1; }
 .pj-frame--poster canvas { height: 100%; }
+.pj-item--wide { grid-column: 1 / -1; }
+.pj-ph {
+  aspect-ratio: 16 / 10;
+  height: auto;
+  object-fit: cover;
+  background: var(--mute);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  width: 100%;
+  display: block;
+}
 
 /* colour + type system */
 .pj-system {
