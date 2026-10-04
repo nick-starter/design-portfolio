@@ -152,22 +152,18 @@ button { font: inherit; }
   letter-spacing: -.02em;
   white-space: nowrap;
   z-index: 1;
-  justify-content: flex-start;
-  font-size: clamp(3.4rem, 13vw, 15rem);
+  font-size: clamp(4rem, 25vw, 24rem);
   line-height: .8;
-  display: flex;
-  position: relative;
+  display: block;
 }
 .hero h1 sup {
   color: var(--red);
-  margin-left: .22em;
-  font-size: .12em;
+  margin-left: .08em;
+  font-size: .14em;
   font-weight: 700;
   font-stretch: 100%;
   line-height: 1;
-  position: absolute;
-  top: .1em;
-  left: 100%;
+  vertical-align: top;
 }
 .hero-mid {
   position: relative;
@@ -256,6 +252,7 @@ button { font: inherit; }
 .cols { color: var(--mute); grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 30px; display: grid; }
 .cols p { max-width: 30em; }
 .tools { gap: 14px; max-width: 680px; margin-top: clamp(40px, 5vw, 64px); display: grid; }
+.tools--tight { margin-top: 22px; }
 .tools p { color: var(--mute); }
 .tools ul {
   border-top: 1px solid var(--line);

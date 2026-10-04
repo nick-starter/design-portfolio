@@ -10,19 +10,21 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 /* ---------------- data ---------------- */
 const JOBS = [
-  { yr: 'Current', co: 'Independent', desc: 'Product & interface designer, Sydney. Since 2023' },
-  { yr: '2023', co: 'Aurora Health', desc: 'Lead Product Designer — clinical operations platform' },
-  { yr: '2021', co: 'Ember Transit', desc: 'Senior Product Designer — rider experience' },
-  { yr: '2020', co: 'Ocean Freight', desc: 'Product Designer — tracking & data visualisation' },
-  { yr: '2018', co: 'Violet Studio', desc: 'Interaction Designer — brand & web' },
-  { yr: 'Earlier', co: 'Citrus Pay', desc: 'UI Designer — payments & accessibility' },
+  { yr: 'Now', co: 'Bupa', desc: 'Senior Visual & Interaction Designer · 2023 – Present' },
+  { yr: '2022', co: 'Super Retail Group', desc: 'UI Designer — Rebel Sport website · 2022 – 2023' },
+  { yr: '2020', co: 'Telstra', desc: "Visual Designer — activation & recharge, Telstra 'Able' design system · 2020 – 2022" },
+  { yr: '2015', co: 'TBWA \\ Tequila', desc: 'Senior Digital Designer — Nissan, ANZ, Medibank · 2015 – 2018' },
+  { yr: '2012', co: 'JWT', desc: 'Digital Creative Lead · 2012 – 2015' },
+  { yr: '2008', co: 'WCRS', desc: 'Senior Digital Designer · 2008 – 2012' },
+  { yr: '2005', co: 'Publicis', desc: 'Digital Designer · 2005 – 2008' },
+  { yr: '2005', co: 'Staffordshire University', desc: 'BA Hons (First Class) — Interactive Multimedia' },
 ];
 
 const METHOD = [
-  { t: 'UX strategy & discovery', d: 'Research, stakeholder alignment and a sharp point of view that frames the problem worth solving before design starts.' },
-  { t: 'Rapid prototypes', d: 'Working, clickable product in hours. Real data, real state, a real URL you can put in front of users this week.' },
-  { t: 'Design systems & code', d: 'Semantic tokens, component variants and responsive rules authored in the codebase, so the design survives implementation.' },
-  { t: 'End-to-end product design', d: 'Flows, interface, content and motion designed as one system across web and mobile, from first sketch to shipped release.' },
+  { t: 'Research & discovery', d: 'Start with the problem, the audience and the constraint. Interviews, analytics and competitive review before any pixels.' },
+  { t: 'Concept & visual direction', d: 'Explore the widest range quickly, then commit to a direction with a clear point of view and the craft to sell it.' },
+  { t: 'Interaction & motion', d: 'Prototype the flow in Figma and Rive. Motion is designed with the interface, never layered on after the fact.' },
+  { t: 'Systems & handover', d: 'Semantic tokens, component variants and specs authored so the design survives build across web and mobile.' },
 ];
 
 /* ---------------- cover cache + placement ---------------- */

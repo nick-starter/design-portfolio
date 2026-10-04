@@ -7,7 +7,7 @@ experience list, a scroll-driven method section, and a contact card.
 ## Features
 
 - Editorial, responsive layout (mobile → desktop) built on a bone-on-ink palette with a red accent
-- Work gallery of 6 placeholder projects, each opening a full case-study overlay (prev/next, keyboard nav)
+- Work gallery of 6 selected projects from a 20-year career (Bupa, Rebel Sport, Telstra, TBWA, JWT, WCRS), each opening a full case-study overlay (prev/next, keyboard nav)
 - Project artwork generated procedurally with Canvas 2D — no image assets required
 - Scroll-driven method steps, nav scroll-spy, animated stats and a horizontal drag/wheel gallery
 - Custom type: Archivo (variable, wide), Instrument Serif and JetBrains Mono
