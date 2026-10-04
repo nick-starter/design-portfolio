@@ -334,6 +334,11 @@ body.work-scroll .track { scroll-snap-type: none; }
   position: relative;
   overflow: hidden;
 }
+.cover--img {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 .cover canvas {
   width: 100%;
   height: 100%;
@@ -343,7 +348,8 @@ body.work-scroll .track { scroll-snap-type: none; }
   inset: 0;
   transition: transform .9s cubic-bezier(.2, .7, .2, 1);
 }
-.proj-open:hover .cover canvas { transform: scale(1.035); }
+.proj-open:hover .cover canvas,
+.proj-open:hover .cover--img { transform: scale(1.035); transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
 .cover .open-tag {
   z-index: 1;
   font-family: var(--mono);

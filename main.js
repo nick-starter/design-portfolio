@@ -78,7 +78,7 @@ function projectCardMarkup(p, i) {
   return `
     <article class="proj">
       <a class="proj-open" href="project.html?id=${p.id}" aria-label="View ${p.name} project">
-        <span class="cover"><span class="open-tag">View project</span></span>
+        <span class="cover cover--img"${p.image ? ` style="background-image: url(${p.image});"` : ''}><span class="open-tag">View project</span></span>
       </a>
       <div class="proj-meta">
         <span class="mono n">${n}</span>
