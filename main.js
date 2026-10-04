@@ -68,8 +68,8 @@ function drawThumb(canvasEl, p) {
 
   /* soft top glow */
   const glow = ctx.createRadialGradient(W * 0.5, -40, 20, W * 0.5, -40, W * 0.9);
-  glow.addColorStop(0, 'rgba(127,136,255,.32)');
-  glow.addColorStop(1, 'rgba(127,136,255,0)');
+  glow.addColorStop(0, 'rgba(255,43,28,.22)');
+  glow.addColorStop(1, 'rgba(255,43,28,0)');
   ctx.fillStyle = glow;
   ctx.fillRect(0, 0, W, H * 0.7);
 
@@ -172,7 +172,7 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x05070c, 0.11);
+scene.fog = new THREE.FogExp2(0x0c1114, 0.11);
 
 /* Environment for believable metal + glass */
 const pmrem = new THREE.PMREMGenerator(renderer);
@@ -209,7 +209,7 @@ const FIT_TABLET = distFor(0.235, 0.30);
 const fitDistance = (k) => FIT_PHONE + (FIT_TABLET - FIT_PHONE) * k;
 
 /* ================= Lighting ================= */
-scene.add(new THREE.AmbientLight(0xb9c6e0, 0.35));
+scene.add(new THREE.AmbientLight(0xd8d2c8, 0.35));
 
 const key = new THREE.DirectionalLight(0xffffff, 2.6);
 key.position.set(0.32, 0.55, 0.5);
@@ -227,21 +227,21 @@ sc.top = 0.3;
 sc.bottom = -0.3;
 scene.add(key);
 
-const fill = new THREE.DirectionalLight(0x9fc0ff, 0.85);
+const fill = new THREE.DirectionalLight(0xffc4b0, 0.8);
 fill.position.set(-0.45, 0.1, 0.3);
 scene.add(fill);
 
-const rim = new THREE.DirectionalLight(0xc7d2fe, 1.5);
+const rim = new THREE.DirectionalLight(0xfff0e6, 1.5);
 rim.position.set(-0.25, 0.4, -0.55);
 scene.add(rim);
 
-const under = new THREE.PointLight(0x4f7cff, 0.35, 1.2);
+const under = new THREE.PointLight(0xff4a34, 0.4, 1.2);
 under.position.set(0, -0.22, 0.12);
 scene.add(under);
 
 /* ================= Floor + soft contact shadow ================= */
 const floorMat = new THREE.MeshStandardMaterial({
-  color: 0x0a0d14,
+  color: 0x0e1417,
   roughness: 0.62,
   metalness: 0.18,
   envMapIntensity: 0.5,
@@ -253,9 +253,9 @@ floor.receiveShadow = true;
 scene.add(floor);
 
 const ringMat = new THREE.MeshBasicMaterial({
-  color: 0x3b5bdb,
+  color: 0xff2b1c,
   transparent: true,
-  opacity: 0.16,
+  opacity: 0.14,
   side: THREE.DoubleSide,
 });
 [0.115, 0.135].forEach((r, i) => {
