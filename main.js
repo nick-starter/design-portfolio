@@ -37,15 +37,26 @@ function coverSource(p) {
 }
 
 function coverEl(p) {
-  const src = coverSource(p);
-  const c = document.createElement('canvas');
-  c.width = src.width;
-  c.height = src.height;
-  c.getContext('2d').drawImage(src, 0, 0);
-  c.style.width = '100%';
-  c.style.height = '100%';
-  c.style.display = 'block';
-  return c;
+  const wrap = document.createElement('span');
+  wrap.className = 'cover' + (p.image ? ' cover--img' : '');
+  if (p.image) {
+    wrap.style.backgroundImage = `url(${p.image})`;
+  }
+  const tag = document.createElement('span');
+  tag.className = 'open-tag';
+  tag.textContent = 'View project';
+  wrap.appendChild(tag);
+  if (!p.image) {
+    const src = coverSource(p);
+    src.style.width = '100%';
+    src.style.height = '100%';
+    src.style.display = 'block';
+    src.style.objectFit = 'cover';
+    src.style.position = 'absolute';
+    src.style.inset = 0;
+    wrap.appendChild(src);
+  }
+  return wrap;
 }
 
 function fillSlot(el, p) {
