@@ -152,7 +152,7 @@ button { font: inherit; }
   letter-spacing: -.02em;
   white-space: nowrap;
   z-index: 1;
-  font-size: clamp(4rem, 25vw, 24rem);
+  font-size: clamp(4rem, 14vw, 24rem);
   line-height: .8;
   display: block;
 }
