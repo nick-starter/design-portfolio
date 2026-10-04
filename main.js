@@ -76,16 +76,15 @@ const workTotal = $('#workTotal');
 function projectCardMarkup(p, i) {
   const n = String(i + 1).padStart(2, '0');
   return `
-    <article class="proj">
-      <a class="proj-open" href="project.html?id=${p.id}" aria-label="View ${p.name} project">
-        <span class="cover"><span class="open-tag">View project</span></span>
-      </a>
+    <a class="proj proj-link" href="project.html?id=${p.id}" aria-label="View ${p.name} project">
+      <span class="cover"><span class="open-tag">View project</span></span>
       <div class="proj-meta">
         <span class="mono n">${n}</span>
         <h3>${p.name}</h3>
         <span class="d mono">${p.role} · ${p.year}</span>
       </div>
-    </article>`;
+      <img class="proj-ph" src="assets/placeholder.png" alt="" width="1600" height="1000" loading="lazy" />
+    </a>`;
 }
 
 track.innerHTML =
@@ -243,7 +242,7 @@ if (copyBtn) {
 /* ---------------- gallery links ---------------- */
 /* Dragging the track shouldn't activate a card's link */
 track.addEventListener('click', (e) => {
-  const a = e.target.closest('.proj-open');
+  const a = e.target.closest('.proj-link');
   if (a && moved) e.preventDefault();
 });
 

@@ -287,12 +287,10 @@ button { font: inherit; }
 /* ---------------- work ---------------- */
 .work { padding-block: 0; position: relative; }
 .work-pin {
-  min-height: 100svh;
   padding-top: calc(var(--safe-top) + 96px);
   padding-bottom: clamp(24px, 4svh, 48px);
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto;
   display: grid;
-  overflow: hidden;
 }
 .work .sec-head { flex-wrap: nowrap; align-items: center; margin-bottom: clamp(20px, 3svh, 40px); }
 .work .sec-head .disp { font-size: clamp(2.6rem, 7vw, 7.4rem); }
@@ -315,15 +313,15 @@ button { font: inherit; }
 .proj {
   scroll-snap-align: start;
   flex: none;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   align-content: start;
   gap: 16px;
   width: min(84vw, 560px, 100svh - 300px);
   min-width: min(84vw, 280px);
   display: grid;
 }
-.proj-open { all: unset; cursor: pointer; min-height: 0; display: block; position: relative; }
-.proj-open:focus-visible { outline: 2px solid var(--red); outline-offset: 6px; }
+.proj-link { cursor: pointer; }
+a.proj:focus-visible { outline: 2px solid var(--red); outline-offset: 6px; }
 .cover {
   aspect-ratio: 1;
   background: #05080c;
@@ -341,7 +339,7 @@ button { font: inherit; }
   inset: 0;
   transition: transform .9s cubic-bezier(.2, .7, .2, 1);
 }
-.proj-open:hover .cover canvas { transform: scale(1.035); }
+a.proj:hover .cover canvas { transform: scale(1.035); }
 .cover .open-tag {
   z-index: 1;
   font-family: var(--mono);
@@ -357,7 +355,7 @@ button { font: inherit; }
   bottom: 16px;
   right: 16px;
 }
-.proj-open:hover .open-tag { background: var(--red); border-color: var(--red); }
+a.proj:hover .open-tag { background: var(--red); border-color: var(--red); }
 .proj-meta { grid-template-columns: 3rem minmax(0, 1fr); align-items: baseline; gap: 4px 14px; display: grid; }
 .proj-meta .n { color: var(--red); }
 .proj-meta h3 {
@@ -370,6 +368,15 @@ button { font: inherit; }
   min-width: 0;
 }
 .proj-meta .d { color: var(--mute); grid-column: 2; white-space: nowrap; text-overflow: ellipsis; max-width: 40ch; overflow: hidden; }
+.proj-ph {
+  aspect-ratio: 16 / 10;
+  height: auto;
+  object-fit: cover;
+  background: var(--mute);
+  border-radius: 2px;
+  width: 100%;
+  display: block;
+}
 .proj.end {
   border: 1px solid var(--line);
   align-content: center;
