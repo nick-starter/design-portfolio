@@ -1,6 +1,6 @@
 /* ==================================================================
-   Nicholas Child — folio interactions
-   Work gallery, case-study overlay, method step-through, nav spy.
+   Nick Child — folio interactions
+   Work gallery, method step-through, nav spy.
 ================================================================== */
 
 import { PROJECTS, projectCover } from './projects.js';
@@ -77,9 +77,9 @@ function projectCardMarkup(p, i) {
   const n = String(i + 1).padStart(2, '0');
   return `
     <article class="proj">
-      <button class="proj-open" data-i="${i}" aria-label="Open ${p.name} case study">
-        <span class="cover"><span class="open-tag">Open case study</span></span>
-      </button>
+      <a class="proj-open" href="project.html?id=${p.id}" aria-label="View ${p.name} project">
+        <span class="cover"><span class="open-tag">View project</span></span>
+      </a>
       <div class="proj-meta">
         <span class="mono n">${n}</span>
         <h3>${p.name}</h3>
@@ -92,7 +92,7 @@ track.innerHTML =
   PROJECTS.map(projectCardMarkup).join('') +
   `<article class="proj end">
      <h3>Want the full story?</h3>
-     <p class="mono">6 selected projects. Each one shipped to real users.</p>
+     <p class="mono">${PROJECTS.length} selected projects. Each one shipped to real users.</p>
      <a class="btn" href="#contact">Start a project</a>
    </article>`;
 
@@ -240,85 +240,11 @@ if (copyBtn) {
   });
 }
 
-/* ---------------- case study detail ---------------- */
-const detail = $('#detail');
-const dCover = $('#dCover');
-const dMeta = $('#dMeta');
-const dName = $('#dName');
-const dBlurb = $('#dBlurb');
-const dFacts = $('#dFacts');
-const dSections = $('#dSections');
-const dPrev = $('#dPrev');
-const dNext = $('#dNext');
-let activeIndex = -1;
-let lastFocus = null;
-
-function renderDetail(i) {
-  const p = PROJECTS[i];
-  activeIndex = i;
-  dCover.innerHTML = '';
-  fillSlot(dCover, p);
-  dMeta.textContent = `${String(i + 1).padStart(2, '0')} / ${String(PROJECTS.length).padStart(2, '0')} · ${p.year}`;
-  dName.textContent = p.name;
-  dBlurb.textContent = p.blurb;
-
-  dFacts.innerHTML = `
-    <div><dt class="mono">Client</dt><dd>${p.client}</dd></div>
-    <div><dt class="mono">Year</dt><dd>${p.year}</dd></div>
-    <div><dt class="mono">Role</dt><dd>${p.role}</dd></div>
-    <div><dt class="mono">Focus</dt><dd>${p.tags.join(', ')}</dd></div>`;
-
-  dSections.innerHTML = `
-    <section><h3>Overview</h3><p>${p.blurb}</p></section>
-    <section><h3>Outcome</h3><p>${p.outcome}</p></section>
-    <section><h3>Approach</h3><p>
-      Started with the constraint, not the canvas — mapping the states the product actually
-      needed before drawing a single screen. Tokens, components and responsive rules were
-      authored alongside the interface so the design survived implementation across phone,
-      tablet and web.
-    </p></section>`;
-
-  const prev = (i - 1 + PROJECTS.length) % PROJECTS.length;
-  const next = (i + 1) % PROJECTS.length;
-  dPrev.innerHTML = `<span class="arr">←</span><span class="d-pn-t"><span class="mono">Previous</span><span class="d-pn-name">${PROJECTS[prev].name}</span></span>`;
-  dNext.innerHTML = `<span class="d-pn-t"><span class="mono">Next project</span><span class="d-pn-name">${PROJECTS[next].name}</span></span><span class="arr">→</span>`;
-  dPrev.dataset.i = prev;
-  dNext.dataset.i = next;
-}
-
-function openDetail(i) {
-  lastFocus = document.activeElement;
-  renderDetail(i);
-  detail.classList.add('open');
-  detail.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('lock');
-  detail.scrollTop = 0;
-  $('#dClose').focus();
-}
-
-function closeDetail() {
-  detail.classList.remove('open');
-  detail.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('lock');
-  if (lastFocus && lastFocus.focus) lastFocus.focus();
-}
-
+/* ---------------- gallery links ---------------- */
+/* Dragging the track shouldn't activate a card's link */
 track.addEventListener('click', (e) => {
-  const btn = e.target.closest('.proj-open');
-  if (!btn || moved) return;
-  openDetail(Number(btn.dataset.i));
-});
-
-$('#dClose').addEventListener('click', closeDetail);
-dPrev.addEventListener('click', () => renderDetail(Number(dPrev.dataset.i)));
-dNext.addEventListener('click', () => renderDetail(Number(dNext.dataset.i)));
-detail.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeDetail();
-  if (e.key === 'ArrowLeft') renderDetail(Number(dPrev.dataset.i));
-  if (e.key === 'ArrowRight') renderDetail(Number(dNext.dataset.i));
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && detail.classList.contains('open')) closeDetail();
+  const a = e.target.closest('.proj-open');
+  if (a && moved) e.preventDefault();
 });
 
 /* ---------------- misc ---------------- */
@@ -327,7 +253,5 @@ $('#year').textContent = new Date().getFullYear();
 /* QA handle */
 window.__folio = {
   projects: PROJECTS,
-  open: openDetail,
-  close: closeDetail,
-  get active() { return activeIndex; },
+  urlFor: (id) => `project.html?id=${id}`,
 };

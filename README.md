@@ -1,13 +1,14 @@
-# Nicholas Child — Design Folio
+# Nick Child — Design Folio
 
-A single-page product & interface design folio with an editorial layout: a giant
-wordmark hero, a horizontally-scrolling project gallery with case-study overlays,
-experience list, a scroll-driven method section, and a contact card.
+A product & interface design folio with an editorial layout: a giant wordmark
+hero, a horizontally-scrolling project gallery, dedicated project pages with a
+visual area, experience list, a scroll-driven method section, and a contact card.
 
 ## Features
 
 - Editorial, responsive layout (mobile → desktop) built on a bone-on-ink palette with a red accent
-- Work gallery of 6 selected projects from a 20-year career (Bupa, Rebel Sport, Telstra, TBWA, JWT, WCRS), each opening a full case-study overlay (prev/next, keyboard nav)
+- Work gallery of 8 selected projects from a 20-year career (Bupa, Rebel Sport, Telstra, TBWA, JWT, WCRS, Cargo Crew, Suzuki Motorcycles)
+- Each project opens a dedicated page (`project.html?id=…`) with a visual area — web and mobile mockups, cover art and a colour/type system — plus overview, outcome, approach and prev/next navigation
 - Project artwork generated procedurally with Canvas 2D — no image assets required
 - Scroll-driven method steps, nav scroll-spy, animated stats and a horizontal drag/wheel gallery
 - Custom type: Archivo (variable, wide), Instrument Serif and JetBrains Mono
@@ -21,10 +22,12 @@ experience list, a scroll-driven method section, and a contact card.
 ## Project Structure
 
 ```
-index.html      page markup + font/asset links
-styles.css      layout + design tokens
-main.js         gallery, case-study overlay, method scroll, nav spy
-projects.js     placeholder project data + Canvas 2D mockups
+index.html      folio page markup
+project.html    individual project page shell
+styles.css      layout + design tokens (folio + project page)
+main.js         gallery, method scroll, nav spy
+project.js      project page renderer (reads ?id=)
+projects.js     project data + Canvas 2D mockups
 assets/logo.png top-left wordmark
 ```
 

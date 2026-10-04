@@ -23,6 +23,11 @@ const BRAND = {
   suzuki: ['#1d4ed8', '#facc15'],
 };
 
+/* Brand gradient for a project — used by the project page colour strip */
+export function brandFor(p) {
+  return BRAND[p.brand] || BRAND.aurora;
+}
+
 /* ---------- tiny canvas helpers ---------- */
 
 function rr(ctx, x, y, w, h, r) {
@@ -170,7 +175,7 @@ function statusbar(ctx, W) {
 
 /* ---------- MOBILE mockup ---------- */
 
-function mobileScreen(p, W = 760, H = 1640) {
+export function mobileScreen(p, W = 760, H = 1640) {
   const cv = document.createElement('canvas');
   cv.width = W;
   cv.height = H;
@@ -256,7 +261,7 @@ function mobileScreen(p, W = 760, H = 1640) {
 
 /* ---------- TABLET / DESKTOP mockup ---------- */
 
-function desktopScreen(p, W = 1400, H = 1860) {
+export function desktopScreen(p, W = 1400, H = 1860) {
   const cv = document.createElement('canvas');
   cv.width = W;
   cv.height = H;

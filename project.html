@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Project — Nick Child</title>
+<meta name="description" content="Selected project by Nick Child — visual interaction and motion design." />
+<meta name="theme-color" content="#0c1114" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body id="site">
+
+<div class="light" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav wrap">
+  <a class="logo" href="index.html" aria-label="Nick Child — home">
+    <img src="assets/logo.png" alt="Nick Child" width="699" height="221" />
+  </a>
+  <nav aria-label="Primary">
+    <ul>
+      <li><a href="index.html#about">About.</a></li>
+      <li><a href="index.html#work">Portfolio.</a></li>
+      <li><a href="index.html#experience">Experience.</a></li>
+      <li><a href="index.html#method">Method.</a></li>
+      <li><a href="index.html#contact">Contact.</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="pj wrap">
+
+  <!-- ============ HERO ============ -->
+  <section class="pj-hero">
+    <p class="pj-kicker mono">
+      <a class="pj-back" href="index.html#work">← All projects</a>
+      <span id="pjIndex">01 / 01</span>
+      <span aria-hidden="true">·</span>
+      <span id="pjYear"></span>
+    </p>
+    <h1 class="disp" id="pjName">Project</h1>
+    <div class="pj-hero-grid">
+      <p class="pj-lead" id="pjBlurb"></p>
+      <dl class="d-facts" id="pjFacts"></dl>
+    </div>
+  </section>
+
+  <!-- ============ VISUAL AREA ============ -->
+  <section class="pj-visual" aria-label="Project visuals">
+    <div class="pj-row pj-row--a">
+      <figure class="pj-item">
+        <div class="pj-frame pj-frame--desktop" id="pjDesktop"></div>
+        <figcaption class="mono">Web — product overview</figcaption>
+      </figure>
+      <figure class="pj-item">
+        <div class="pj-frame pj-frame--phone" id="pjMobile"></div>
+        <figcaption class="mono">Mobile — key flow</figcaption>
+      </figure>
+    </div>
+
+    <div class="pj-row pj-row--b">
+      <figure class="pj-item">
+        <div class="pj-frame pj-frame--poster" id="pjPoster"></div>
+        <figcaption class="mono">Cover art</figcaption>
+      </figure>
+      <figure class="pj-item">
+        <div class="pj-system">
+          <p class="mono sys-cap">Colour</p>
+          <div class="sys-colors" id="pjColors"></div>
+          <p class="mono sys-cap">Type</p>
+          <div class="sys-type">
+            <div><span class="sys-aa disp">Aa</span><span class="mono">Archivo — display</span></div>
+            <div><span class="sys-aa sys-aa--text">Aa</span><span class="mono">Archivo — text</span></div>
+            <div><span class="sys-aa sys-aa--mono mono">Aa</span><span class="mono">JetBrains Mono</span></div>
+          </div>
+        </div>
+        <figcaption class="mono">Colour &amp; type system</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ CASE STUDY ============ -->
+  <section class="pj-body">
+    <div class="d-sections" id="pjSections"></div>
+  </section>
+
+  <!-- ============ PREV / NEXT ============ -->
+  <nav class="d-nav" aria-label="Project navigation">
+    <a class="d-pn d-prev" id="pjPrev"></a>
+    <a class="d-pn d-next" id="pjNext"></a>
+  </nav>
+
+  <!-- ============ CTA ============ -->
+  <section class="pj-cta">
+    <p class="mono">Have an idea worth shipping?</p>
+    <h2 class="disp">Let's build it.</h2>
+    <div class="pj-cta-actions">
+      <a href="mailto:nick.child@live.com">nick.child@live.com</a>
+      <a class="ghost" href="index.html#contact">About me</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pj-foot wrap">
+  <span>© <span id="year"></span> Nick Child</span>
+  <a href="https://www.linkedin.com/in/nchild/" target="_blank" rel="noopener">LinkedIn</a>
+</footer>
+
+<script type="module" src="project.js"></script>
+</body>
+</html>
