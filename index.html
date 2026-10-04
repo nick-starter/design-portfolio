@@ -3,158 +3,210 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Nicholas Child — Design Folio</title>
-<meta name="description" content="Design folio with an interactive 3D device showcase. Flip an iPhone into a portrait iPad to compare mobile and desktop design work." />
+<title>Nicholas Child — Product &amp; Interface Design</title>
+<meta name="description" content="Product and interface design folio. Selected work across mobile, web and design systems — case studies, experience and method." />
 <meta name="theme-color" content="#0c1114" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body id="site">
 
-<!-- ambient background -->
-<div class="bg" aria-hidden="true">
-  <span class="orb orb-a"></span>
-  <span class="orb orb-b"></span>
-  <span class="grain"></span>
-</div>
+<div class="light" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
-<!-- boot loader -->
-<div class="loader" id="loader">
-  <div class="loader-ring"></div>
-  <p>Building the device…</p>
-</div>
-
-<header class="topbar">
-  <a class="brand" href="#top">
-    <span class="brand-mark"></span>
-    <span class="brand-name">Nicholas Child</span>
+<!-- ============ NAV ============ -->
+<header class="nav wrap">
+  <a class="logo" href="#top" aria-label="Nicholas Child — back to top">
+    <img src="assets/logo.png" alt="Nicholas Child" width="699" height="221" />
   </a>
-  <nav class="topnav">
-    <a href="#work">Work</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-    <a class="btn btn-sm" href="https://github.com" target="_blank" rel="noopener">GitHub ↗</a>
+  <nav aria-label="Primary">
+    <ul>
+      <li><a href="#about">About.</a></li>
+      <li><a href="#work">Portfolio.</a></li>
+      <li><a href="#experience">Experience.</a></li>
+      <li><a href="#method">Method.</a></li>
+      <li><a href="#contact">Contact.</a></li>
+    </ul>
   </nav>
 </header>
 
-<main id="top">
+<main>
 
-  <!-- ============ HERO / 3D STAGE ============ -->
-  <section class="stage" id="work">
+  <!-- ============ HERO ============ -->
+  <section id="top" class="hero wrap">
+    <p class="tag">Product &amp; interface design <span class="red">·</span> Sydney</p>
 
-    <div class="stage-col stage-col-copy">
-      <div class="stage-copy">
-        <p class="eyebrow">Product &amp; interface design</p>
-        <h1 class="stage-title">
-          One product,<br />
-          <em>every screen size.</em>
-        </h1>
-        <p class="stage-lede">
-          A single interactive 3D device sits at the centre of this folio. Flip it to move
-          between the phone and tablet builds of the same product — then drag it, zoom it,
-          and load a different project onto both screens.
-        </p>
+    <h1 class="disp">Nicholas<sup>®</sup></h1>
 
-        <div class="stage-controls">
-          <button class="btn btn-primary" id="flipBtn" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="7" y="2.5" width="10" height="19" rx="2.4" />
-              <path d="M3.5 9.5h17M3.5 14.5h17" opacity=".5" />
-            </svg>
-            <span>Show iPad</span>
-          </button>
-          <button class="btn" id="autoBtn" aria-pressed="true">Auto-orbit: on</button>
-          <button class="btn btn-ghost" id="resetBtn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M3 12a9 9 0 1 0 2.6-6.4" /><path d="M3 4v5h5" />
-            </svg>
-            Reset view
-          </button>
-        </div>
+    <div class="hero-mid">
+      <div class="hero-slot" id="heroSlot" aria-hidden="true"></div>
+      <p class="hero-tag disp">Design should<br /><span class="red">tell stories.</span></p>
+    </div>
 
-        <p class="hint" id="hint">Drag to orbit · scroll to zoom · ← → to change project</p>
+    <div class="hero-low">
+      <div class="stats">
+        <div class="stat"><b data-count="7">0</b><span>Years designing</span></div>
+        <i></i>
+        <div class="stat"><b data-count="20">0</b><span>Products shipped</span></div>
       </div>
-
-      <aside class="meta" id="meta">
-        <div class="meta-head">
-          <h2 id="metaName">Aurora Health</h2>
-          <p class="meta-outcome" id="metaOutcome"></p>
-        </div>
-        <p class="meta-blurb" id="metaBlurb"></p>
-        <dl class="meta-facts">
-          <div><dt>Role</dt><dd id="metaRole"></dd></div>
-        </dl>
-        <div class="meta-tags" id="metaTags"></div>
-      </aside>
+      <p class="roles disp"><span>Product Designer</span><span>Design Systems</span><span>Front-end</span></p>
     </div>
 
-    <div class="stage-col stage-col-canvas">
-      <canvas id="stage-canvas" class="stage-canvas"
-        aria-label="Interactive 3D device showcase. Drag to orbit and scroll to zoom. Use the Show iPad button to switch between phone and tablet."></canvas>
-    </div>
-
-  </section>
-
-  <!-- ============ PROJECT RAIL ============ -->
-  <section class="rail-wrap" aria-label="Projects">
-    <p class="rail-title">Selected work</p>
-    <div class="rail" id="projectNav"></div>
+    <p class="hint mono">Scroll to explore</p>
   </section>
 
   <!-- ============ ABOUT ============ -->
-  <section class="about" id="about">
-    <div class="about-inner">
-      <p class="eyebrow">About</p>
-      <h2 class="about-title">I design interfaces that hold up <em>at every size</em> — and in the hand.</h2>
-      <div class="about-cols">
-        <p>
-          I'm a product and interface designer working across mobile, tablet and web. Most of my
-          work lives in the seam between those three: the same product, rethought for a 6.1-inch
-          phone, an 11-inch tablet and a 27-inch display — without losing the idea that made it
-          good in the first place.
-        </p>
-        <p>
-          I care about the unglamorous parts. Type scales that survive translation. Touch targets
-          that survive gloves. Focus rings that survive a redesign. The 3D device above is a
-          small argument for the same thing: the presentation only works because the geometry
-          underneath it is actually built, not faked with a flat image.
-        </p>
+  <section id="about" class="about wrap">
+    <div class="about-head">
+      <h2 class="disp">I design for<br />every screen.</h2>
+      <p>I don't just make screens. I build the system underneath them.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-copy">
+        <div class="hello"><span class="disp">Hello.</span><span class="mono">(01)</span></div>
+        <p class="statement">I turn complex products into interfaces that hold up at every size.</p>
+
+        <div class="cols">
+          <p>
+            I'm a product and interface designer working across mobile, tablet and web.
+            Most of my work lives in the seam between those three: the same product,
+            rethought for a 6.1-inch phone, an 11-inch tablet and a 27-inch display.
+          </p>
+          <p>
+            I care about the unglamorous parts. Type scales that survive translation.
+            Touch targets that survive gloves. Focus rings that survive a redesign.
+            Accessibility treated as a constraint from day one, not a retrofit.
+          </p>
+        </div>
+
+        <div class="tools">
+          <p class="mono">Builds with</p>
+          <ul>
+            <li>Figma</li>
+            <li>Canvas 2D</li>
+            <li>CSS / TypeScript</li>
+            <li>Design tokens</li>
+          </ul>
+        </div>
       </div>
-      <ul class="about-stats">
-        <li><b>7+</b><span>years designing</span></li>
-        <li><b>20+</b><span>products shipped</span></li>
-        <li><b>3</b><span>platforms, one system</span></li>
-        <li><b>AA+</b><span>accessibility as default</span></li>
-      </ul>
+
+      <div class="about-hat">
+        <div class="slot" id="aboutSlot" aria-hidden="true"></div>
+        <p class="cap mono">Aurora Health — selected work</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORK ============ -->
+  <section id="work" class="work">
+    <div class="work-pin wrap">
+      <div class="sec-head">
+        <h2 class="disp">Projects.</h2>
+        <div class="work-side">
+          <p>Where ideas meet impact. Open any project for the full story.</p>
+          <span class="counter mono"><b id="workIndex">01</b> / <span id="workTotal">06</span></span>
+        </div>
+      </div>
+      <div class="track" id="track" tabindex="0" aria-label="Selected projects, scroll horizontally"></div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <section id="experience" class="exp wrap">
+    <div class="sec-head">
+      <h2 class="disp">Explore my<br />design journey.</h2>
+    </div>
+    <p class="exp-intro mono">
+      Over the past decade I've designed across health, logistics, finance and culture,
+      working with research, engineering and brand teams to bring complex products to life.
+    </p>
+    <div class="exp-grid">
+      <div class="roles-list" id="jobs"></div>
+      <div class="exp-lane"><div class="slot" id="expSlot" aria-hidden="true"></div></div>
+    </div>
+  </section>
+
+  <!-- ============ METHOD ============ -->
+  <section id="method" class="method">
+    <div class="m-stage wrap">
+      <div class="m-text">
+        <h2 class="disp">How I work<br />with teams.</h2>
+        <div class="steps" id="steps"></div>
+      </div>
+      <div class="m-objects" id="mObjects" aria-hidden="true">
+        <div class="slot" data-slot="big"></div>
+        <div class="slot" data-slot="tl"></div>
+        <div class="slot" data-slot="br"></div>
+      </div>
+      <p class="m-note mono">Scroll to step through</p>
     </div>
   </section>
 
   <!-- ============ CONTACT ============ -->
-  <section class="contact" id="contact">
-    <p class="eyebrow">Contact</p>
-    <h2 class="contact-title">Got something worth building?</h2>
-    <p class="contact-sub">Available for product design, design systems and front-end work.</p>
-    <div class="contact-actions">
-      <a class="btn btn-primary btn-lg" href="mailto:hello@example.com">hello@example.com</a>
-      <a class="btn btn-lg" href="https://github.com" target="_blank" rel="noopener">GitHub ↗</a>
+  <section id="contact" class="contact wrap">
+    <div class="c-grid">
+      <div class="c-head">
+        <span class="ast" aria-hidden="true">*</span>
+        <h2 class="disp">Have an idea worth shipping? Let's build it.</h2>
+        <p>A short call to talk through the problem, the constraint, and what a working prototype could prove in a week.</p>
+      </div>
+      <div class="trio" aria-hidden="true">
+        <div class="slot" id="cSlot1"></div>
+        <div class="slot" id="cSlot2"></div>
+        <div class="slot" id="cSlot3"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div>
+        <h3>Think it. See it. Ship it.</h3>
+        <p class="open">I'm open to the right role, project or partnership.</p>
+      </div>
+      <div class="reach">
+        <p class="mono">WANT TO KNOW MORE? LET'S CONNECT.</p>
+        <div class="big">
+          <a href="mailto:hello@example.com" id="mail">hello@example.com</a>
+          <button class="copy" id="copyEmail" type="button">Copy email</button>
+        </div>
+        <p class="mono">Available for product design, design systems and front-end work.</p>
+      </div>
+      <div class="foot">
+        <span>© <span id="year"></span> Nicholas Child</span>
+        <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com" target="_blank" rel="noopener">Résumé</a>
+      </div>
     </div>
   </section>
 
-  <footer class="foot">
-    <p>© <span id="year"></span> Nicholas Child — built with Three.js.</p>
-  </footer>
 </main>
 
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-  }
-}
-</script>
+<!-- ============ CASE STUDY DETAIL ============ -->
+<aside class="detail" id="detail" aria-hidden="true" aria-label="Case study">
+  <div class="veil"></div>
+  <button class="d-close" id="dClose" type="button">Close</button>
+  <div class="d-hero">
+    <div class="d-cover" id="dCover" aria-hidden="true"></div>
+    <div class="d-title wrap">
+      <p class="mono" id="dMeta"></p>
+      <h2 class="disp" id="dName"></h2>
+      <p id="dBlurb"></p>
+    </div>
+  </div>
+  <div class="d-body wrap">
+    <div class="d-side">
+      <dl class="d-facts" id="dFacts"></dl>
+    </div>
+    <div class="d-sections" id="dSections"></div>
+    <nav class="d-nav" aria-label="Case study navigation">
+      <button class="d-pn d-prev" id="dPrev" type="button"></button>
+      <button class="d-pn d-next" id="dNext" type="button"></button>
+    </nav>
+  </div>
+</aside>
+
 <script type="module" src="main.js"></script>
 </body>
 </html>

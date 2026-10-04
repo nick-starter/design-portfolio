@@ -1,42 +1,44 @@
-# Design Portfolio
+# Nicholas Child — Design Folio
 
-An interactive 3D design portfolio showcasing mobile and desktop designs with a realistic flip animation between an iPhone and iPad.
+A single-page product & interface design folio with an editorial layout: a giant
+wordmark hero, a horizontally-scrolling project gallery with case-study overlays,
+experience list, a scroll-driven method section, and a contact card.
 
 ## Features
 
-- Realistic 3D rendering using Three.js
-- Smooth flip animation between phone (portrait) and iPad (landscape orientation when flipped)
-- Interactive orbit controls to view the device from different angles
-- Responsive design that works on desktop and mobile
-- Clean, modern UI with glassmorphism effects
-
-## Live Demo
-
-[View Live Site](https://nick-starter.github.io/design-portfolio/)
-
-## Local Development
-
-1. Clone the repository
-2. Open `index.html` in your browser, or serve with a local server:
-   ```bash
-   python3 -m http.server 8000
-   ```
-3. Navigate to `http://localhost:8000`
+- Editorial, responsive layout (mobile → desktop) built on a bone-on-ink palette with a red accent
+- Work gallery of 6 placeholder projects, each opening a full case-study overlay (prev/next, keyboard nav)
+- Project artwork generated procedurally with Canvas 2D — no image assets required
+- Scroll-driven method steps, nav scroll-spy, animated stats and a horizontal drag/wheel gallery
+- Custom type: Archivo (variable, wide), Instrument Serif and JetBrains Mono
 
 ## Tech Stack
 
-- Three.js - 3D graphics and rendering
-- Vanilla JavaScript (ES modules)
-- CSS3 with modern features
-- HTML5
+- Vanilla JavaScript (ES modules) — no build step
+- HTML5 + modern CSS (grid, `clamp()`, `svh`, container-free responsive rules)
+- Canvas 2D for all generated cover art
 
-## GitHub Pages Deployment
+## Project Structure
 
-This site is deployed using GitHub Pages. To deploy your own version:
+```
+index.html      page markup + font/asset links
+styles.css      layout + design tokens
+main.js         gallery, case-study overlay, method scroll, nav spy
+projects.js     placeholder project data + Canvas 2D mockups
+assets/logo.png top-left wordmark
+```
 
-1. Create a new repository on GitHub named `design-portfolio`
-2. Push this code to the repository
-3. Go to Settings > Pages in your repository
-4. Set the source to "Deploy from a branch"
-5. Select the `main` branch and `/ (root)` folder
-6. Your site will be available at `https://yourusername.github.io/design-portfolio/`
+## Local Development
+
+Open `index.html` directly, or serve the folder:
+
+```bash
+python3 -m http.server 8000
+# http://localhost:8000
+```
+
+## Deploy to GitHub Pages
+
+1. Create a repository (e.g. `design-portfolio`) and push this folder.
+2. Settings → Pages → Deploy from a branch → `main` / `/ (root)`.
+3. The site publishes at `https://<username>.github.io/design-portfolio/`.

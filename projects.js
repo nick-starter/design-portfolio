@@ -1,8 +1,6 @@
 /* ------------------------------------------------------------------
-   Project data + canvas-drawn UI mockups used as screen textures
+   Project data + canvas-drawn UI mockups used as device/cover art
 ------------------------------------------------------------------- */
-
-import * as THREE from 'three';
 
 const INK = {
   bg: '#0b0f17',
@@ -31,7 +29,7 @@ function rr(ctx, x, y, w, h, r) {
 }
 
 function txt(ctx, s, x, y, size, color, weight = 500, align = 'left') {
-  ctx.font = `${weight} ${size}px "Plus Jakarta Sans", system-ui, sans-serif`;
+  ctx.font = `${weight} ${size}px "Archivo", "Helvetica Neue", Arial, sans-serif`;
   ctx.fillStyle = color;
   ctx.textAlign = align;
   ctx.fillText(s, x, y);
@@ -39,7 +37,7 @@ function txt(ctx, s, x, y, size, color, weight = 500, align = 'left') {
 }
 
 function pill(ctx, label, x, y, fg, bg) {
-  ctx.font = '700 20px "Plus Jakarta Sans", system-ui, sans-serif';
+  ctx.font = '700 20px "Archivo", "Helvetica Neue", Arial, sans-serif';
   const w = ctx.measureText(label).width + 34;
   ctx.fillStyle = bg;
   rr(ctx, x, y, w, 40, 20);
@@ -727,9 +725,70 @@ export const PROJECTS = [
   },
 ];
 
-export function buildTextures(project) {
-  return {
-    mobile: new THREE.CanvasTexture(mobileScreen(project)),
-    desktop: new THREE.CanvasTexture(desktopScreen(project)),
-  };
+/* ---------- square cover art used for the gallery + feature slots ---------- */
+
+function drawCard(ctx, src, x, y, w, h, r, stroke) {
+  ctx.save();
+  rr(ctx, x, y, w, h, r);
+  ctx.clip();
+  ctx.drawImage(src, x, y, w, h);
+  ctx.restore();
+  if (stroke) {
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = 2;
+    rr(ctx, x, y, w, h, r);
+    ctx.stroke();
+  }
+}
+
+export function projectCover(p, size = 1200) {
+  const cv = document.createElement('canvas');
+  cv.width = cv.height = size;
+  const ctx = cv.getContext('2d');
+  const [c1, c2] = BRAND[p.brand];
+
+  ctx.fillStyle = '#080b11';
+  ctx.fillRect(0, 0, size, size);
+
+  const wash = ctx.createLinearGradient(0, 0, size, size);
+  wash.addColorStop(0, c1 + '30');
+  wash.addColorStop(0.55, '#0a0e17');
+  wash.addColorStop(1, c2 + '26');
+  ctx.fillStyle = wash;
+  ctx.fillRect(0, 0, size, size);
+
+  const glow = ctx.createRadialGradient(size * 0.26, size * 0.2, 10, size * 0.26, size * 0.2, size * 0.95);
+  glow.addColorStop(0, c1 + '44');
+  glow.addColorStop(1, c1 + '00');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, size, size);
+
+  /* desktop / tablet screen */
+  const dw = size * 0.7;
+  const dh = dw * (1860 / 1400);
+  drawCard(ctx, desktopScreen(p), size * 0.18, size * 0.13, dw, dh, size * 0.02, 'rgba(255,255,255,.14)');
+
+  /* phone screen overlapping */
+  const pw = size * 0.255;
+  const ph = pw * (1640 / 760);
+  const px = size * 0.07;
+  const py = size * 0.48;
+  ctx.save();
+  ctx.shadowColor = 'rgba(0,0,0,.6)';
+  ctx.shadowBlur = size * 0.03;
+  ctx.shadowOffsetY = size * 0.012;
+  ctx.fillStyle = '#05070c';
+  rr(ctx, px, py, pw, ph, size * 0.018);
+  ctx.fill();
+  ctx.restore();
+  drawCard(ctx, mobileScreen(p), px, py, pw, ph, size * 0.018, 'rgba(255,255,255,.2)');
+
+  /* vignette for depth */
+  const vg = ctx.createRadialGradient(size / 2, size / 2, size * 0.2, size / 2, size / 2, size * 0.78);
+  vg.addColorStop(0, 'rgba(0,0,0,0)');
+  vg.addColorStop(1, 'rgba(0,0,0,.55)');
+  ctx.fillStyle = vg;
+  ctx.fillRect(0, 0, size, size);
+
+  return cv;
 }
