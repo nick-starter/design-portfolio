@@ -616,6 +616,7 @@ export const PROJECTS = [
   },
   {
     id: 'jwt',
+    image: 'assets/6.jpg',
     name: 'JWT',
     client: 'JWT',
     year: '2012 — 2015',
@@ -667,6 +668,7 @@ export const PROJECTS = [
   },
   {
     id: 'wcrs',
+    image: 'assets/7.jpg',
     name: 'WCRS',
     client: 'WCRS',
     year: '2008 — 2012',
@@ -718,6 +720,7 @@ export const PROJECTS = [
   },
   {
     id: 'cargocrew',
+    image: 'assets/2.jpg',
     name: 'Cargo Crew',
     client: 'Cargo Crew',
     year: '2024',
@@ -769,6 +772,7 @@ export const PROJECTS = [
   },
   {
     id: 'suzuki',
+    image: 'assets/3.jpg',
     name: 'Suzuki Motorcycles',
     client: 'Suzuki Motorcycles',
     year: '2021',
