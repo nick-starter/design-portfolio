@@ -43,6 +43,11 @@ $('#pjFacts').innerHTML = `
   <div><dt class="mono">Focus</dt><dd>${p.tags.join(', ')}</dd></div>`;
 
 /* ---------------- visual area ---------------- */
+const pjPh = document.querySelector('.pj-ph');
+if (pjPh && p.image) {
+  pjPh.src = p.image;
+  pjPh.alt = `${p.name} thumbnail`;
+}
 function mount(el, canvas) {
   if (!el) return;
   canvas.style.width = '100%';
