@@ -408,6 +408,7 @@ export function desktopScreen(p, W = 1400, H = 1860) {
 export const PROJECTS = [
   {
     id: 'bupa',
+    image: 'assets/2.jpg',
     name: 'Bupa',
     client: 'Bupa',
     year: '2023 — Now',
@@ -459,6 +460,7 @@ export const PROJECTS = [
   },
   {
     id: 'rebel',
+    image: 'assets/3.jpg',
     name: 'Rebel Sport',
     client: 'Super Retail Group',
     year: '2022 — 2023',
@@ -510,6 +512,7 @@ export const PROJECTS = [
   },
   {
     id: 'telstra',
+    image: 'assets/4.jpg',
     name: 'Telstra',
     client: 'Telstra',
     year: '2020 — 2022',
@@ -561,6 +564,7 @@ export const PROJECTS = [
   },
   {
     id: 'tbwa',
+    image: 'assets/5.jpg',
     name: 'TBWA \\ Tequila',
     client: 'Nissan · ANZ · Medibank',
     year: '2015 — 2018',
