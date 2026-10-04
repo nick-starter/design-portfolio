@@ -30,7 +30,7 @@ body {
   font-size: 1.0625rem;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
@@ -294,6 +294,13 @@ button { font: inherit; }
   display: grid;
   overflow: hidden;
 }
+body.work-scroll .work-pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 100svh;
+}
+body.work-scroll .track { scroll-snap-type: none; }
 .work .sec-head { flex-wrap: nowrap; align-items: center; margin-bottom: clamp(20px, 3svh, 40px); }
 .work .sec-head .disp { font-size: clamp(2.6rem, 7vw, 7.4rem); }
 .work-side { align-items: center; gap: clamp(12px, 2vw, 28px); display: flex; }

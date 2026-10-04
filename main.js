@@ -120,8 +120,55 @@ track.addEventListener('scroll', () => {
   workRaf = requestAnimationFrame(syncWorkIndex);
 }, { passive: true });
 
+/* ---------------- scroll-driven horizontal gallery ---------------- */
+/* On desktop, pin the Projects section and move the track sideways as the
+   page scrolls vertically past it. Touch / reduced-motion keep native swipe. */
+const workSection = $('#work');
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+const prefReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let workDriven = false;
+let workMax = 0;
+let pinRaf = 0;
+
+function applyWork() {
+  if (!workDriven || !workMax) return;
+  const p = Math.min(1, Math.max(0, (window.scrollY - workSection.offsetTop) / workMax));
+  track.scrollLeft = p * workMax;
+}
+
+function measureWork() {
+  if (!workSection) return;
+  workMax = Math.max(0, track.scrollWidth - track.clientWidth);
+  const want = !prefReduced && finePointer.matches && window.innerWidth >= 900 && workMax > 60;
+  if (want !== workDriven) {
+    workDriven = want;
+    document.body.classList.toggle('work-scroll', want);
+    if (!want) track.scrollLeft = 0;
+  }
+  workSection.style.height = workDriven ? `${Math.round(window.innerHeight + workMax)}px` : '';
+  applyWork();
+}
+
+function onWorkScroll() {
+  cancelAnimationFrame(pinRaf);
+  pinRaf = requestAnimationFrame(applyWork);
+}
+
+if (workSection) {
+  measureWork();
+  window.addEventListener('scroll', onWorkScroll, { passive: true });
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(pinRaf);
+    pinRaf = requestAnimationFrame(measureWork);
+  }, { passive: true });
+  window.addEventListener('load', measureWork);
+  if (document.fonts?.ready) document.fonts.ready.then(measureWork);
+  finePointer.addEventListener?.('change', measureWork);
+}
+
 /* wheel → horizontal on desktop */
 track.addEventListener('wheel', (e) => {
+  if (workDriven) return;
   if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
     track.scrollLeft += e.deltaY;
     e.preventDefault();
@@ -131,6 +178,7 @@ track.addEventListener('wheel', (e) => {
 /* drag to scroll */
 let dragging = false, dragX = 0, dragScroll = 0, moved = false;
 track.addEventListener('pointerdown', (e) => {
+  if (workDriven) return;
   if (e.pointerType === 'mouse' && e.button !== 0) return;
   dragging = true; moved = false;
   dragX = e.clientX; dragScroll = track.scrollLeft;
