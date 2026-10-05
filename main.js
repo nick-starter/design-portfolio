@@ -41,6 +41,9 @@ function coverEl(p) {
   wrap.className = 'cover' + (p.image ? ' cover--img' : '');
   if (p.image) {
     wrap.style.backgroundImage = `url(${p.image})`;
+    wrap.style.backgroundSize = '100% 100%';
+    wrap.style.backgroundPosition = 'center';
+    wrap.style.backgroundRepeat = 'no-repeat';
   }
   const tag = document.createElement('span');
   tag.className = 'open-tag';
@@ -89,7 +92,7 @@ function projectCardMarkup(p, i) {
   return `
     <article class="proj">
       <a class="proj-open" href="project.html?id=${p.id}" aria-label="View ${p.name} project">
-        <span class="cover cover--img"${p.image ? ` style="background-image: url(${p.image});"` : ''}><span class="open-tag">View project</span></span>
+        <span class="cover cover--img"${p.image ? ` style="background-image: url(${p.image});"` : ''}></span>
       </a>
       <div class="proj-meta">
         <span class="mono n">${n}</span>
