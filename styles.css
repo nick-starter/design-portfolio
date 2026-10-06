@@ -152,7 +152,7 @@ button { font: inherit; }
   text-align: right;
 }
 .hero h1 span { display: block; }
-.hero h1 span:nth-child(2) { padding-right: 0; }
+.hero h1 span:nth-child(2) { padding-right: clamp(0px, 6vw, 110px); }
 /* Short viewports: keep the hero scrollable instead of clipping */
 @media (max-height: 620px) {
   .hero { height: auto; min-height: 100svh; }
