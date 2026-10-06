@@ -88,8 +88,7 @@ function projectCardMarkup(p, i) {
         <span class="cover cover--img"${p.image ? ` style="background-image: url(${p.image});"` : ''}></span>
       </a>
       <div class="proj-meta">
-        <span class="mono n">${n}</span>
-        <h3>${p.name}</h3>
+        <span class="mono n">${n}. ${p.name}</span>
       </div>
     </article>`;
 }

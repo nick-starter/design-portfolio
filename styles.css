@@ -353,17 +353,16 @@ body.work-scroll .track { scroll-snap-type: none; }
 }
 .proj-open:hover .cover canvas,
 .proj-open:hover .cover--img { transform: scale3d(1.008, 1.008, 1); }
-.proj-meta { grid-template-columns: minmax(0, 1fr); align-items: baseline; gap: 4px 0; display: grid; }
-.proj-meta .n { color: var(--red); font-size: clamp(1.4rem, 2.8vw, 2.6rem); white-space: nowrap; margin-bottom: 2px; grid-row: 1; }
-.proj-meta h3 {
+.proj-meta { align-items: baseline; display: block; }
+.proj-meta .n {
+  color: var(--red);
   font-family: var(--wide);
   text-transform: uppercase;
-  font-size: clamp(1.4rem, 2.8vw, 2.6rem);
   font-weight: 900;
   font-stretch: 125%;
   line-height: 1;
-  min-width: 0;
-  grid-row: 2;
+  font-size: clamp(1.4rem, 2.8vw, 2.6rem);
+  white-space: nowrap;
 }
 /* ---------------- experience ---------------- */
 .exp { padding-block: clamp(80px, 10vw, 140px); }
