@@ -133,7 +133,7 @@ button { font: inherit; }
   height: 100svh;
   padding-top: calc(var(--safe-top) + 92px);
   padding-bottom: clamp(24px, 4svh, 44px);
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr auto auto;
   display: grid;
   position: relative;
   overflow: hidden;
@@ -142,6 +142,7 @@ button { font: inherit; }
   letter-spacing: -.02em;
   white-space: nowrap;
   z-index: 1;
+  align-self: center;
   /* The longest line (VISUAL DESIGN) spans the full .wrap content
      box at every viewport: scales with 9.07vw until the 1600px wrap
      cap, then fixes to that content box so it never overflows. */
@@ -152,23 +153,9 @@ button { font: inherit; }
 }
 .hero h1 span { display: block; }
 .hero h1 span:nth-child(2) { padding-right: clamp(0px, 6vw, 110px); }
-.hero-mid {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center;
-  gap: 24px;
-  padding-block: clamp(12px, 3svh, 32px);
-  container-type: size;
-}
-.hero-tag { font-size: clamp(1.53rem, 4.14vw, 3.96rem); line-height: .95; max-width: 14ch; justify-self: end; text-align: right; }
-.hero-slot { position: relative; justify-self: center; width: min(42vw, 50svh); width: min(100%, 100cqh); aspect-ratio: 1; }
-.hero-slot canvas { width: 100%; height: 100%; display: block; border-radius: 3px; }
 /* Short viewports: keep the hero scrollable instead of clipping */
 @media (max-height: 620px) {
   .hero { height: auto; min-height: 100svh; }
-  .hero-mid { container-type: normal; }
-  .hero-slot { width: min(42vw, 50svh); }
 }
 .hero-low {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
@@ -693,9 +680,6 @@ body.work-scroll .track { scroll-snap-type: none; }
 @media (max-width: 900px) {
   .nav ul { display: none; }
   .hero { padding-top: calc(var(--safe-top) + 84px); }
-  .hero-mid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
-  .hero-slot { width: min(70vw, 42svh); }
-  .hero-tag { font-size: clamp(1.53rem, 7.56vw, 2.7rem); }
   .hero-low { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .roles { text-align: left; justify-self: start; font-size: clamp(1.7rem, 8.4vw, 3rem); }
   .roles span:nth-child(2) { padding-right: 0; }
