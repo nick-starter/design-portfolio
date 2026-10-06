@@ -156,15 +156,6 @@ button { font: inherit; }
   line-height: .8;
   display: block;
 }
-.hero h1 sup {
-  color: var(--red);
-  margin-left: .08em;
-  font-size: .14em;
-  font-weight: 700;
-  font-stretch: 100%;
-  line-height: 1;
-  vertical-align: top;
-}
 .hero-mid {
   position: relative;
   display: grid;
@@ -355,8 +346,6 @@ body.work-scroll .track { scroll-snap-type: none; }
 }
 .proj-open:hover .cover canvas,
 .proj-open:hover .cover--img { transform: scale(1.035); }
-.cover .open-tag { display: none; }
-.proj-open:hover .open-tag { background: var(--red); border-color: var(--red); }
 .proj-meta { grid-template-columns: 3rem minmax(0, 1fr); align-items: baseline; gap: 4px 14px; display: grid; }
 .proj-meta .n { color: var(--red); }
 .proj-meta h3 {

@@ -308,6 +308,34 @@ track.addEventListener('click', (e) => {
 /* ---------------- misc ---------------- */
 $('#year').textContent = new Date().getFullYear();
 
+/* ---------------- deep-link landing ---------------- */
+/* Project pages link back to index.html#work etc. Make sure a full
+   page load with a hash actually lands on that section, even after
+   the gallery resizes itself on load. */
+if (location.hash) {
+  const go = () => {
+    const el = document.querySelector(location.hash);
+    if (el) el.scrollIntoView({ block: 'start', behavior: 'instant' });
+  };
+  window.__deepLink = true;
+  setTimeout(go, 60);
+  addEventListener('load', () => setTimeout(go, 60));
+  if (document.fonts?.ready) document.fonts.ready.then(() => setTimeout(go, 60));
+}
+
+/* Same-page anchor clicks (nav, "All projects"): let the browser's
+   smooth scroll run, but if it never lands on the target, jump. */
+addEventListener('hashchange', () => {
+  const el = document.querySelector(location.hash);
+  if (!el) return;
+  setTimeout(() => {
+    const r = el.getBoundingClientRect();
+    if (Math.abs(r.top) > window.innerHeight * 0.5) {
+      el.scrollIntoView({ block: 'start', behavior: 'instant' });
+    }
+  }, 900);
+});
+
 /* QA handle */
 window.__folio = {
   projects: PROJECTS,
