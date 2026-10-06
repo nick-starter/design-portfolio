@@ -352,7 +352,7 @@ body.work-scroll .track { scroll-snap-type: none; }
   transform: scale3d(1, 1, 1);
 }
 .proj-open:hover .cover canvas,
-.proj-open:hover .cover--img { transform: scale3d(1.012, 1.012, 1); }
+.proj-open:hover .cover--img { transform: scale3d(1.01, 1.01, 1); }
 .proj-meta { grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: 4px 14px; display: grid; }
 .proj-meta .n { color: var(--red); font-size: clamp(1.4rem, 2.8vw, 2.6rem); white-space: nowrap; }
 .proj-meta h3 {
