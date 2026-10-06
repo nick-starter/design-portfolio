@@ -353,8 +353,8 @@ body.work-scroll .track { scroll-snap-type: none; }
 }
 .proj-open:hover .cover canvas,
 .proj-open:hover .cover--img { transform: scale3d(1.008, 1.008, 1); }
-.proj-meta { grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: 4px 14px; display: grid; }
-.proj-meta .n { color: var(--red); font-size: clamp(1.4rem, 2.8vw, 2.6rem); white-space: nowrap; }
+.proj-meta { grid-template-columns: minmax(0, 1fr); align-items: baseline; gap: 4px 0; display: grid; }
+.proj-meta .n { color: var(--red); font-size: clamp(1.4rem, 2.8vw, 2.6rem); white-space: nowrap; margin-bottom: 2px; }
 .proj-meta h3 {
   font-family: var(--wide);
   text-transform: uppercase;
