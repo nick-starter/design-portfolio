@@ -142,10 +142,10 @@ button { font: inherit; }
   letter-spacing: -.02em;
   white-space: nowrap;
   z-index: 1;
-  /* The longest line (VISUAL DESIGNER) spans the full .wrap content
-     box at every viewport: scales with 7.71vw until the 1600px wrap
+  /* The longest line (VISUAL DESIGN) spans the full .wrap content
+     box at every viewport: scales with 9.07vw until the 1600px wrap
      cap, then fixes to that content box so it never overflows. */
-  font-size: clamp(1.5rem, 7.71vw, calc((1600px - 2 * var(--gut)) * 0.0846));
+  font-size: clamp(1.5rem, 9.07vw, calc((1600px - 2 * var(--gut)) * 0.0995));
   line-height: .9;
   display: block;
   text-align: right;
