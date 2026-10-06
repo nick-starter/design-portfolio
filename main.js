@@ -89,7 +89,7 @@ function projectCardMarkup(p, i) {
       <div class="proj-meta">
         <span class="mono n">${n}</span>
         <h3>${p.name}</h3>
-        <span class="d mono">${p.role} · ${p.year}</span>
+        <span class="d mono">${p.year}</span>
       </div>
     </article>`;
 }
