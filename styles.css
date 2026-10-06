@@ -355,21 +355,7 @@ body.work-scroll .track { scroll-snap-type: none; }
 }
 .proj-open:hover .cover canvas,
 .proj-open:hover .cover--img { transform: scale(1.035); }
-.cover .open-tag {
-  z-index: 1;
-  font-family: var(--mono);
-  color: var(--bone);
-  border: 1px solid var(--line);
-  backdrop-filter: blur(6px);
-  background: #0c1114b8;
-  border-radius: 999px;
-  padding: 8px 14px;
-  font-size: .75rem;
-  transition: background .25s;
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-}
+.cover .open-tag { display: none; }
 .proj-open:hover .open-tag { background: var(--red); border-color: var(--red); }
 .proj-meta { grid-template-columns: 3rem minmax(0, 1fr); align-items: baseline; gap: 4px 14px; display: grid; }
 .proj-meta .n { color: var(--red); }
