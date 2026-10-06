@@ -152,7 +152,10 @@ button { font: inherit; }
   letter-spacing: -.02em;
   white-space: nowrap;
   z-index: 1;
-  font-size: clamp(4rem, 28vw, 40rem);
+  /* NICK spans the full .wrap content box at every viewport:
+     28vw while the viewport fits inside the 1600px wrap, then
+     fixed to that content box so it never overflows on wide screens. */
+  font-size: clamp(4rem, 28vw, calc((1600px - 2 * var(--gut)) * 0.3078));
   line-height: .8;
   display: block;
 }
