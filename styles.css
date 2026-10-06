@@ -40,7 +40,7 @@ img { max-width: 100%; display: block; }
 button { font: inherit; }
 :focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
 
-.wrap { padding-inline: var(--gut); max-width: 1600px; margin-inline: auto; }
+.wrap { padding-inline: var(--gut); max-width: 1600px; }
 .mono { font-family: var(--mono); letter-spacing: 0; font-size: .8125rem; line-height: 1.6; }
 .disp {
   font-family: var(--wide);
