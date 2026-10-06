@@ -45,10 +45,6 @@ function coverEl(p) {
     wrap.style.backgroundPosition = 'center';
     wrap.style.backgroundRepeat = 'no-repeat';
   }
-  const tag = document.createElement('span');
-  tag.className = 'open-tag';
-  tag.textContent = 'View project';
-  wrap.appendChild(tag);
   if (!p.image) {
     const src = coverSource(p);
     src.style.width = '100%';
