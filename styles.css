@@ -143,10 +143,10 @@ button { font: inherit; }
   white-space: nowrap;
   z-index: 1;
   align-self: center;
-  /* The longest line (VISUAL DESIGNER) spans the full .wrap content
-     box at every viewport: scales with 7.72vw until the 1600px wrap
+  /* The longest line (VISUAL DESIGN) spans the full .wrap content
+     box at every viewport: scales with 9.07vw until the 1600px wrap
      cap, then fixes to that content box so it never overflows. */
-  font-size: clamp(1.5rem, 7.72vw, calc((1600px - 2 * var(--gut)) * 0.0847));
+  font-size: clamp(1.5rem, 9.07vw, calc((1600px - 2 * var(--gut)) * 0.0995));
   line-height: .9;
   display: block;
   text-align: right;
@@ -695,7 +695,35 @@ body.work-scroll .track { scroll-snap-type: none; }
   .pj-frame--phone { max-width: 300px; }
 }
 
+/* ---------------- page transition ---------------- */
+/* Ink veil: slides in from the right when a project link is
+   followed, then the arriving page slides it back off to the
+   left. Both pages carry a static .pg-veil--reveal in their
+   markup; transition.js clears it once it has slid away. */
+.pg-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: var(--ink);
+  pointer-events: none;
+}
+.pg-veil--cover {
+  transform: translateX(100%);
+  animation: pg-veil-in 0.38s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+.pg-veil--reveal {
+  animation: pg-veil-out 0.38s cubic-bezier(0.76, 0, 0.24, 1) 0.05s both;
+}
+@keyframes pg-veil-in {
+  to { transform: translateX(0); }
+}
+@keyframes pg-veil-out {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
+  .pg-veil { display: none; }
 }

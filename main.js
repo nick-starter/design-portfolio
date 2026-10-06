@@ -4,6 +4,7 @@
 ================================================================== */
 
 import { PROJECTS, projectCover } from './projects.js';
+import { armPageTransition } from './transition.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -293,6 +294,12 @@ track.addEventListener('click', (e) => {
   const a = e.target.closest('.proj-open');
   if (a && moved) e.preventDefault();
 });
+
+/* ---------------- page transition ---------------- */
+/* Gallery cards glide to their project page behind the
+   ink veil. A track drag in progress vetoes the cover
+   so swiping the gallery never navigates. */
+armPageTransition('a[href^="project.html"]', { skip: () => moved });
 
 /* ---------------- misc ---------------- */
 $('#year').textContent = new Date().getFullYear();

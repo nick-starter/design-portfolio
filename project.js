@@ -11,6 +11,7 @@ import {
   mobileScreen,
   brandFor,
 } from './projects.js';
+import { armPageTransition } from './transition.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const pad = (v) => String(v).padStart(2, '0');
@@ -102,6 +103,12 @@ addEventListener('keydown', (e) => {
 
 /* ---------------- misc ---------------- */
 $('#year').textContent = new Date().getFullYear();
+
+/* ---------------- page transition ---------------- */
+/* Back link, logo, nav and prev/next all glide behind
+   the ink veil (the entrance veil is cleared by
+   transition.js itself). */
+armPageTransition('a[href^="project.html"], a[href^="index.html"]');
 
 /* QA handle */
 window.__project = { projects: PROJECTS, index, project: p };
