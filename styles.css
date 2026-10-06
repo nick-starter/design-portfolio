@@ -152,13 +152,16 @@ button { font: inherit; }
   letter-spacing: -.02em;
   white-space: nowrap;
   z-index: 1;
-  /* NICK spans the full .wrap content box at every viewport:
-     28vw while the viewport fits inside the 1600px wrap, then
-     fixed to that content box so it never overflows on wide screens. */
-  font-size: clamp(4rem, 28vw, calc((1600px - 2 * var(--gut)) * 0.3078));
-  line-height: .8;
+  /* The longest line (VISUAL DESIGNER) spans the full .wrap content
+     box at every viewport: scales with 7.71vw until the 1600px wrap
+     cap, then fixes to that content box so it never overflows. */
+  font-size: clamp(1.5rem, 7.71vw, calc((1600px - 2 * var(--gut)) * 0.0846));
+  line-height: .9;
   display: block;
+  text-align: right;
 }
+.hero h1 span { display: block; }
+.hero h1 span:nth-child(2) { padding-right: clamp(0px, 6vw, 110px); }
 .hero-mid {
   position: relative;
   display: grid;
@@ -189,16 +192,6 @@ button { font: inherit; }
 }
 .stat span { color: var(--mute); }
 .stats i { background: var(--line); width: 1px; }
-.roles {
-  text-align: right;
-  white-space: nowrap;
-  justify-self: stretch;
-  min-width: 0;
-  font-size: clamp(1.6rem, 3.6vw, 4rem);
-  line-height: .92;
-}
-.roles span { display: block; overflow: hidden; }
-.roles span:nth-child(2) { padding-right: clamp(0px, 6vw, 110px); }
 .hint {
   color: var(--mute);
   white-space: nowrap;
