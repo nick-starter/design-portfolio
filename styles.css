@@ -332,24 +332,27 @@ body.work-scroll .track { scroll-snap-type: none; }
   object-fit: cover;
   position: absolute;
   inset: 0;
-  transition: transform .9s cubic-bezier(.2, .7, .2, 1);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform-origin: center center;
+  transform: scale3d(1, 1, 1);
 }
 .cover--img {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transition: transform .9s cubic-bezier(.2, .7, .2, 1);
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform-origin: center center;
+  transform: scale3d(1, 1, 1);
 }
 .proj-open:hover .cover canvas,
-.proj-open:hover .cover--img { transform: scale(1.025); }
+.proj-open:hover .cover--img { transform: scale3d(1.02, 1.02, 1); }
 .proj-meta { grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: 4px 14px; display: grid; }
 .proj-meta .n { color: var(--red); font-size: clamp(1.4rem, 2.8vw, 2.6rem); white-space: nowrap; }
 .proj-meta h3 {
