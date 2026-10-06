@@ -349,7 +349,7 @@ body.work-scroll .track { scroll-snap-type: none; }
   transform-origin: center center;
 }
 .proj-open:hover .cover canvas,
-.proj-open:hover .cover--img { transform: scale(1.03); }
+.proj-open:hover .cover--img { transform: scale(1.025); }
 .proj-meta { grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: 4px 14px; display: grid; }
 .proj-meta .n { color: var(--red); font-size: clamp(1.4rem, 2.8vw, 2.6rem); white-space: nowrap; }
 .proj-meta h3 {
