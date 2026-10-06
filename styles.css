@@ -280,7 +280,7 @@ body.work-scroll .track { scroll-snap-type: none; }
 .counter b { color: var(--red); font-weight: 500; }
 .track {
   padding-right: var(--gut);
-  padding-left: var(--gut);
+  padding-left: 0;
   margin-left: 0;
   margin-right: 0;
   scroll-snap-type: x mandatory;
