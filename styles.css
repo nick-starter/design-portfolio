@@ -143,10 +143,10 @@ button { font: inherit; }
   white-space: nowrap;
   z-index: 1;
   align-self: center;
-  /* The longest line (VISUAL DESIGN) spans the full .wrap content
-     box at every viewport: scales with 9.07vw until the 1600px wrap
+  /* The longest line (VISUAL DESIGNER) spans the full .wrap content
+     box at every viewport: scales with 7.72vw until the 1600px wrap
      cap, then fixes to that content box so it never overflows. */
-  font-size: clamp(1.5rem, 9.07vw, calc((1600px - 2 * var(--gut)) * 0.0995));
+  font-size: clamp(1.5rem, 7.72vw, calc((1600px - 2 * var(--gut)) * 0.0847));
   line-height: .9;
   display: block;
   text-align: right;
@@ -338,37 +338,6 @@ body.work-scroll .track { scroll-snap-type: none; }
   line-height: 1;
   min-width: 0;
 }
-.proj.end {
-  border: 1px solid var(--line);
-  align-content: center;
-  gap: 20px;
-  width: min(34vw, 460px);
-  padding: clamp(24px, 3vw, 44px);
-  display: grid;
-}
-.proj.end h3 {
-  font-family: var(--wide);
-  text-transform: uppercase;
-  font-size: clamp(1.5rem, 2.6vw, 2.4rem);
-  font-weight: 800;
-  font-stretch: 118%;
-  line-height: 1.02;
-}
-.proj.end p { color: var(--mute); }
-.proj.end .btn {
-  justify-self: start;
-  border: 1px solid var(--bone);
-  color: var(--bone);
-  border-radius: 999px;
-  padding: 14px 20px;
-  font-size: .875rem;
-  font-weight: 700;
-  font-stretch: 112%;
-  cursor: pointer;
-  transition: background .25s, color .25s;
-}
-.proj.end .btn:hover { background: var(--bone); color: var(--ink); }
-
 /* ---------------- experience ---------------- */
 .exp { padding-block: clamp(80px, 10vw, 140px); }
 .exp-intro { color: var(--mute); max-width: 40rem; margin-top: 24px; }
@@ -692,7 +661,6 @@ body.work-scroll .track { scroll-snap-type: none; }
   .proj { width: 84vw; }
   .cover { min-height: clamp(220px, 44svh, 520px); }
   .proj-meta { grid-template-columns: auto minmax(0, 1fr); }
-  .proj.end { width: 72vw; }
   .exp-grid { grid-template-columns: minmax(0, 1fr) 92px; }
   .exp-lane .slot { top: 40svh; }
   .job { grid-template-columns: minmax(0, 1fr); }

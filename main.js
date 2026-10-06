@@ -93,13 +93,7 @@ function projectCardMarkup(p, i) {
     </article>`;
 }
 
-track.innerHTML =
-  PROJECTS.map(projectCardMarkup).join('') +
-  `<article class="proj end">
-     <h3>Want the full story?</h3>
-     <p class="mono">${PROJECTS.length} selected projects. Each one shipped to real users.</p>
-     <a class="btn" href="#contact">Start a project</a>
-   </article>`;
+track.innerHTML = PROJECTS.map(projectCardMarkup).join('');
 
 $$('.proj:not(.end)').forEach((card, i) => {
   fillSlot($('.cover', card), PROJECTS[i]);
