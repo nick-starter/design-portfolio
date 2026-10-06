@@ -41,9 +41,6 @@ function coverEl(p) {
   wrap.className = 'cover' + (p.image ? ' cover--img' : '');
   if (p.image) {
     wrap.style.backgroundImage = `url(${p.image})`;
-    wrap.style.backgroundSize = '100% 100%';
-    wrap.style.backgroundPosition = 'center';
-    wrap.style.backgroundRepeat = 'no-repeat';
   }
   if (!p.image) {
     const src = coverSource(p);
