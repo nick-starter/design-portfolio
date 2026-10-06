@@ -279,7 +279,10 @@ body.work-scroll .track { scroll-snap-type: none; }
 .counter { font-variant-numeric: tabular-nums; color: var(--bone); white-space: nowrap; }
 .counter b { color: var(--red); font-weight: 500; }
 .track {
-  padding-inline: var(--gut);
+  padding-right: var(--gut);
+  padding-left: var(--gut);
+  margin-left: 0;
+  margin-right: 0;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   align-items: stretch;
