@@ -338,7 +338,6 @@ body.work-scroll .track { scroll-snap-type: none; }
   line-height: 1;
   min-width: 0;
 }
-.proj-meta .d { color: var(--mute); grid-column: 2; white-space: nowrap; text-overflow: ellipsis; max-width: 40ch; overflow: hidden; }
 .proj.end {
   border: 1px solid var(--line);
   align-content: center;
@@ -693,7 +692,6 @@ body.work-scroll .track { scroll-snap-type: none; }
   .proj { width: 84vw; }
   .cover { min-height: clamp(220px, 44svh, 520px); }
   .proj-meta { grid-template-columns: 2.4rem minmax(0, 1fr); }
-  .proj-meta .d { text-align: left; }
   .proj.end { width: 72vw; }
   .exp-grid { grid-template-columns: minmax(0, 1fr) 92px; }
   .exp-lane .slot { top: 40svh; }
