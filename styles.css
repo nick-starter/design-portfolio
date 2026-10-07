@@ -296,6 +296,7 @@ body.work-scroll .track { scroll-snap-type: none; }
 .proj {
   scroll-snap-align: start;
   flex: none;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto auto;
   align-content: start;
   gap: 16px;
