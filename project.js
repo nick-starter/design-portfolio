@@ -1,164 +1,238 @@
 /* ==================================================================
    Nick Child — individual project page
-   Reads ?id= from the URL. Unknown ids, including a removed
-   Bupa project, render a not-found state with no project body.
+   Reads ?id= from the URL and renders the project's visual area,
+   case study and prev/next navigation.
 ================================================================== */
 
-import { PROJECTS } from './projects.js';
-import { armPageTransition } from './transition.js';
+import { PROJECTS, desktopScreen } from './projects.js';
+import { armPageTransition, leaveProject } from './transition.js';
 
 const $ = (s, r = document) => r.querySelector(s);
-const pad = (v) => String(v).padStart(2, '0');
 
 const params = new URLSearchParams(location.search);
 const wanted = params.get('id');
-const index = PROJECTS.findIndex((p) => p.id === wanted);
+let index = PROJECTS.findIndex((p) => p.id === wanted);
+if (index < 0) index = 0;
 
-function setMeta(title, description) {
-  document.title = title;
-  const md = document.querySelector('meta[name="description"]');
-  if (md) md.setAttribute('content', description);
+const p = PROJECTS[index];
+const total = PROJECTS.length;
+const prev = PROJECTS[(index - 1 + total) % total];
+const next = PROJECTS[(index + 1) % total];
+
+/* ---------------- document head ---------------- */
+document.title = `${p.name} — Nick Child`;
+const md = document.querySelector('meta[name="description"]');
+if (md) md.setAttribute('content', `${p.name}: ${p.blurb}`);
+
+/* ---------------- header + lead image ---------------- */
+$('#pjName').textContent = p.name;
+$('#pjHeadline').textContent = p.headline || p.blurb;
+const cover = $('#pjCover');
+/* `lead` overrides the gallery thumbnail as the project page's lead
+   image; without it the thumbnail image is used for both. */
+const leadImage = p.lead || p.image;
+if (leadImage) {
+  cover.src = leadImage;
+  cover.alt = `${p.name} cover`;
 }
 
-function showNotFound() {
-  setMeta(
-    'Project not found — Nick Child',
-    'This project is not in the Nick Child folio.'
-  );
-  $('#pjIndex').hidden = true;
-  $('#pjYear').hidden = true;
-  $('.pj-dot').hidden = true;
-  $('#pjName').textContent = 'Not in the folio';
-  $('#pjBlurb').textContent =
-    'That project is not published here. The work in this folio is linked from the home page.';
-  $('#pjFacts').hidden = true;
-  $('#pjVisual').hidden = true;
-  $('#pjGap').hidden = true;
-  $('#pjSections').hidden = true;
-  $('#pjPager').hidden = true;
-}
+/* ---------------- details ---------------- */
+/* Four facts, as on the reference: Role, Contribution, Duration,
+   Platform. Platform is the project's `platform`, or else the
+   platform-like tag (Web / Mobile / Digital); the remaining tags
+   are the contribution. Duration is the project's years. */
+const PLATFORMS = ['Web', 'Mobile', 'Digital'];
+const platform = p.platform || p.tags.find((t) => PLATFORMS.includes(t)) || 'Web';
+const contribution = p.tags.filter((t) => t !== platform).join(', ');
+$('#pjFacts').innerHTML = `
+  <div><dt>Role:</dt><dd>${p.role}</dd></div>
+  <div><dt>Duration:</dt><dd>${p.year.replace(' — ', ' – ')}</dd></div>
+  <div><dt>Contribution:</dt><dd>${contribution}</dd></div>
+  <div><dt>Platform:</dt><dd>${platform}</dd></div>`;
+/* Body text: the project's written story (challenge, approach,
+   outcome) as running paragraphs, or the standard approach paragraph
+   for projects that don't have one yet. */
+const bodyParas = p.story
+  ? [...p.story.challenge, ...p.story.approach, ...p.story.outcome]
+  : [`Started with the constraint, not the canvas — mapping the states the product actually
+    needed before drawing a single screen. Tokens, components and responsive rules were
+    authored alongside the interface so the design survived implementation across phone,
+    tablet and web, and motion was designed as part of the interaction rather than added
+    afterwards.`];
+$('#pjBody').innerHTML = bodyParas.map((t) => `<p>${t}</p>`).join('');
 
-function factRow(term, value) {
-  const row = document.createElement('div');
-  const dt = document.createElement('dt');
-  dt.className = 'mono';
-  dt.textContent = term;
-  const dd = document.createElement('dd');
-  dd.textContent = value;
-  row.append(dt, dd);
-  return row;
-}
+/* ---------------- gallery ---------------- */
+/* Fixed rhythm of slots: a pair of tall tiles, then one full-width
+   tile, repeated. `p.gallery` lists an image per slot; any slot
+   without one shows the project's main image as a placeholder. */
+const SLOTS = ['half', 'half', 'full', 'half', 'half', 'full', 'half', 'half'];
+const galleryEl = $('#pjGallery');
+galleryEl.innerHTML = SLOTS.map((kind, i) => {
+  const src = (p.gallery && p.gallery[i]) || p.image || 'assets/placeholder.png';
+  const real = Boolean(p.gallery && p.gallery[i]);
+  return `<figure class="pj-tile pj-slot--${kind}${real ? '' : ' is-placeholder'}">
+    <img src="${src}" alt="${real ? `${p.name} — image ${i + 1}` : ''}" loading="lazy" />
+  </figure>`;
+}).join('');
 
-function renderProject(p) {
-  const total = PROJECTS.length;
-  const prev = PROJECTS[(index - 1 + total) % total];
-  const next = PROJECTS[(index + 1) % total];
-
-  setMeta(`${p.name} — Nick Child`, `${p.name}. ${p.blurb}`);
-
-  $('#pjIndex').textContent = `${pad(index + 1)} / ${pad(total)}`;
-  if (p.year) {
-    $('#pjYear').textContent = p.year;
-  } else {
-    $('#pjYear').hidden = true;
-    $('.pj-dot').hidden = true;
-  }
-  $('#pjName').textContent = p.name;
-  $('#pjBlurb').textContent = p.blurb;
-
-  const facts = $('#pjFacts');
-  facts.replaceChildren();
-  const rows = [
-    ['Client', p.client],
-    ['Year', p.year],
-    ['Role', p.role],
-    ['Focus', (p.tags || []).join(', ')],
-  ].filter(([, value]) => value);
-  rows.forEach(([term, value]) => facts.append(factRow(term, value)));
-
-  const visual = $('#pjVisual');
-  if (p.image) {
-    const img = $('#pjHeroImg');
-    img.src = p.image;
-    img.alt = p.imageAlt || `${p.name} folio board`;
-    if (p.width) img.width = p.width;
-    if (p.height) img.height = p.height;
-    img.addEventListener('error', () => {
-      visual.hidden = true;
-    });
-    $('#pjHeroCap').textContent = p.caption || 'Folio board';
-    visual.hidden = false;
-  } else {
-    visual.hidden = true;
-  }
-
-  const gap = $('#pjGap');
-  if (p.gap) {
-    gap.hidden = false;
-    gap.textContent = p.gap;
-  } else {
-    gap.hidden = true;
-  }
-
-  const sections = $('#pjSections');
-  sections.replaceChildren();
-  (p.sections || []).forEach((section) => {
-    const block = document.createElement('section');
-    const heading = document.createElement('h3');
-    heading.textContent = section.h;
-    const para = document.createElement('p');
-    para.textContent = section.p;
-    block.append(heading, para);
-    sections.append(block);
+/* Before / after slider. Shown for projects with a `compare` entry
+   in projects.js; it then stands in for the plain web mockup. The
+   old design sits on top, clipped to the left of the handle. */
+function mountCompare(fig, cmp) {
+  const stage = $('.ba-stage', fig);
+  const range = $('.ba-range', fig);
+  const layer = (sel, src, alt, fallback) => {
+    const el = $(sel, fig);
+    if (src) {
+      const img = new Image();
+      img.src = src;
+      img.alt = alt;
+      img.draggable = false;
+      el.appendChild(img);
+    } else {
+      el.appendChild(fallback());
+    }
+  };
+  layer('.ba-after', cmp.after, `${p.name} — new design`, () => desktopScreen(p));
+  layer('.ba-before', cmp.before, `${p.name} — previous design`, () => {
+    const img = new Image();
+    img.src = 'assets/placeholder.png';
+    img.alt = 'Previous design (placeholder)';
+    img.draggable = false;
+    return img;
   });
 
-  const prevA = $('#pjPrev');
-  prevA.href = `project.html?id=${encodeURIComponent(prev.id)}`;
-  prevA.replaceChildren();
-  const prevArr = document.createElement('span');
-  prevArr.className = 'arr';
-  prevArr.setAttribute('aria-hidden', 'true');
-  prevArr.textContent = '←';
-  const prevText = document.createElement('span');
-  prevText.className = 'd-pn-t';
-  const prevLabel = document.createElement('span');
-  prevLabel.className = 'mono';
-  prevLabel.textContent = 'Previous';
-  const prevName = document.createElement('span');
-  prevName.className = 'd-pn-name';
-  prevName.textContent = prev.name;
-  prevText.append(prevLabel, prevName);
-  prevA.append(prevArr, prevText);
+  /* Pixel dissolve: the old design is masked by a grid of square
+     cells. Each cell has its own random threshold, so cells within
+     a band around the handle flip to the new design at different
+     moments and the change sweeps across as scattered pixels. */
+  const COLS = 96;
+  const ROWS = 128;             // 3:4, same as the frame
+  const CELL = 4;               // mask pixels per cell
+  const BAND = 0.34;            // width of the scatter, as a share of the frame
+  const mask = document.createElement('canvas');
+  mask.width = COLS * CELL;
+  mask.height = ROWS * CELL;
+  const mctx = mask.getContext('2d');
+  let seed = 7;
+  const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+  const thresholds = Array.from({ length: COLS * ROWS }, rand);
+  const before = $('.ba-before', fig);
+  stage.classList.add('ba-stage--px');
+  let maskRaf = 0;
+  let lastKey = '';
+  function paintMask(pos) {
+    /* stretch 0–1 so both ends are clean: nothing at 0, everything at 1 */
+    const edge = pos * (1 + BAND) - BAND / 2;
+    const on = [];
+    for (let c = 0; c < COLS; c++) {
+      const cx = (c + 0.5) / COLS;
+      for (let r = 0; r < ROWS; r++) {
+        if (cx < edge + (thresholds[r * COLS + c] - 0.5) * BAND) on.push(c, r);
+      }
+    }
+    const key = on.join(',');
+    if (key === lastKey) return;
+    lastKey = key;
+    mctx.clearRect(0, 0, mask.width, mask.height);
+    mctx.fillStyle = '#000';
+    for (let i = 0; i < on.length; i += 2) mctx.fillRect(on[i] * CELL, on[i + 1] * CELL, CELL, CELL);
+    const url = `url(${mask.toDataURL()})`;
+    before.style.webkitMaskImage = url;
+    before.style.maskImage = url;
+  }
 
-  const nextA = $('#pjNext');
-  nextA.href = `project.html?id=${encodeURIComponent(next.id)}`;
-  nextA.replaceChildren();
-  const nextText = document.createElement('span');
-  nextText.className = 'd-pn-t';
-  const nextLabel = document.createElement('span');
-  nextLabel.className = 'mono';
-  nextLabel.textContent = 'Next project';
-  const nextName = document.createElement('span');
-  nextName.className = 'd-pn-name';
-  nextName.textContent = next.name;
-  nextText.append(nextLabel, nextName);
-  const nextArr = document.createElement('span');
-  nextArr.className = 'arr';
-  nextArr.setAttribute('aria-hidden', 'true');
-  nextArr.textContent = '→';
-  nextA.append(nextText, nextArr);
+  const set = (v) => {
+    const pos = Math.min(100, Math.max(0, v));
+    stage.style.setProperty('--pos', `${pos}%`);
+    range.value = pos;
+    cancelAnimationFrame(maskRaf);
+    maskRaf = requestAnimationFrame(() => paintMask(pos / 100));
+  };
+  const fromPointer = (e) => {
+    const r = stage.getBoundingClientRect();
+    set(((e.clientX - r.left) / r.width) * 100);
+  };
+  let dragging = false;
+  stage.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0) return;
+    dragging = true;
+    stage.setPointerCapture(e.pointerId);
+    stage.classList.add('is-dragging');
+    fromPointer(e);
+  });
+  stage.addEventListener('pointermove', (e) => { if (dragging) fromPointer(e); });
+  const stop = () => { dragging = false; stage.classList.remove('is-dragging'); };
+  stage.addEventListener('pointerup', stop);
+  stage.addEventListener('pointercancel', stop);
+  /* keyboard: the range input is focusable and drives the same value */
+  range.addEventListener('input', () => set(+range.value));
+  range.addEventListener('keydown', (e) => e.stopPropagation());
+  set(50);
+  $('#pjCompareTile').hidden = false;
 }
 
-if (index < 0) showNotFound();
-else renderProject(PROJECTS[index]);
+if (p.compare) {
+  mountCompare($('#pjCompare'), p.compare);
+  galleryEl.querySelector('.pj-slot--full').replaceWith($('#pjCompareTile'));
+} else {
+  $('#pjCompareTile').remove();
+}
 
+/* Remember where the lead image sits on this project at this window
+   size, so the gallery card's expand can aim straight at it. Measured
+   from layout offsets (immune to the arrival transform) once the web
+   fonts are in, since the header's height depends on them. */
+function rememberTile() {
+  const tile = $('#pjHero');
+  let left = 0;
+  let top = 0;
+  for (let el = tile; el; el = el.offsetParent) { left += el.offsetLeft; top += el.offsetTop; }
+  try {
+    sessionStorage.setItem(
+      `pj-tile:${p.id}:${document.documentElement.clientWidth}x${innerHeight}`,
+      JSON.stringify({ left, top, width: tile.offsetWidth, height: tile.offsetHeight })
+    );
+  } catch { /* noop */ }
+}
+(document.fonts?.ready || Promise.resolve()).then(() => requestAnimationFrame(() => requestAnimationFrame(rememberTile)));
+addEventListener('load', () => setTimeout(rememberTile, 300));
+addEventListener('resize', () => setTimeout(rememberTile, 200), { passive: true });
+
+/* ---------------- prev / next ---------------- */
+const prevA = $('#pjPrev');
+prevA.href = `project.html?id=${prev.id}`;
+prevA.innerHTML = `<span class="arr">←</span><span class="d-pn-t"><span class="mono">Previous project</span><span class="d-pn-name">${prev.name}</span></span>`;
+
+const nextA = $('#pjNext');
+nextA.href = `project.html?id=${next.id}`;
+nextA.innerHTML = `<span class="d-pn-t"><span class="mono">Next project</span><span class="d-pn-name">${next.name}</span></span><span class="arr">→</span>`;
+
+addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') location.href = prevA.href;
+  if (e.key === 'ArrowRight') location.href = nextA.href;
+  /* Escape = Close, via click() so it plays the same page transition */
+  if (e.key === 'Escape') $('.d-close').click();
+});
+
+/* ---------------- misc ---------------- */
 $('#year').textContent = new Date().getFullYear();
 
-/* Back link, logo, nav and prev/next glide behind the ink veil. */
+/* ---------------- page transition ---------------- */
+/* Close, logo and prev/next all glide behind
+   the ink veil (the entrance veil is cleared by
+   transition.js itself). */
 armPageTransition('a[href^="project.html"], a[href^="index.html"]');
 
-window.__project = {
-  projects: PROJECTS,
-  index,
-  project: index >= 0 ? PROJECTS[index] : null,
-};
+/* Close (and Escape) reverse the card expand: the header image
+   shrinks back into this project's gallery card on the index.
+   Stopping propagation keeps the veil handler above out of it. */
+$('.d-close').addEventListener('click', (e) => {
+  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  e.stopPropagation();
+  leaveProject('index.html', p.id, leadImage, $('#pjHero'));
+});
+
+/* QA handle */
+window.__project = { projects: PROJECTS, index, project: p };
