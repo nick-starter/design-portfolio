@@ -3,7 +3,7 @@
    Work gallery, method step-through, nav spy.
 ================================================================== */
 
-import { PROJECTS, projectCover } from './projects.js';
+import { PROJECTS, projectById } from './projects.js';
 import { armPageTransition } from './transition.js';
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -11,7 +11,7 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 /* ---------------- data ---------------- */
 const JOBS = [
-  { yr: 'Now', co: 'Bupa', desc: 'Senior Visual & Interaction Designer · 2023 – Present' },
+  { yr: 'Now', co: 'Bupa', desc: 'Senior Visual & Interaction Designer, Propositions (genomics) · 2023 – Present' },
   { yr: '2022', co: 'Super Retail Group', desc: 'UI Designer — Rebel Sport website · 2022 – 2023' },
   { yr: '2020', co: 'Telstra', desc: "Visual Designer — activation & recharge, Telstra 'Able' design system · 2020 – 2022" },
   { yr: '2015', co: 'TBWA \\ Tequila', desc: 'Senior Digital Designer — Nissan, ANZ, Medibank · 2015 – 2018' },
@@ -22,57 +22,70 @@ const JOBS = [
 ];
 
 const METHOD = [
-  { t: 'Research & discovery', d: 'Start with the problem, the audience and the constraint. Interviews, analytics and competitive review before any pixels.' },
+  { t: 'Research & discovery', d: 'Start with the problem, the audience and the constraint before any pixels.' },
   { t: 'Concept & visual direction', d: 'Explore the widest range quickly, then commit to a direction with a clear point of view and the craft to sell it.' },
   { t: 'Interaction & motion', d: 'Prototype the flow in Figma and Rive. Motion is designed with the interface, never layered on after the fact.' },
   { t: 'Systems & handover', d: 'Semantic tokens, component variants and specs authored so the design survives build across web and mobile.' },
 ];
 
-/* ---------------- cover cache + placement ---------------- */
-const COVER_SIZE = 900;
-const coverCache = new Map();
-
-function coverSource(p) {
-  if (!coverCache.has(p.id)) coverCache.set(p.id, projectCover(p, COVER_SIZE));
-  return coverCache.get(p.id);
-}
-
-function coverEl(p) {
+/* ---------------- covers ---------------- */
+function coverEl(p, { decorative = false, eager = false } = {}) {
   const wrap = document.createElement('span');
-  wrap.className = 'cover' + (p.image ? ' cover--img' : '');
   if (p.image) {
-    wrap.style.backgroundImage = `url(${p.image})`;
+    wrap.className = 'cover cover--img';
+    const img = document.createElement('img');
+    img.src = p.image;
+    img.alt = decorative ? '' : (p.imageAlt || '');
+    img.decoding = 'async';
+    img.loading = eager ? 'eager' : 'lazy';
+    if (p.width) img.width = p.width;
+    if (p.height) img.height = p.height;
+    img.addEventListener('error', () => {
+      wrap.replaceChildren();
+      wrap.className = 'cover cover--type';
+      wrap.append(typeCover(p));
+    });
+    wrap.append(img);
+    return wrap;
   }
-  if (!p.image) {
-    const src = coverSource(p);
-    src.style.width = '100%';
-    src.style.height = '100%';
-    src.style.display = 'block';
-    src.style.objectFit = 'cover';
-    src.style.position = 'absolute';
-    src.style.inset = 0;
-    wrap.appendChild(src);
-  }
+  wrap.className = 'cover cover--type';
+  wrap.append(typeCover(p));
   return wrap;
 }
 
-function fillSlot(el, p) {
-  if (!el) return;
-  el.appendChild(coverEl(p));
+function typeCover(p) {
+  const frag = document.createDocumentFragment();
+  const kicker = document.createElement('span');
+  kicker.className = 'kicker';
+  kicker.textContent = p.year || 'Folio';
+  const title = document.createElement('strong');
+  title.textContent = p.name;
+  const sub = document.createElement('span');
+  sub.className = 'sub';
+  sub.textContent = p.role || p.gap || '';
+  frag.append(kicker, title, sub);
+  return frag;
 }
 
-/* ---------------- hero + feature slots ---------------- */
-fillSlot($('#aboutSlot'), PROJECTS[1]);
-fillSlot($('#expSlot'), PROJECTS[2]);
-fillSlot($('#cSlot1'), PROJECTS[0]);
-fillSlot($('#cSlot2'), PROJECTS[2]);
-fillSlot($('#cSlot3'), PROJECTS[4]);
+function fillSlot(el, p) {
+  if (!el || !p) return;
+  el.appendChild(coverEl(p, { decorative: true }));
+}
+
+/* ---------------- hero + feature slots ----------------
+   Decorative only. Real boards, never a Bupa project.
+---------------------------------------------------------------- */
+fillSlot($('#aboutSlot'), projectById('rebel'));
+fillSlot($('#expSlot'), projectById('telstra'));
+fillSlot($('#cSlot1'), projectById('cargocrew'));
+fillSlot($('#cSlot2'), projectById('suzuki'));
+fillSlot($('#cSlot3'), projectById('flexiworks'));
 
 const mObjects = $('#mObjects');
 if (mObjects) {
-  fillSlot($('[data-slot="big"]', mObjects), PROJECTS[3]);
-  fillSlot($('[data-slot="tl"]', mObjects), PROJECTS[4]);
-  fillSlot($('[data-slot="br"]', mObjects), PROJECTS[5]);
+  fillSlot($('[data-slot="big"]', mObjects), projectById('langtons'));
+  fillSlot($('[data-slot="tl"]', mObjects), projectById('rebel'));
+  fillSlot($('[data-slot="br"]', mObjects), projectById('cargocrew'));
 }
 
 /* ---------------- work gallery ---------------- */
@@ -80,30 +93,30 @@ const track = $('#track');
 const workIndex = $('#workIndex');
 const workTotal = $('#workTotal');
 
-function projectCardMarkup(p, i) {
-  const n = String(i + 1).padStart(2, '0');
-  return `
-    <article class="proj">
-      <a class="proj-open" href="project.html?id=${p.id}" aria-label="View ${p.name} project">
-        <span class="cover cover--img"${p.image ? ` style="background-image: url(${p.image});"` : ''}></span>
-      </a>
-      <div class="proj-meta">
-        <span class="mono n">${n}. ${p.name}</span>
-      </div>
-    </article>`;
+function projectCard(p, i) {
+  const article = document.createElement('article');
+  article.className = 'proj';
+  const link = document.createElement('a');
+  link.className = 'proj-open';
+  link.href = `project.html?id=${encodeURIComponent(p.id)}`;
+  const meta = document.createElement('div');
+  meta.className = 'proj-meta';
+  const name = document.createElement('span');
+  name.className = 'n';
+  name.textContent = `${String(i + 1).padStart(2, '0')}. ${p.name}`;
+  meta.append(name);
+  link.append(coverEl(p, { decorative: true, eager: true }), meta);
+  article.append(link);
+  return article;
 }
 
-track.innerHTML = PROJECTS.map(projectCardMarkup).join('');
-
-$$('.proj:not(.end)').forEach((card, i) => {
-  fillSlot($('.cover', card), PROJECTS[i]);
-});
+track.replaceChildren(...PROJECTS.map(projectCard));
 
 if (workTotal) workTotal.textContent = String(PROJECTS.length).padStart(2, '0');
 
 let workRaf = 0;
 function syncWorkIndex() {
-  const cards = $$('.proj:not(.end)', track);
+  const cards = $$('.proj', track);
   if (!cards.length || !workIndex) return;
   const left = track.scrollLeft;
   let best = 0;
@@ -174,13 +187,19 @@ track.addEventListener('wheel', (e) => {
   }
 }, { passive: false });
 
-/* drag to scroll */
-let dragging = false, dragX = 0, dragScroll = 0, moved = false;
+/* drag to scroll — only the click that ends a drag is swallowed */
+let dragging = false;
+let dragX = 0;
+let dragScroll = 0;
+let moved = false;
+let blockClick = false;
 track.addEventListener('pointerdown', (e) => {
   if (workDriven) return;
   if (e.pointerType === 'mouse' && e.button !== 0) return;
-  dragging = true; moved = false;
-  dragX = e.clientX; dragScroll = track.scrollLeft;
+  dragging = true;
+  moved = false;
+  dragX = e.clientX;
+  dragScroll = track.scrollLeft;
   track.setPointerCapture(e.pointerId);
 });
 track.addEventListener('pointermove', (e) => {
@@ -192,10 +211,41 @@ track.addEventListener('pointermove', (e) => {
 const endDrag = (e) => {
   if (!dragging) return;
   dragging = false;
+  blockClick = moved;
+  moved = false;
   try { track.releasePointerCapture(e.pointerId); } catch { /* noop */ }
 };
 track.addEventListener('pointerup', endDrag);
 track.addEventListener('pointercancel', endDrag);
+
+/* Keyboard: when the gallery itself is focused, move between cards.
+   While the section is pinned to vertical scroll, move the page instead
+   so the sticky track stays in sync. */
+track.addEventListener('keydown', (e) => {
+  if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+  if (e.target !== track) return;
+  const cards = $$('.proj', track);
+  if (!cards.length) return;
+  const dir = e.key === 'ArrowRight' ? 1 : -1;
+  const left = track.scrollLeft;
+  let best = 0;
+  let bestDist = Infinity;
+  cards.forEach((card, i) => {
+    const d = Math.abs(card.offsetLeft - left);
+    if (d < bestDist) { bestDist = d; best = i; }
+  });
+  const next = cards[Math.min(cards.length - 1, Math.max(0, best + dir))];
+  if (!next) return;
+  e.preventDefault();
+  if (workDriven && workSection) {
+    const max = workMax || 1;
+    const p = Math.min(1, Math.max(0, (next.offsetLeft - track.offsetLeft) / max));
+    window.scrollTo({ top: workSection.offsetTop + p * workMax, behavior: 'auto' });
+  } else {
+    next.scrollIntoView({ inline: 'start', block: 'nearest' });
+  }
+  syncWorkIndex();
+});
 
 /* ---------------- experience ---------------- */
 const jobs = $('#jobs');
@@ -288,17 +338,21 @@ if (copyBtn) {
 }
 
 /* ---------------- gallery links ---------------- */
-/* Dragging the track shouldn't activate a card's link */
+/* The click that ends a drag must not open the project. */
 track.addEventListener('click', (e) => {
+  if (!blockClick) return;
   const a = e.target.closest('.proj-open');
-  if (a && moved) e.preventDefault();
-});
+  if (!a) return;
+  e.preventDefault();
+  e.stopPropagation();
+  blockClick = false;
+}, true);
 
 /* ---------------- page transition ---------------- */
 /* Gallery cards glide to their project page behind the
    ink veil. A track drag in progress vetoes the cover
    so swiping the gallery never navigates. */
-armPageTransition('a[href^="project.html"]', { skip: () => moved });
+armPageTransition('a[href^="project.html"]', { skip: () => dragging || blockClick });
 
 /* ---------------- misc ---------------- */
 $('#year').textContent = new Date().getFullYear();

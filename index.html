@@ -9,10 +9,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=12" />
+<link rel="icon" href="assets/logo.png" />
+<link rel="stylesheet" href="styles.css?v=20" />
 </head>
 <body id="site">
 
+<a class="skip" href="#content">Skip to content</a>
 <div class="light" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <div class="pg-veil pg-veil--reveal" aria-hidden="true"></div>
@@ -22,32 +24,37 @@
   <a class="logo" href="#top" aria-label="Nick Child — back to top">
     <img src="assets/logo.png" alt="Nick Child" width="699" height="221" />
   </a>
-  <nav aria-label="Primary">
-    <ul>
-      <li><a href="#about">About.</a></li>
-      <li><a href="#work">Portfolio.</a></li>
-      <li><a href="#experience">Experience.</a></li>
-      <li><a href="#method">Method.</a></li>
-      <li><a href="#contact">Contact.</a></li>
-    </ul>
-  </nav>
+  <div class="nav-end">
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span>Menu</span>
+    </button>
+    <nav id="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#about">About.</a></li>
+        <li><a href="#work">Portfolio.</a></li>
+        <li><a href="#experience">Experience.</a></li>
+        <li><a href="#method">Method.</a></li>
+        <li><a href="#contact">Contact.</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
-<main>
+<main id="content">
 
   <!-- ============ HERO ============ -->
   <section id="top" class="hero wrap">
     <h1 class="disp">
       <span>Visual Designer</span>
-      <span>AI Engineer</span>
-      <span>&amp; Animator</span>
+      <span>Interaction</span>
+      <span>&amp; Motion</span>
     </h1>
 
     <div class="hero-low">
       <div class="stats">
         <div class="stat"><b data-count="20">0</b><span>Years in design</span></div>
         <i></i>
-        <div class="stat"><b data-count="50">0</b><span>Brands &amp; studios</span></div>
+        <div class="stat"><b class="stat-kicker">In-house<br />&amp; agency</b><span>Health, retail, telco, advertising</span></div>
       </div>
     </div>
 
@@ -106,7 +113,7 @@
 
       <div class="about-hat">
         <div class="slot" id="aboutSlot" aria-hidden="true"></div>
-        <p class="cap mono">Bupa — recent work</p>
+        <p class="cap mono">Rebel Sport — selected work</p>
       </div>
     </div>
   </section>
@@ -117,8 +124,8 @@
       <div class="sec-head wrap">
         <h2 class="disp">Projects.</h2>
         <div class="work-side">
-          <p>Where ideas meet impact. Open any project for the full story.</p>
-          <span class="counter mono"><b id="workIndex">01</b> / <span id="workTotal">06</span></span>
+          <p>Selected work. Open a project for the screens and notes.</p>
+          <span class="counter mono"><b id="workIndex">01</b> / <span id="workTotal">09</span></span>
         </div>
       </div>
       <div class="track" id="track" tabindex="0" aria-label="Selected projects, scroll horizontally" style="scroll-padding-left: 0; scroll-padding-right: var(--gut);"></div>
@@ -131,8 +138,7 @@
       <h2 class="disp">Explore my<br />design journey.</h2>
     </div>
     <p class="exp-intro mono">
-      Over the past decade I've designed across health, logistics, finance and culture,
-      working with research, engineering and brand teams to bring complex products to life.
+      Twenty years across health, retail, telco and advertising, with in-house teams and agencies.
     </p>
     <div class="exp-grid">
       <div class="roles-list" id="jobs"></div>
@@ -195,6 +201,6 @@
 
 </main>
 
-<script type="module" src="main.js?v=10"></script>
+<script type="module" src="main.js?v=12"></script>
 </body>
 </html>

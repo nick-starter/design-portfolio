@@ -1,16 +1,10 @@
 /* ==================================================================
    Nick Child — individual project page
-   Reads ?id= from the URL and renders the project's visual area,
-   case study and prev/next navigation.
+   Reads ?id= from the URL. Unknown ids, including a removed
+   Bupa project, render a not-found state with no project body.
 ================================================================== */
 
-import {
-  PROJECTS,
-  projectCover,
-  desktopScreen,
-  mobileScreen,
-  brandFor,
-} from './projects.js';
+import { PROJECTS } from './projects.js';
 import { armPageTransition } from './transition.js';
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -18,97 +12,153 @@ const pad = (v) => String(v).padStart(2, '0');
 
 const params = new URLSearchParams(location.search);
 const wanted = params.get('id');
-let index = PROJECTS.findIndex((p) => p.id === wanted);
-if (index < 0) index = 0;
+const index = PROJECTS.findIndex((p) => p.id === wanted);
 
-const p = PROJECTS[index];
-const total = PROJECTS.length;
-const prev = PROJECTS[(index - 1 + total) % total];
-const next = PROJECTS[(index + 1) % total];
-
-/* ---------------- document head ---------------- */
-document.title = `${p.name} — Nick Child`;
-const md = document.querySelector('meta[name="description"]');
-if (md) md.setAttribute('content', `${p.name}: ${p.blurb}`);
-
-/* ---------------- hero ---------------- */
-$('#pjIndex').textContent = `${pad(index + 1)} / ${pad(total)}`;
-$('#pjYear').textContent = p.year;
-$('#pjName').textContent = p.name;
-$('#pjBlurb').textContent = p.blurb;
-
-$('#pjFacts').innerHTML = `
-  <div><dt class="mono">Client</dt><dd>${p.client}</dd></div>
-  <div><dt class="mono">Year</dt><dd>${p.year}</dd></div>
-  <div><dt class="mono">Role</dt><dd>${p.role}</dd></div>
-  <div><dt class="mono">Focus</dt><dd>${p.tags.join(', ')}</dd></div>`;
-
-/* ---------------- visual area ---------------- */
-const pjPh = document.querySelector('.pj-ph');
-if (pjPh && p.image) {
-  pjPh.src = p.image;
-  pjPh.alt = `${p.name} thumbnail`;
-}
-function mount(el, canvas) {
-  if (!el) return;
-  canvas.style.width = '100%';
-  canvas.style.height = 'auto';
-  canvas.style.display = 'block';
-  el.appendChild(canvas);
+function setMeta(title, description) {
+  document.title = title;
+  const md = document.querySelector('meta[name="description"]');
+  if (md) md.setAttribute('content', description);
 }
 
-mount($('#pjDesktop'), desktopScreen(p));
-mount($('#pjMobile'), mobileScreen(p));
-mount($('#pjPoster'), projectCover(p, 1000));
+function showNotFound() {
+  setMeta(
+    'Project not found — Nick Child',
+    'This project is not in the Nick Child folio.'
+  );
+  $('#pjIndex').hidden = true;
+  $('#pjYear').hidden = true;
+  $('.pj-dot').hidden = true;
+  $('#pjName').textContent = 'Not in the folio';
+  $('#pjBlurb').textContent =
+    'That project is not published here. The work in this folio is linked from the home page.';
+  $('#pjFacts').hidden = true;
+  $('#pjVisual').hidden = true;
+  $('#pjGap').hidden = true;
+  $('#pjSections').hidden = true;
+  $('#pjPager').hidden = true;
+}
 
-const [c1, c2] = brandFor(p);
-const swatches = [
-  ['Primary', c1],
-  ['Accent', c2],
-  ['Ink', '#0c1114'],
-  ['Bone', '#ece6dd'],
-];
-$('#pjColors').innerHTML = swatches
-  .map(
-    ([label, c]) =>
-      `<span class="sw" style="background:${c}"><b class="mono" title="${label}">${c.toUpperCase()}</b></span>`
-  )
-  .join('');
+function factRow(term, value) {
+  const row = document.createElement('div');
+  const dt = document.createElement('dt');
+  dt.className = 'mono';
+  dt.textContent = term;
+  const dd = document.createElement('dd');
+  dd.textContent = value;
+  row.append(dt, dd);
+  return row;
+}
 
-/* ---------------- case study ---------------- */
-$('#pjSections').innerHTML = `
-  <section><h3>Overview</h3><p>${p.blurb}</p></section>
-  <section><h3>Outcome</h3><p>${p.outcome}</p></section>
-  <section><h3>Approach</h3><p>
-    Started with the constraint, not the canvas — mapping the states the product actually
-    needed before drawing a single screen. Tokens, components and responsive rules were
-    authored alongside the interface so the design survived implementation across phone,
-    tablet and web, and motion was designed as part of the interaction rather than added
-    afterwards.
-  </p></section>`;
+function renderProject(p) {
+  const total = PROJECTS.length;
+  const prev = PROJECTS[(index - 1 + total) % total];
+  const next = PROJECTS[(index + 1) % total];
 
-/* ---------------- prev / next ---------------- */
-const prevA = $('#pjPrev');
-prevA.href = `project.html?id=${prev.id}`;
-prevA.innerHTML = `<span class="arr">←</span><span class="d-pn-t"><span class="mono">Previous</span><span class="d-pn-name">${prev.name}</span></span>`;
+  setMeta(`${p.name} — Nick Child`, `${p.name}. ${p.blurb}`);
 
-const nextA = $('#pjNext');
-nextA.href = `project.html?id=${next.id}`;
-nextA.innerHTML = `<span class="d-pn-t"><span class="mono">Next project</span><span class="d-pn-name">${next.name}</span></span><span class="arr">→</span>`;
+  $('#pjIndex').textContent = `${pad(index + 1)} / ${pad(total)}`;
+  if (p.year) {
+    $('#pjYear').textContent = p.year;
+  } else {
+    $('#pjYear').hidden = true;
+    $('.pj-dot').hidden = true;
+  }
+  $('#pjName').textContent = p.name;
+  $('#pjBlurb').textContent = p.blurb;
 
-addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowLeft') location.href = prevA.href;
-  if (e.key === 'ArrowRight') location.href = nextA.href;
-});
+  const facts = $('#pjFacts');
+  facts.replaceChildren();
+  const rows = [
+    ['Client', p.client],
+    ['Year', p.year],
+    ['Role', p.role],
+    ['Focus', (p.tags || []).join(', ')],
+  ].filter(([, value]) => value);
+  rows.forEach(([term, value]) => facts.append(factRow(term, value)));
 
-/* ---------------- misc ---------------- */
+  const visual = $('#pjVisual');
+  if (p.image) {
+    const img = $('#pjHeroImg');
+    img.src = p.image;
+    img.alt = p.imageAlt || `${p.name} folio board`;
+    if (p.width) img.width = p.width;
+    if (p.height) img.height = p.height;
+    img.addEventListener('error', () => {
+      visual.hidden = true;
+    });
+    $('#pjHeroCap').textContent = p.caption || 'Folio board';
+    visual.hidden = false;
+  } else {
+    visual.hidden = true;
+  }
+
+  const gap = $('#pjGap');
+  if (p.gap) {
+    gap.hidden = false;
+    gap.textContent = p.gap;
+  } else {
+    gap.hidden = true;
+  }
+
+  const sections = $('#pjSections');
+  sections.replaceChildren();
+  (p.sections || []).forEach((section) => {
+    const block = document.createElement('section');
+    const heading = document.createElement('h3');
+    heading.textContent = section.h;
+    const para = document.createElement('p');
+    para.textContent = section.p;
+    block.append(heading, para);
+    sections.append(block);
+  });
+
+  const prevA = $('#pjPrev');
+  prevA.href = `project.html?id=${encodeURIComponent(prev.id)}`;
+  prevA.replaceChildren();
+  const prevArr = document.createElement('span');
+  prevArr.className = 'arr';
+  prevArr.setAttribute('aria-hidden', 'true');
+  prevArr.textContent = '←';
+  const prevText = document.createElement('span');
+  prevText.className = 'd-pn-t';
+  const prevLabel = document.createElement('span');
+  prevLabel.className = 'mono';
+  prevLabel.textContent = 'Previous';
+  const prevName = document.createElement('span');
+  prevName.className = 'd-pn-name';
+  prevName.textContent = prev.name;
+  prevText.append(prevLabel, prevName);
+  prevA.append(prevArr, prevText);
+
+  const nextA = $('#pjNext');
+  nextA.href = `project.html?id=${encodeURIComponent(next.id)}`;
+  nextA.replaceChildren();
+  const nextText = document.createElement('span');
+  nextText.className = 'd-pn-t';
+  const nextLabel = document.createElement('span');
+  nextLabel.className = 'mono';
+  nextLabel.textContent = 'Next project';
+  const nextName = document.createElement('span');
+  nextName.className = 'd-pn-name';
+  nextName.textContent = next.name;
+  nextText.append(nextLabel, nextName);
+  const nextArr = document.createElement('span');
+  nextArr.className = 'arr';
+  nextArr.setAttribute('aria-hidden', 'true');
+  nextArr.textContent = '→';
+  nextA.append(nextText, nextArr);
+}
+
+if (index < 0) showNotFound();
+else renderProject(PROJECTS[index]);
+
 $('#year').textContent = new Date().getFullYear();
 
-/* ---------------- page transition ---------------- */
-/* Back link, logo, nav and prev/next all glide behind
-   the ink veil (the entrance veil is cleared by
-   transition.js itself). */
+/* Back link, logo, nav and prev/next glide behind the ink veil. */
 armPageTransition('a[href^="project.html"], a[href^="index.html"]');
 
-/* QA handle */
-window.__project = { projects: PROJECTS, index, project: p };
+window.__project = {
+  projects: PROJECTS,
+  index,
+  project: index >= 0 ? PROJECTS[index] : null,
+};

@@ -8,6 +8,37 @@
 const $ = (s, r = document) => r.querySelector(s);
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/* Mobile nav. The button is hidden at desktop widths. */
+const navToggle = $('.nav-toggle');
+const siteNav = $('#site-nav');
+if (navToggle && siteNav) {
+  const label = navToggle.querySelector('span');
+  const setOpen = (open) => {
+    navToggle.setAttribute('aria-expanded', String(open));
+    siteNav.classList.toggle('is-open', open);
+    if (label) label.textContent = open ? 'Close' : 'Menu';
+  };
+  navToggle.addEventListener('click', () => {
+    const open = navToggle.getAttribute('aria-expanded') === 'true';
+    setOpen(!open);
+    if (!open) siteNav.querySelector('a')?.focus();
+  });
+  siteNav.addEventListener('click', (e) => {
+    if (e.target.closest('a')) setOpen(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && siteNav.classList.contains('is-open')) {
+      setOpen(false);
+      navToggle.focus();
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (!siteNav.classList.contains('is-open')) return;
+    if (e.target.closest('#site-nav') || e.target.closest('.nav-toggle')) return;
+    setOpen(false);
+  });
+}
+
 /* Clear the entrance veil once it has slid off the screen. */
 const veil = $('.pg-veil');
 if (veil) {
