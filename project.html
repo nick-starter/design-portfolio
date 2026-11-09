@@ -9,7 +9,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=12" />
+<link rel="stylesheet" href="styles.css?v=46" />
+<script>
+  /* Arriving from a gallery card's expand: skip the veil reveal. The
+     card's clone ended on a guess of where the first image tile sits;
+     the script after that tile settles it from there (see below). */
+  try {
+    var arrive = JSON.parse(sessionStorage.getItem('pj-expand') || 'null');
+    sessionStorage.removeItem('pj-expand');
+    if (arrive && arrive.id === new URLSearchParams(location.search).get('id')) {
+      document.documentElement.classList.add('from-card');
+      window.__pjArrive = arrive;
+    }
+  } catch (e) { /* noop */ }
+</script>
 </head>
 <body id="site">
 
@@ -22,93 +35,67 @@
   <a class="logo" href="index.html" aria-label="Nick Child — home">
     <img src="assets/logo.png" alt="Nick Child" width="699" height="221" />
   </a>
-  <nav aria-label="Primary">
-    <ul>
-      <li><a href="index.html#about">About.</a></li>
-      <li><a href="index.html#work">Portfolio.</a></li>
-      <li><a href="index.html#experience">Experience.</a></li>
-      <li><a href="index.html#method">Method.</a></li>
-      <li><a href="index.html#contact">Contact.</a></li>
-    </ul>
-  </nav>
+  <a class="d-close" href="index.html#work">Close</a>
 </header>
 
 <main class="pj">
 
-  <!-- ============ HERO ============ -->
-  <section class="pj-hero">
-    <p class="pj-kicker mono">
-      <a class="pj-back" href="index.html#work">← All projects</a>
-      <span id="pjIndex">01 / 01</span>
-      <span aria-hidden="true">·</span>
-      <span id="pjYear"></span>
-    </p>
+  <!-- ============ HEADER: big title, one-line headline ============ -->
+  <header class="pj-head wrap">
     <h1 class="disp" id="pjName">Project</h1>
-    <div class="pj-hero-grid">
-      <p class="pj-lead" id="pjBlurb"></p>
-      <dl class="d-facts" id="pjFacts"></dl>
-    </div>
-  </section>
+    <p class="pj-headline" id="pjHeadline"></p>
+  </header>
 
-  <!-- ============ VISUAL AREA ============ -->
-  <section class="pj-visual" aria-label="Project visuals">
-    <figure class="pj-item pj-item--wide">
-      <img class="pj-ph" src="assets/placeholder.png" alt="" width="1600" height="1000" loading="lazy" />
-      <figcaption class="mono">Project image</figcaption>
-    </figure>
+  <div class="pj-stack wrap">
+    <!-- ============ LEAD IMAGE ============ -->
+    <figure class="pj-tile pj-tile--hero" id="pjHero"><img id="pjCover" src="assets/placeholder.png" alt="" /></figure>
+    <script>
+      /* Card expand hand-off: show the project image at once, start the
+         tile where the card's clone finished, then let it settle. */
+      (function () {
+        var a = window.__pjArrive, tile = document.getElementById('pjHero');
+        if (!a || !a.rect || !tile) return;
+        if (a.image) document.getElementById('pjCover').src = a.image;
+        var r = tile.getBoundingClientRect(), f = a.rect;
+        if (!r.width || !r.height) return;
+        tile.style.transformOrigin = '0 0';
+        tile.style.transform = 'translate(' + (f.left - r.left) + 'px,' + (f.top - r.top) + 'px) scale(' + (f.width / r.width) + ',' + (f.height / r.height) + ')';
+        requestAnimationFrame(function () { requestAnimationFrame(function () {
+          tile.style.transition = 'transform .5s cubic-bezier(.2,.7,.2,1)';
+          tile.style.transform = 'none';
+        }); });
+      })();
+    </script>
 
-    <div class="pj-row pj-row--a">
-      <figure class="pj-item">
-        <div class="pj-frame pj-frame--desktop" id="pjDesktop"></div>
-        <figcaption class="mono">Web — product overview</figcaption>
-      </figure>
-      <figure class="pj-item">
-        <div class="pj-frame pj-frame--phone" id="pjMobile"></div>
-        <figcaption class="mono">Mobile — key flow</figcaption>
-      </figure>
-    </div>
+    <!-- ============ DETAILS: facts left, body text right ============ -->
+    <section class="pj-details">
+      <dl class="pj-meta" id="pjFacts"></dl>
+      <div class="pj-body" id="pjBody"></div>
+    </section>
 
-    <div class="pj-row pj-row--b">
-      <figure class="pj-item">
-        <div class="pj-frame pj-frame--poster" id="pjPoster"></div>
-        <figcaption class="mono">Cover art</figcaption>
-      </figure>
-      <figure class="pj-item">
-        <div class="pj-system">
-          <p class="mono sys-cap">Colour</p>
-          <div class="sys-colors" id="pjColors"></div>
-          <p class="mono sys-cap">Type</p>
-          <div class="sys-type">
-            <div><span class="sys-aa disp">Aa</span><span class="mono">Archivo — display</span></div>
-            <div><span class="sys-aa sys-aa--text">Aa</span><span class="mono">Archivo — text</span></div>
-            <div><span class="sys-aa sys-aa--mono mono">Aa</span><span class="mono">JetBrains Mono</span></div>
-          </div>
+    <!-- ============ GALLERY: pair, full, pair, full, pair ============ -->
+    <div class="pj-gallery" id="pjGallery"></div>
+
+    <!-- Before/after slider: moved into the gallery's first full-width
+         slot by project.js for projects that have one. -->
+    <div class="pj-tile pj-tile--stage pj-slot--full" id="pjCompareTile" hidden>
+      <figure class="ba" id="pjCompare">
+        <div class="ba-stage">
+          <div class="ba-layer ba-after"></div>
+          <div class="ba-layer ba-before"></div>
+          <span class="ba-handle" aria-hidden="true"><i></i></span>
+          <input class="ba-range" type="range" min="0" max="100" value="50" step="1"
+                 aria-label="Before and after comparison: percentage of the old design shown" />
         </div>
-        <figcaption class="mono">Colour &amp; type system</figcaption>
       </figure>
     </div>
-  </section>
-
-  <!-- ============ CASE STUDY ============ -->
-  <section class="pj-body">
-    <div class="d-sections" id="pjSections"></div>
-  </section>
+  </div>
 
   <!-- ============ PREV / NEXT ============ -->
-  <nav class="d-nav" aria-label="Project navigation">
+  <nav class="d-nav wrap" aria-label="Project navigation">
     <a class="d-pn d-prev" id="pjPrev"></a>
     <a class="d-pn d-next" id="pjNext"></a>
   </nav>
-
-  <!-- ============ CTA ============ -->
-  <section class="pj-cta">
-    <p class="mono">Have an idea worth shipping?</p>
-    <h2 class="disp">Let's build it.</h2>
-    <div class="pj-cta-actions">
-      <a href="mailto:nick.child@live.com">nick.child@live.com</a>
-      <a class="ghost" href="index.html#contact">About me</a>
-    </div>
-  </section>
 
 </main>
 
@@ -117,6 +104,6 @@
   <a href="https://www.linkedin.com/in/nchild/" target="_blank" rel="noopener">LinkedIn</a>
 </footer>
 
-<script type="module" src="project.js?v=4"></script>
+<script type="module" src="project.js?v=23"></script>
 </body>
 </html>

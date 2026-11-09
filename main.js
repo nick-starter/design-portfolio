@@ -4,7 +4,7 @@
 ================================================================== */
 
 import { PROJECTS, projectCover } from './projects.js';
-import { armPageTransition } from './transition.js';
+import { armPageTransition, landFromProject } from './transition.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -62,7 +62,6 @@ function fillSlot(el, p) {
 }
 
 /* ---------------- hero + feature slots ---------------- */
-fillSlot($('#aboutSlot'), PROJECTS[1]);
 fillSlot($('#expSlot'), PROJECTS[2]);
 fillSlot($('#cSlot1'), PROJECTS[0]);
 fillSlot($('#cSlot2'), PROJECTS[2]);
@@ -88,7 +87,7 @@ function projectCardMarkup(p, i) {
         <span class="cover cover--img"${p.image ? ` style="background-image: url(${p.image});"` : ''}></span>
       </a>
       <div class="proj-meta">
-        <span class="mono n">${n}. ${p.name}</span>
+        <span class="mono n"><b>${n}.</b> ${p.name}</span>
       </div>
     </article>`;
 }
@@ -295,10 +294,35 @@ track.addEventListener('click', (e) => {
 });
 
 /* ---------------- page transition ---------------- */
-/* Gallery cards glide to their project page behind the
-   ink veil. A track drag in progress vetoes the cover
-   so swiping the gallery never navigates. */
-armPageTransition('a[href^="project.html"]', { skip: () => moved });
+/* Gallery card thumbnails expand into the project page's
+   header image. A track drag in progress vetoes the
+   transition so swiping the gallery never navigates. */
+armPageTransition('a[href^="project.html"]', {
+  skip: () => moved,
+  expandFrom: (a) => (a.classList.contains('proj-open') ? $('.cover--img', a) : null),
+});
+
+/* Back from a project's Close: put that project's card in view
+   (scroll-driven or swipe gallery), then shrink the hero into it. */
+landFromProject(async (id) => {
+  const i = PROJECTS.findIndex((p) => p.id === id);
+  const proj = $$('.proj', track)[i];
+  if (!proj || !workSection) return null;
+  if (document.fonts?.ready) await document.fonts.ready;
+  await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+  measureWork();
+  const padL = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+  const want = Math.min(workMax, Math.max(0,
+    track.scrollLeft + proj.getBoundingClientRect().left - track.getBoundingClientRect().left - padL));
+  if (workDriven) {
+    window.scrollTo({ top: workSection.offsetTop + want, behavior: 'instant' });
+    applyWork();
+  } else {
+    window.scrollTo({ top: workSection.offsetTop, behavior: 'instant' });
+    track.scrollLeft = want;
+  }
+  return $('.cover--img', proj);
+});
 
 /* ---------------- misc ---------------- */
 $('#year').textContent = new Date().getFullYear();

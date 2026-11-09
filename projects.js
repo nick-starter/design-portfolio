@@ -409,6 +409,13 @@ export const PROJECTS = [
   {
     id: 'bupa',
     image: 'assets/2.jpg',
+    /* PLACEHOLDER: another designer's work (bpowell.co), here only to
+       show the layout. Replace with a real Bupa image before publishing. */
+    lead: 'assets/placeholder-lead.webp',
+    /* Gallery slots, in page order: pair, full, pair, full, pair.
+       null keeps the greyed stand-in. PLACEHOLDER images here are
+       also from bpowell.co and must be replaced before publishing. */
+    gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Bupa',
     client: 'Bupa',
     year: '2023 — Now',
@@ -461,14 +468,38 @@ export const PROJECTS = [
   {
     id: 'rebel',
     image: 'assets/3.jpg',
-    name: 'Rebel Sport',
+    /* Before/after slider on the project page: `before` and `after`
+       are image paths (same proportions work best). Add `compare` to
+       any project to enable it; without it the page shows the
+       generated web mockup tile instead. */
+    compare: { before: 'assets/rebel-before.webp', after: 'assets/rebel-after.webp' },
+    name: 'Rebel',
     client: 'Super Retail Group',
     year: '2022 — 2023',
     role: 'UI Designer',
-    tags: ['Web', 'E-commerce', 'UI'],
+    tags: ['E-commerce', 'UI', 'Visual design', 'Conversion'],
+    platform: 'Web',
+    /* `headline` is the one line under the title (the blurb is used
+       when there isn't one). `gallery` can list up to 8 image paths
+       for the slots (pair, full, pair, …). */
+    headline: 'A premium redesign of the Rebel website, tested with real customers before it went live.',
     blurb:
-      'New design and UI for the Rebel Sport website — from research and concepts through to testing and speccing out the final product.',
-    outcome: 'End-to-end e-commerce UI · research to spec',
+      "The old Rebel site was dated enough that suppliers like Adidas wouldn't put lines such as Originals on it. On contract at Super Retail Group, I redesigned the navigation, listing and product pages to feel as premium as Rebel's new concept stores, and each change was A/B tested with customers before it went live. Originals went on the site afterwards, and the design is still live.",
+    outcome: 'Premium e-commerce redesign · A/B tested to launch',
+    /* Case study copy: shown as the body text in the project page's
+       details row, as running paragraphs in this order. */
+    story: {
+      challenge: [
+        "The old Rebel site was dated. It had got to the point where some suppliers, Adidas among them, didn't want lines like Originals sold on it because of how it looked. Rebel was also rebuilding its stores as more upmarket Rebel X concept stores, and the business wanted the website to feel the same way, closer to what Nike and Adidas do online.",
+      ],
+      approach: [
+        "This was a contract at Super Retail Group. I worked through the navigation, the product listing page, the product page and even how images were displayed, and designed several options for each. We ran workshops with stakeholders most weeks to pick the strongest ones. Those went to the optimisation team, who switched each design on for a small number of customers, checked how it converted, and turned it up to everyone if it was doing better.",
+        "Nothing radical changed. Rebel's brand guidelines are strict, so the premium feel had to come from a better header, better typography and layout, and a set of templates for editorial-style content.",
+      ],
+      outcome: [
+        "Adidas Originals went onto the site after the project finished. In the tests, click-through went up significantly on each page we changed, and the design is still live. The UX was already solid before I started. Making it look better got people using it more, which is the aesthetic-usability effect doing what it says.",
+      ],
+    },
     brand: 'ember',
     seed: 2.6,
     nav: ['Home', 'Shop', 'Categories', 'Deals', 'Account'],
@@ -563,10 +594,12 @@ export const PROJECTS = [
     ],
   },
   {
-    id: 'tbwa',
+    id: 'officeworks',
     image: 'assets/5.jpg',
-    name: 'TBWA \\ Tequila',
-    client: 'Nissan · ANZ · Medibank',
+    name: 'Officeworks',
+    client: 'Officeworks',
+    /* TODO: role, year, tags, blurb and outcome below still describe
+       the old TBWA \\ Tequila entry. Replace with Officeworks details. */
     year: '2015 — 2018',
     role: 'Senior Digital Designer',
     tags: ['Campaign', 'Digital', 'Motion'],
@@ -773,7 +806,7 @@ export const PROJECTS = [
   {
     id: 'suzuki',
     image: 'assets/3.jpg',
-    name: 'Suzuki Motorcycles',
+    name: 'Suzuki',
     client: 'Suzuki Motorcycles',
     year: '2021',
     role: 'Digital Design',
