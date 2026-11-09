@@ -146,19 +146,22 @@ button { font: inherit; }
   white-space: nowrap;
   z-index: 1;
   align-self: center;
-  /* The longest line (DESIGNER + AI ENGINEER) spans the full .wrap content
-     box at every viewport: scales with 5.56vw until the 1600px wrap
-     cap, then fixes to that content box so it never overflows. */
-  font-size: clamp(1.5rem, 5.56vw, calc((1600px - 2 * var(--gut)) * 0.061));
+  /* Longest line (& VISUAL DESIGNER) fills 80vw — 10% inset each side. */
+  font-size: clamp(1.75rem, 6.1vw, calc(80vw * 0.07621));
   line-height: .9;
   display: block;
-  /* Shrink to the longest line and centre the block; lines stay
-     right-aligned within it. */
+  /* Shrink to the longest line and centre with 10% side padding;
+     lines stay right-aligned within the block. */
   width: max-content;
+  max-width: 80vw;
   justify-self: center;
+  margin-inline: auto;
   text-align: right;
 }
-.hero h1 span { display: block; }
+.hero h1 > span { display: block; }
+.hero h1 > span:first-child,
+.hero h1 > span:nth-child(3) { padding-right: 24px; }
+.hero h1 .red { display: inline; }
 /* Short viewports: keep the hero scrollable instead of clipping */
 @media (max-height: 620px) {
   .hero { height: auto; min-height: 100svh; }
@@ -254,7 +257,6 @@ button { font: inherit; }
 .tools li:has(.wordmark) { align-items: center; min-height: 1.5em; display: flex; }
 .wordmark { background: currentColor; height: 1.05em; display: block; -webkit-mask: var(--mark) left center / contain no-repeat; mask: var(--mark) left center / contain no-repeat; }
 .wordmark--eleven { --mark: url("assets/elevenlabs.png"); aspect-ratio: 818 / 107; }
-.wordmark--openai { --mark: url("assets/openai.png"); height: 1.5em; aspect-ratio: 1200 / 331; }
 .about-hat { align-self: center; justify-items: center; gap: 8px; display: grid; position: relative; }
 .about-hat::before {
   content: "";
@@ -266,7 +268,7 @@ button { font: inherit; }
 }
 .about-hat .slot { width: 100%; aspect-ratio: 1; max-width: 560px; }
 .about-hat:has(.about-photo)::before { display: none; }
-.about-photo { width: 100%; height: auto; max-width: 560px; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; border-radius: 2px; display: block; }
+.about-photo { width: 100%; height: auto; max-width: 560px; aspect-ratio: 1; object-fit: cover; object-position: 50% 30%; border-radius: 128px; display: block; }
 .about-hat .cap { color: var(--mute); text-align: center; }
 
 /* ---------------- work ---------------- */
