@@ -6,13 +6,19 @@
 <title>Nick Child — Visual Interaction &amp; Motion Designer</title>
 <meta name="description" content="Nick Child is a visual, interaction and motion designer with 20 years across health, retail, telco and advertising. Selected work, experience and contact." />
 <meta name="theme-color" content="#0c1114" />
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-<link rel="icon" href="assets/favicon.png" type="image/png" sizes="32x32" />
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
+<link rel="canonical" href="https://nickchild.co/" />
+<meta property="og:url" content="https://nickchild.co/" />
+<script>
+  /* Clean URLs: an old /index.html link shows as "/" */
+  if (/\/index(\.html)?$/.test(location.pathname)) history.replaceState(history.state, '', '/' + location.search + location.hash);
+</script>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/assets/favicon.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=99" />
+<link rel="stylesheet" href="/styles.css?v=99" />
 <script>
   /* Coming back from a project page (Close or the browser's Back):
      the project page slides off to the right as one piece, uncovering
@@ -29,8 +35,12 @@
         var act = window.navigation && navigation.activation;
         if (act) {
           var u = act.from && act.from.url ? new URL(act.from.url) : null;
-          if (!u || u.origin !== location.origin || !/project\.html$/.test(u.pathname)) return null;
-          return { id: u.searchParams.get('id') || '', traverse: act.navigationType === 'traverse' };
+          if (!u || u.origin !== location.origin) return null;
+          /* projects live at "/<id>" (older links: project.html?id=) */
+          var s = u.pathname.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+          if (s === 'project') s = u.searchParams.get('id') || '';
+          if (!s || s === 'index' || s.indexOf('/') >= 0) return null;
+          return { id: s, traverse: act.navigationType === 'traverse' };
         }
         var left = JSON.parse(sessionStorage.getItem('pj-left') || 'null');
         if (left && Date.now() - left.t < 5000) return { id: left.id, traverse: false };
@@ -87,7 +97,7 @@
 <!-- ============ NAV ============ -->
 <header class="nav wrap">
   <a class="logo" href="#top" aria-label="Nick Child — back to top">
-    <img src="assets/logo.png" alt="Nick Child" width="699" height="221" />
+    <img src="/assets/logo.png" alt="Nick Child" width="699" height="221" />
   </a>
   <nav aria-label="Primary">
     <ul>
@@ -114,50 +124,50 @@
       <div class="logo-slide__fade" aria-hidden="true"></div>
       <div class="logo-slide__track">
         <ul>
-          <li><img class="logo-svg logo-telstra" src="assets/logos/telstra.svg" alt="Telstra" /></li>
-          <li><img class="logo-svg logo-tbwa" src="assets/logos/tbwa.png" alt="TBWA" /></li>
-          <li><img class="logo-svg logo-jwt" src="assets/logos/jwt.svg" alt="JWT" /></li>
-          <li><img class="logo-svg logo-bupa" src="assets/logos/bupa.png?v=2" alt="Bupa" width="589" height="156" /></li>
-          <li><img class="logo-svg logo-rebel" src="assets/logos/rebel.png" alt="Rebel" /></li>
-          <li><img class="logo-svg logo-nissan" src="assets/logos/nissan.svg" alt="Nissan" /></li>
-          <li><img class="logo-svg logo-anz" src="assets/logos/anz.svg" alt="ANZ" /></li>
-          <li><img class="logo-svg logo-medibank" src="assets/logos/medibank.svg" alt="Medibank" /></li>
-          <li><img class="logo-svg logo-playstation" src="assets/logos/playstation.svg" alt="PlayStation" /></li>
-          <li><img class="logo-svg logo-schweppes" src="assets/logos/schweppes.svg" alt="Schweppes" /></li>
-          <li><img class="logo-svg logo-westpac" src="assets/logos/westpac.svg" alt="Westpac" /></li>
-          <li><img class="logo-svg logo-suzuki" src="assets/logos/suzuki.svg" alt="Suzuki" /></li>
-          <li><img class="logo-svg logo-hp" src="assets/logos/hp.svg" alt="Hewlett-Packard" /></li>
-          <li><img class="logo-svg logo-opel" src="assets/logos/opel.svg" alt="Opel" /></li>
-          <li><img class="logo-svg logo-disney" src="assets/logos/disney.svg" alt="Disney Pixar" /></li>
-          <li><img class="logo-svg logo-ford" src="assets/logos/ford.png" alt="Ford" /></li>
-          <li><img class="logo-svg logo-cargocrew" src="assets/logos/cargocrew.png" alt="Cargo Crew" /></li>
-          <li><img class="logo-svg logo-officeworks" src="assets/logos/officeworks.png" alt="Officeworks" /></li>
-          <li><img class="logo-svg logo-kitchenwarehouse" src="assets/logos/kitchenwarehouse.png" alt="Kitchen Warehouse" /></li>
-          <li><img class="logo-svg logo-publicis" src="assets/logos/publicis.png" alt="Publicis" /></li>
-          <li><img class="logo-svg logo-allianz" src="assets/logos/allianz.png" alt="Allianz" /></li>
+          <li><img class="logo-svg logo-telstra" src="/assets/logos/telstra.svg" alt="Telstra" /></li>
+          <li><img class="logo-svg logo-tbwa" src="/assets/logos/tbwa.png" alt="TBWA" /></li>
+          <li><img class="logo-svg logo-jwt" src="/assets/logos/jwt.svg" alt="JWT" /></li>
+          <li><img class="logo-svg logo-bupa" src="/assets/logos/bupa.png?v=2" alt="Bupa" width="589" height="156" /></li>
+          <li><img class="logo-svg logo-rebel" src="/assets/logos/rebel.png" alt="Rebel" /></li>
+          <li><img class="logo-svg logo-nissan" src="/assets/logos/nissan.svg" alt="Nissan" /></li>
+          <li><img class="logo-svg logo-anz" src="/assets/logos/anz.svg" alt="ANZ" /></li>
+          <li><img class="logo-svg logo-medibank" src="/assets/logos/medibank.svg" alt="Medibank" /></li>
+          <li><img class="logo-svg logo-playstation" src="/assets/logos/playstation.svg" alt="PlayStation" /></li>
+          <li><img class="logo-svg logo-schweppes" src="/assets/logos/schweppes.svg" alt="Schweppes" /></li>
+          <li><img class="logo-svg logo-westpac" src="/assets/logos/westpac.svg" alt="Westpac" /></li>
+          <li><img class="logo-svg logo-suzuki" src="/assets/logos/suzuki.svg" alt="Suzuki" /></li>
+          <li><img class="logo-svg logo-hp" src="/assets/logos/hp.svg" alt="Hewlett-Packard" /></li>
+          <li><img class="logo-svg logo-opel" src="/assets/logos/opel.svg" alt="Opel" /></li>
+          <li><img class="logo-svg logo-disney" src="/assets/logos/disney.svg" alt="Disney Pixar" /></li>
+          <li><img class="logo-svg logo-ford" src="/assets/logos/ford.png" alt="Ford" /></li>
+          <li><img class="logo-svg logo-cargocrew" src="/assets/logos/cargocrew.png" alt="Cargo Crew" /></li>
+          <li><img class="logo-svg logo-officeworks" src="/assets/logos/officeworks.png" alt="Officeworks" /></li>
+          <li><img class="logo-svg logo-kitchenwarehouse" src="/assets/logos/kitchenwarehouse.png" alt="Kitchen Warehouse" /></li>
+          <li><img class="logo-svg logo-publicis" src="/assets/logos/publicis.png" alt="Publicis" /></li>
+          <li><img class="logo-svg logo-allianz" src="/assets/logos/allianz.png" alt="Allianz" /></li>
         </ul>
         <ul aria-hidden="true">
-          <li><img class="logo-svg logo-telstra" src="assets/logos/telstra.svg" alt="" /></li>
-          <li><img class="logo-svg logo-tbwa" src="assets/logos/tbwa.png" alt="" /></li>
-          <li><img class="logo-svg logo-jwt" src="assets/logos/jwt.svg" alt="" /></li>
-          <li><img class="logo-svg logo-bupa" src="assets/logos/bupa.png?v=2" alt="" width="589" height="156" /></li>
-          <li><img class="logo-svg logo-rebel" src="assets/logos/rebel.png" alt="" /></li>
-          <li><img class="logo-svg logo-nissan" src="assets/logos/nissan.svg" alt="" /></li>
-          <li><img class="logo-svg logo-anz" src="assets/logos/anz.svg" alt="" /></li>
-          <li><img class="logo-svg logo-medibank" src="assets/logos/medibank.svg" alt="" /></li>
-          <li><img class="logo-svg logo-playstation" src="assets/logos/playstation.svg" alt="" /></li>
-          <li><img class="logo-svg logo-schweppes" src="assets/logos/schweppes.svg" alt="" /></li>
-          <li><img class="logo-svg logo-westpac" src="assets/logos/westpac.svg" alt="" /></li>
-          <li><img class="logo-svg logo-suzuki" src="assets/logos/suzuki.svg" alt="" /></li>
-          <li><img class="logo-svg logo-hp" src="assets/logos/hp.svg" alt="" /></li>
-          <li><img class="logo-svg logo-opel" src="assets/logos/opel.svg" alt="" /></li>
-          <li><img class="logo-svg logo-disney" src="assets/logos/disney.svg" alt="" /></li>
-          <li><img class="logo-svg logo-ford" src="assets/logos/ford.png" alt="" /></li>
-          <li><img class="logo-svg logo-cargocrew" src="assets/logos/cargocrew.png" alt="" /></li>
-          <li><img class="logo-svg logo-officeworks" src="assets/logos/officeworks.png" alt="" /></li>
-          <li><img class="logo-svg logo-kitchenwarehouse" src="assets/logos/kitchenwarehouse.png" alt="" /></li>
-          <li><img class="logo-svg logo-publicis" src="assets/logos/publicis.png" alt="" /></li>
-          <li><img class="logo-svg logo-allianz" src="assets/logos/allianz.png" alt="" /></li>
+          <li><img class="logo-svg logo-telstra" src="/assets/logos/telstra.svg" alt="" /></li>
+          <li><img class="logo-svg logo-tbwa" src="/assets/logos/tbwa.png" alt="" /></li>
+          <li><img class="logo-svg logo-jwt" src="/assets/logos/jwt.svg" alt="" /></li>
+          <li><img class="logo-svg logo-bupa" src="/assets/logos/bupa.png?v=2" alt="" width="589" height="156" /></li>
+          <li><img class="logo-svg logo-rebel" src="/assets/logos/rebel.png" alt="" /></li>
+          <li><img class="logo-svg logo-nissan" src="/assets/logos/nissan.svg" alt="" /></li>
+          <li><img class="logo-svg logo-anz" src="/assets/logos/anz.svg" alt="" /></li>
+          <li><img class="logo-svg logo-medibank" src="/assets/logos/medibank.svg" alt="" /></li>
+          <li><img class="logo-svg logo-playstation" src="/assets/logos/playstation.svg" alt="" /></li>
+          <li><img class="logo-svg logo-schweppes" src="/assets/logos/schweppes.svg" alt="" /></li>
+          <li><img class="logo-svg logo-westpac" src="/assets/logos/westpac.svg" alt="" /></li>
+          <li><img class="logo-svg logo-suzuki" src="/assets/logos/suzuki.svg" alt="" /></li>
+          <li><img class="logo-svg logo-hp" src="/assets/logos/hp.svg" alt="" /></li>
+          <li><img class="logo-svg logo-opel" src="/assets/logos/opel.svg" alt="" /></li>
+          <li><img class="logo-svg logo-disney" src="/assets/logos/disney.svg" alt="" /></li>
+          <li><img class="logo-svg logo-ford" src="/assets/logos/ford.png" alt="" /></li>
+          <li><img class="logo-svg logo-cargocrew" src="/assets/logos/cargocrew.png" alt="" /></li>
+          <li><img class="logo-svg logo-officeworks" src="/assets/logos/officeworks.png" alt="" /></li>
+          <li><img class="logo-svg logo-kitchenwarehouse" src="/assets/logos/kitchenwarehouse.png" alt="" /></li>
+          <li><img class="logo-svg logo-publicis" src="/assets/logos/publicis.png" alt="" /></li>
+          <li><img class="logo-svg logo-allianz" src="/assets/logos/allianz.png" alt="" /></li>
         </ul>
       </div>
     </div>
@@ -191,7 +201,7 @@
       </div>
 
       <div class="about-hat">
-        <img class="about-photo" src="assets/nick-portrait-bw.jpg?v=2" alt="Black and white portrait of Nick Child in an orange beanie and black glasses" width="1230" height="670" loading="lazy">
+        <img class="about-photo" src="/assets/nick-portrait-bw.jpg?v=2" alt="Black and white portrait of Nick Child in an orange beanie and black glasses" width="1230" height="670" loading="lazy">
       </div>
     </div>
   </section>
@@ -280,6 +290,6 @@
 
 </main>
 
-<script type="module" src="main.js?v=24"></script>
+<script type="module" src="/main.js?v=25"></script>
 </body>
 </html>

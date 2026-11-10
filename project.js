@@ -1,16 +1,15 @@
 /* ==================================================================
    Nick Child — individual project page
-   Reads ?id= from the URL and renders the project's visual area,
+   Reads the project id from the URL ("/<id>") and renders the project's visual area,
    case study and prev/next navigation.
 ================================================================== */
 
 import { PROJECTS, desktopScreen } from './projects.js?v=4';
-import { armPageTransition, leaveProject, fillTitle } from './transition.js?v=8';
+import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=9';
 
 const $ = (s, r = document) => r.querySelector(s);
 
-const params = new URLSearchParams(location.search);
-const wanted = params.get('id');
+const wanted = slugOf(location.href);
 let index = PROJECTS.findIndex((p) => p.id === wanted);
 if (index < 0) index = 0;
 
@@ -229,11 +228,11 @@ addEventListener('resize', () => setTimeout(rememberTile, 200), { passive: true 
 
 /* ---------------- prev / next ---------------- */
 const prevA = $('#pjPrev');
-prevA.href = `project.html?id=${prev.id}`;
+prevA.href = projectUrl(prev.id);
 prevA.innerHTML = `<span class="arr">←</span><span class="d-pn-t"><span class="mono">Previous project</span><span class="d-pn-name">${prev.name}</span></span>`;
 
 const nextA = $('#pjNext');
-nextA.href = `project.html?id=${next.id}`;
+nextA.href = projectUrl(next.id);
 nextA.innerHTML = `<span class="d-pn-t"><span class="mono">Next project</span><span class="d-pn-name">${next.name}</span></span><span class="arr">→</span>`;
 
 addEventListener('keydown', (e) => {
@@ -250,7 +249,7 @@ $('#year').textContent = new Date().getFullYear();
 /* Close, logo and prev/next all glide behind
    the ink veil (the entrance veil is cleared by
    transition.js itself). */
-armPageTransition('a[href^="project.html"], a[href^="index.html"]');
+armPageTransition('a.d-pn, a.logo');
 
 /* Close (and Escape) slide the whole page away to the index (see
    leaveProject). Stopping propagation keeps the veil handler above
@@ -259,7 +258,7 @@ $('.d-close').addEventListener('click', (e) => {
   if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
   e.preventDefault();
   e.stopPropagation();
-  leaveProject('index.html', p.id);
+  leaveProject('/', p.id);
 });
 
 /* QA handle */

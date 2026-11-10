@@ -8,7 +8,7 @@ visual area, experience list, a scroll-driven method section, and a contact card
 
 - Editorial, responsive layout (mobile → desktop) built on a bone-on-ink palette with a red accent
 - Work gallery of 8 selected projects from a 20-year career (Bupa, Rebel Sport, Telstra, TBWA, JWT, WCRS, Cargo Crew, Suzuki Motorcycles)
-- Each project opens a dedicated page (`project.html?id=…`) with a visual area — web and mobile mockups, cover art and a colour/type system — plus overview, outcome, approach and prev/next navigation
+- Each project opens a dedicated page at a clean URL (`/rebel`, `/telstra`, …) with a visual area — web and mobile mockups, cover art and a colour/type system — plus overview, outcome, approach and prev/next navigation
 - Project artwork generated procedurally with Canvas 2D — no image assets required
 - Scroll-driven method steps, nav scroll-spy, animated stats and a horizontal drag/wheel gallery
 - Custom type: Archivo (variable, wide), Instrument Serif and JetBrains Mono
@@ -23,10 +23,15 @@ visual area, experience list, a scroll-driven method section, and a contact card
 
 ```
 index.html      folio page markup
-project.html    individual project page shell
+project.html    project page template (source for the generated /<id> pages)
+<id>.html       one generated page per project, served at /<id> (do not edit)
+404.html        generated: /rebel/ → /rebel, unknown paths → /
+sitemap.xml     generated
+scripts/build-pages.mjs  regenerates the project pages, 404.html and sitemap.xml:
+                node scripts/build-pages.mjs  (after editing project.html or project ids)
 styles.css      layout + design tokens (folio + project page)
 main.js         gallery, method scroll, nav spy
-project.js      project page renderer (reads ?id=)
+project.js      project page renderer (reads the id from the URL path)
 projects.js     project data + Canvas 2D mockups
 assets/logo.png top-left wordmark
 ```

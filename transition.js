@@ -25,13 +25,20 @@ if (veil) {
   else arm();
 }
 
-const isIndexUrl = (u) => {
+/* Clean URLs: the index is "/", each project lives at "/<id>"
+   (a generated <id>.html, see scripts/build-pages.mjs). */
+export const projectUrl = (id) => `/${id}`;
+export function slugOf(u) {
   try {
     const url = new URL(u, location.href);
-    return url.origin === location.origin && /\/(index\.html)?$/.test(url.pathname);
-  } catch { return false; }
-};
-const onProject = /project\.html$/.test(location.pathname);
+    if (url.origin !== location.origin) return null;
+    const s = url.pathname.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+    if (s === 'project') return url.searchParams.get('id') || url.searchParams.get('p') || '';
+    return s;
+  } catch { return null; }
+}
+const isIndexUrl = (u) => { const s = slugOf(u); return s === '' || s === 'index'; };
+const onProject = document.documentElement.dataset.page === 'project';
 
 /* Cross-document view transitions (styles.css opts both pages in)
    are only used for project → index: the page slide run by the
@@ -48,7 +55,7 @@ if (onProject) {
   addEventListener('pagehide', () => {
     try {
       sessionStorage.setItem('pj-left', JSON.stringify({
-        id: new URLSearchParams(location.search).get('id') || '', t: Date.now(),
+        id: slugOf(location.href) || '', t: Date.now(),
       }));
     } catch { /* noop */ }
   });
@@ -68,7 +75,7 @@ addEventListener('pageshow', (e) => {
    A fixed clone of the project image grows from a gallery card's
    rect to where the first image tile on the project page is
    expected to sit; the project page then starts its tile on the
-   clone's final rect and settles it (inline script in project.html),
+   clone's final rect and settles it (inline script in the page head),
    so a wrong guess is harmless. (The way back is a whole-page slide,
    see leaveProject.) */
 const EXPAND_KEY = 'pj-expand';
@@ -139,7 +146,7 @@ function makeClone(bg, rect) {
 function expand(href, from) {
   busy = true;
   const r = from.getBoundingClientRect();
-  const id = new URL(href, location.href).searchParams.get('id') || '';
+  const id = slugOf(href) || '';
   const to = tileGuess(id);
   const bg = getComputedStyle(from).backgroundImage;
   const { el, backdrop } = makeClone(bg, r);
@@ -175,7 +182,7 @@ function expand(href, from) {
    history.back(), so the browser restores the index exactly where
    it was left (and the browser's own Back button gets the same
    slide). The slide itself is a cross-document view transition
-   run by index.html's head script. Browsers without one slide
+   run by the index's head script. Browsers without one slide
    this page out over ink here, then load the index. */
 const hasPageVT = 'PageRevealEvent' in window;
 function prevIsIndex() {
@@ -210,7 +217,7 @@ addEventListener('pageshow', (e) => {
   document.documentElement.style.overflowX = '';
 });
 
-/* Index side of the trip back. index.html's head script marks
+/* Index side of the trip back. The index's head script marks
    html.pj-back with the project's id when the card has to be put in
    view (after a Close with no history to go back to); `findCard`
    does that. After a Back that reloaded the index, `restore` puts

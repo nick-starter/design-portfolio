@@ -1,18 +1,32 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-page="project">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Project — Nick Child</title>
 <meta name="description" content="Selected project by Nick Child — visual interaction and motion design." />
 <meta name="theme-color" content="#0c1114" />
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-<link rel="icon" href="assets/favicon.png" type="image/png" sizes="32x32" />
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180" />
+<!--pj-meta-->
+<script>
+  /* Clean URLs: projects live at "/<id>". Old project.html?id=x and
+     /project?id=x links are sent there; "/x.html" shows as "/x". */
+  (function () {
+    var path = location.pathname.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+    if (path === 'project') {
+      var q = new URLSearchParams(location.search);
+      location.replace('/' + (q.get('id') || q.get('p') || '') + location.hash);
+    } else if (/\.html$/.test(location.pathname)) {
+      history.replaceState(history.state, '', '/' + path + location.search + location.hash);
+    }
+  })();
+</script>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/assets/favicon.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=99" />
+<link rel="stylesheet" href="/styles.css?v=99" />
 <script>
   /* Arriving from a gallery card's expand: skip the veil reveal. The
      card's clone ended on where the first image tile should sit;
@@ -20,7 +34,7 @@
   try {
     var arrive = JSON.parse(sessionStorage.getItem('pj-expand') || 'null');
     sessionStorage.removeItem('pj-expand');
-    if (arrive && arrive.id === new URLSearchParams(location.search).get('id')) {
+    if (arrive && arrive.id === location.pathname.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '')) {
       var h = document.documentElement;
       h.classList.add('from-card');
       window.__pjArrive = arrive;
@@ -42,10 +56,10 @@
 
 <!-- ============ NAV ============ -->
 <header class="nav wrap">
-  <a class="logo" href="index.html" aria-label="Nick Child — home">
-    <img src="assets/logo.png" alt="Nick Child" width="699" height="221" />
+  <a class="logo" href="/" aria-label="Nick Child — home">
+    <img src="/assets/logo.png" alt="Nick Child" width="699" height="221" />
   </a>
-  <a class="d-close" href="index.html#work">Close</a>
+  <a class="d-close" href="/#work">Close</a>
 </header>
 
 <main class="pj">
@@ -58,7 +72,7 @@
 
   <div class="pj-stack wrap">
     <!-- ============ LEAD IMAGE ============ -->
-    <figure class="pj-tile pj-tile--hero" id="pjHero"><img id="pjCover" src="assets/placeholder.png" alt="" /></figure>
+    <figure class="pj-tile pj-tile--hero" id="pjHero"><img id="pjCover" src="/assets/placeholder.png" alt="" /></figure>
 
     <!-- ============ DETAILS: facts left, body text right ============ -->
     <section class="pj-details">
@@ -97,6 +111,6 @@
   <a href="https://www.linkedin.com/in/nchild/" target="_blank" rel="noopener">LinkedIn</a>
 </footer>
 
-<script type="module" src="project.js?v=31"></script>
+<script type="module" src="/project.js?v=32"></script>
 </body>
 </html>

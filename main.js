@@ -4,7 +4,7 @@
 ================================================================== */
 
 import { PROJECTS, projectCover } from './projects.js?v=4';
-import { armPageTransition, landFromProject } from './transition.js?v=8';
+import { armPageTransition, landFromProject, projectUrl } from './transition.js?v=9';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -83,7 +83,7 @@ function projectCardMarkup(p, i) {
   const n = String(i + 1).padStart(2, '0');
   return `
     <article class="proj">
-      <a class="proj-open" href="project.html?id=${p.id}" aria-label="View ${p.name} project">
+      <a class="proj-open" href="${projectUrl(p.id)}" aria-label="View ${p.name} project">
         <span class="cover cover--img"${p.image ? ` style="background-image: url(${p.image});"` : ''}></span>
       </a>
       <div class="proj-meta">
@@ -275,7 +275,7 @@ track.addEventListener('click', (e) => {
 /* Gallery card thumbnails expand into the project page's
    header image. A track drag in progress vetoes the
    transition so swiping the gallery never navigates. */
-armPageTransition('a[href^="project.html"]', {
+armPageTransition('a.proj-open', {
   skip: () => moved,
   expandFrom: (a) => (a.classList.contains('proj-open') ? $('.cover--img', a) : null),
 });
@@ -319,7 +319,7 @@ addEventListener('pagehide', () => {
 $('#year').textContent = new Date().getFullYear();
 
 /* ---------------- deep-link landing ---------------- */
-/* Project pages link back to index.html#work etc. Make sure a full
+/* Project pages link back to /#work etc. Make sure a full
    page load with a hash actually lands on that section, even after
    the gallery resizes itself on load. */
 if (location.hash) {
@@ -349,5 +349,5 @@ addEventListener('hashchange', () => {
 /* QA handle */
 window.__folio = {
   projects: PROJECTS,
-  urlFor: (id) => `project.html?id=${id}`,
+  urlFor: projectUrl,
 };
