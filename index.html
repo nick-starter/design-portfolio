@@ -12,25 +12,70 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=98" />
+<link rel="stylesheet" href="styles.css?v=99" />
 <script>
-  /* Arriving from a project's Close: hold the project's hero image
-     on screen from the first paint; main.js then shrinks it into
-     the project's gallery card (see landFromProject). */
-  try {
-    var pj = JSON.parse(sessionStorage.getItem('pj-collapse') || 'null');
-    sessionStorage.removeItem('pj-collapse');
-    if (pj && pj.image && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      var h = document.documentElement;
-      h.classList.add('from-project');
-      h.dataset.pjId = pj.id;
-      h.style.setProperty('--pj-img', 'url("' + pj.image + '")');
-      if (pj.rect) {
-        h.dataset.pjRect = JSON.stringify(pj.rect);
-        ['left', 'top', 'width', 'height'].forEach(function (k) { h.style.setProperty('--pj-' + k, pj.rect[k] + 'px'); });
-      }
+  /* Coming back from a project page (Close or the browser's Back):
+     the project page slides off to the right as one piece, uncovering
+     this page. Done with a cross-document view transition: the
+     outgoing page's snapshot is held on top until this page is in
+     place, then slid away. Without view transitions, project.js
+     slides the old page out itself and this page's veil reveals it. */
+  (function () {
+    var h = document.documentElement;
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
+    function fromProject() {
+      try {
+        var act = window.navigation && navigation.activation;
+        if (act) {
+          var u = act.from && act.from.url ? new URL(act.from.url) : null;
+          if (!u || u.origin !== location.origin || !/project\.html$/.test(u.pathname)) return null;
+          return { id: u.searchParams.get('id') || '', traverse: act.navigationType === 'traverse' };
+        }
+        var left = JSON.parse(sessionStorage.getItem('pj-left') || 'null');
+        if (left && Date.now() - left.t < 5000) return { id: left.id, traverse: false };
+      } catch (e) { /* noop */ }
+      return null;
     }
-  } catch (e) { /* noop */ }
+    var from = fromProject();
+    var close = null;
+    try { close = sessionStorage.getItem('pj-close'); sessionStorage.removeItem('pj-close'); } catch (e) { /* noop */ }
+    if (from || close !== null) {
+      h.classList.add('pj-back');
+      /* after a Close that had no history to go back to, put the
+         project's card in view (a Back keeps the browser's own
+         scroll restoration) */
+      if (close !== null) h.dataset.pjPlace = close;
+      else if (from && from.traverse) h.dataset.pjRestore = '1';
+    }
+    try { sessionStorage.removeItem('pj-left'); } catch (e) { /* noop */ }
+
+    addEventListener('pagereveal', function (e) {
+      var vt = e.viewTransition;
+      if (!vt) return;
+      /* a Back restored from the bfcache re-runs this, so look again */
+      if (reduced || !fromProject()) { vt.skipTransition(); return; }
+      h.classList.add('pj-vt', 'pj-slid');
+      vt.ready.then(function () {
+        var old = '::view-transition-old(root)';
+        var neu = '::view-transition-new(root)';
+        var hold = h.animate({ opacity: [1, 1] }, { duration: 4000, pseudoElement: old });
+        var started = false;
+        function go() {
+          if (started) return;
+          started = true;
+          h.animate({ transform: ['translateX(0)', 'translateX(100%)'] },
+            { duration: 700, easing: EASE, fill: 'forwards', pseudoElement: old });
+          h.animate({ transform: ['translateX(-18%)', 'translateX(0)'] },
+            { duration: 700, easing: EASE, fill: 'forwards', pseudoElement: neu });
+          hold.cancel();
+        }
+        if (window.__pjLanded && !h.classList.contains('pj-back')) go();
+        else { addEventListener('pj-landed', go, { once: true }); setTimeout(go, 1500); }
+      }).catch(function () { /* noop */ });
+      vt.finished.finally(function () { h.classList.remove('pj-vt'); });
+    });
+  })();
 </script>
 </head>
 <body id="site">
@@ -235,6 +280,6 @@
 
 </main>
 
-<script type="module" src="main.js?v=21"></script>
+<script type="module" src="main.js?v=22"></script>
 </body>
 </html>

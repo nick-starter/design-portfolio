@@ -5,7 +5,7 @@
 ================================================================== */
 
 import { PROJECTS, desktopScreen } from './projects.js?v=2';
-import { armPageTransition, leaveProject, fillTitle } from './transition.js?v=5';
+import { armPageTransition, leaveProject, fillTitle } from './transition.js?v=6';
 
 const $ = (s, r = document) => r.querySelector(s);
 
@@ -252,14 +252,14 @@ $('#year').textContent = new Date().getFullYear();
    transition.js itself). */
 armPageTransition('a[href^="project.html"], a[href^="index.html"]');
 
-/* Close (and Escape) reverse the card expand: the header image
-   shrinks back into this project's gallery card on the index.
-   Stopping propagation keeps the veil handler above out of it. */
+/* Close (and Escape) slide the whole page away to the index (see
+   leaveProject). Stopping propagation keeps the veil handler above
+   out of it. */
 $('.d-close').addEventListener('click', (e) => {
   if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
   e.preventDefault();
   e.stopPropagation();
-  leaveProject('index.html', p.id, leadImage, $('#pjHero'));
+  leaveProject('index.html', p.id);
 });
 
 /* QA handle */

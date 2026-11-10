@@ -4,7 +4,7 @@
 ================================================================== */
 
 import { PROJECTS, projectCover } from './projects.js?v=2';
-import { armPageTransition, landFromProject } from './transition.js?v=5';
+import { armPageTransition, landFromProject } from './transition.js?v=6';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -280,8 +280,8 @@ armPageTransition('a[href^="project.html"]', {
   expandFrom: (a) => (a.classList.contains('proj-open') ? $('.cover--img', a) : null),
 });
 
-/* Back from a project's Close: put that project's card in view
-   (scroll-driven or swipe gallery), then shrink the hero into it. */
+/* Back from a project: put that project's card in view (scroll-
+   driven or swipe gallery) before the project page slides away. */
 landFromProject(async (id) => {
   const i = PROJECTS.findIndex((p) => p.id === id);
   const proj = $$('.proj', track)[i];
@@ -300,6 +300,19 @@ landFromProject(async (id) => {
     track.scrollLeft = want;
   }
   return $('.cover--img', proj);
+}, async () => {
+  /* A Back that reloaded this page: the browser restores the window
+     scroll but not the swipe gallery's, so put that back too. */
+  let left = NaN;
+  try { left = parseFloat(sessionStorage.getItem('idx-track')); } catch { /* noop */ }
+  if (document.fonts?.ready) await document.fonts.ready;
+  await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+  measureWork();
+  if (workDriven) applyWork();
+  else if (Number.isFinite(left)) track.scrollLeft = left;
+});
+addEventListener('pagehide', () => {
+  try { sessionStorage.setItem('idx-track', String(track.scrollLeft)); } catch { /* noop */ }
 });
 
 /* ---------------- misc ---------------- */

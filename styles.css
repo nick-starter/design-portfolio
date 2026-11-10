@@ -988,14 +988,11 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
 }
 .pg-expand-bg { inset: 0; background: var(--ink); }
 .pg-expand-img { background-size: cover; background-position: center; position: absolute; inset: 0; }
-/* Index arriving from a project Close: the veil holds still and
-   shows the hero image until landFromProject() takes over. A project
-   arriving from a card's expand does the same, minus the ink, until
-   settleArrival() hands over to the real tile. */
-.from-project .pg-veil--reveal,
+/* A project arriving from a card's expand: the veil holds still,
+   minus the ink, and shows the hero image until settleArrival()
+   hands over to the real tile. */
 .from-card .pg-veil--reveal { animation: none; }
 .from-card .pg-veil--reveal { background: none; }
-.from-project .pg-veil--reveal::after,
 .from-card .pg-veil--reveal::after {
   content: "";
   background: var(--pj-img) center / cover no-repeat;
@@ -1011,6 +1008,18 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
 .from-card .pj-stack > :not(.pj-tile--hero):not(script),
 .from-card .nav { animation: pj-rise .6s cubic-bezier(.2, .7, .2, 1) both; }
 .from-card .pj-stack > :not(.pj-tile--hero):not(script) { animation-delay: .08s; }
+/* Project → index: the project page slides off to the right as one
+   piece (index.html's head script runs it as a view transition). The
+   index waits for it with its entrance veil paused (or hidden). */
+@view-transition { navigation: auto; }
+.pj-back .pg-veil--reveal { animation-play-state: paused; }
+.pj-slid .pg-veil--reveal { display: none; }
+html.pj-vt::view-transition-group(root) { animation: none; }
+html.pj-vt::view-transition-image-pair(root) { isolation: auto; }
+html.pj-vt::view-transition-old(root),
+html.pj-vt::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+html.pj-vt::view-transition-old(root) { z-index: 1; box-shadow: -30px 0 80px rgba(0, 0, 0, .6); }
+
 @keyframes pj-rise {
   from { opacity: 0; transform: translateY(18px); }
 }

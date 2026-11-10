@@ -11,13 +11,47 @@ const $ = (s, r = document) => r.querySelector(s);
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* Clear the entrance veil once it has slid off the screen. When the
-   index is arriving from a project Close, the veil is holding the
-   hero image instead and landFromProject() takes it down. */
+   index is arriving back from a project, the veil waits until
+   landFromProject() has put the project's card in view (or, where the
+   browser runs the page-slide view transition, is hidden outright). */
 const veil = $('.pg-veil');
-if (veil && !document.documentElement.classList.contains('from-project')) {
+if (veil) {
   const done = () => veil.remove();
-  veil.addEventListener('animationend', done, { once: true });
-  setTimeout(done, 900);
+  const arm = () => {
+    veil.addEventListener('animationend', done, { once: true });
+    setTimeout(done, 900);
+  };
+  if (document.documentElement.classList.contains('pj-back')) addEventListener('pj-landed', arm, { once: true });
+  else arm();
+}
+
+const isIndexUrl = (u) => {
+  try {
+    const url = new URL(u, location.href);
+    return url.origin === location.origin && /\/(index\.html)?$/.test(url.pathname);
+  } catch { return false; }
+};
+const onProject = /project\.html$/.test(location.pathname);
+
+/* Cross-document view transitions (styles.css opts both pages in)
+   are only used for project → index: the page slide run by the
+   index's head script. Every other navigation has its own
+   transition, so the browser's default cross-fade is skipped. */
+addEventListener('pageswap', (e) => {
+  if (!e.viewTransition) return;
+  const to = e.activation && e.activation.entry && e.activation.entry.url;
+  if (!(onProject && to && isIndexUrl(to))) e.viewTransition.skipTransition();
+});
+/* Tell the index which project it is coming back from (covers
+   browsers without the Navigation API's activation info). */
+if (onProject) {
+  addEventListener('pagehide', () => {
+    try {
+      sessionStorage.setItem('pj-left', JSON.stringify({
+        id: new URLSearchParams(location.search).get('id') || '', t: Date.now(),
+      }));
+    } catch { /* noop */ }
+  });
 }
 
 let busy = false;
@@ -30,17 +64,14 @@ addEventListener('pageshow', (e) => {
   document.querySelectorAll('.pg-veil--cover, .pg-expand').forEach((el) => el.remove());
 });
 
-/* ---------------- card ⇄ project image ----------------
-   A fixed clone of the project image moves between a gallery
-   card's rect and the first image tile on the project page.
-   Expand: card → where that tile is expected to sit; the project
-   page then starts its tile on the clone's final rect and settles
-   it (inline script in project.html), so a wrong guess is harmless.
-   Close:  the project page fades to ink around the tile, then the
-   index opens holding the image on that same rect and shrinks it
-   into the card. */
+/* ---------------- card → project image ----------------
+   A fixed clone of the project image grows from a gallery card's
+   rect to where the first image tile on the project page is
+   expected to sit; the project page then starts its tile on the
+   clone's final rect and settles it (inline script in project.html),
+   so a wrong guess is harmless. (The way back is a whole-page slide,
+   see leaveProject.) */
 const EXPAND_KEY = 'pj-expand';
-const COLLAPSE_KEY = 'pj-collapse';
 const EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
 const DUR = 700;
 const TILE_RADIUS = '2px';
@@ -91,7 +122,6 @@ function tileGuess(id) {
   return { left: g, top: r.height, width, height: (width * 2) / 3 };
 }
 const box = (r) => ({ left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px` });
-const plain = (r) => ({ left: r.left, top: r.top, width: r.width, height: r.height });
 
 function makeClone(bg, rect) {
   const backdrop = document.createElement('div');
@@ -138,55 +168,64 @@ function expand(href, from) {
   setTimeout(go, DUR + 20);
 }
 
-/* Project page → index. `tile` is the project's first image tile;
-   if the page is scrolled, the image first glides back to where
-   the tile sits at the top of the page. */
-export function leaveProject(href, id, image, tile) {
-  if (busy) return;
-  if (reduced || !image || !tile) { location.href = href; return; }
-  busy = true;
-  const r = tile.getBoundingClientRect();
-  const home = { left: r.left, top: r.top + scrollY, width: r.width, height: r.height };
-  const { el, backdrop } = makeClone(`url("${image}")`, r);
-  el.style.borderRadius = TILE_RADIUS;
-  const out = 380;
-  backdrop.animate([{ opacity: 0 }, { opacity: 1 }], { duration: out, easing: 'ease-out', fill: 'forwards' });
-  el.animate([box(r), box(home)], { duration: out, easing: EASE, fill: 'forwards' });
-  setTimeout(() => {
-    try { sessionStorage.setItem(COLLAPSE_KEY, JSON.stringify({ id, image, rect: plain(home) })); } catch { /* noop */ }
-    location.href = href;
-  }, out + 20);
+/* Project page → index (Close / Escape). The whole project page
+   slides off to the right, uncovering the index underneath, the
+   mirror of the veil that covers from the right on the way in.
+   Where the index is the previous history entry this is a real
+   history.back(), so the browser restores the index exactly where
+   it was left (and the browser's own Back button gets the same
+   slide). The slide itself is a cross-document view transition
+   run by index.html's head script. Browsers without one slide
+   this page out over ink here, then load the index. */
+const hasPageVT = 'PageRevealEvent' in window;
+function prevIsIndex() {
+  try {
+    if (window.navigation && navigation.entries) {
+      const i = navigation.currentEntry.index;
+      return i > 0 && isIndexUrl(navigation.entries()[i - 1].url);
+    }
+    return history.length > 1 && isIndexUrl(document.referrer);
+  } catch { return false; }
 }
-
-/* Index side of Close. index.html's head script has already set
-   html.from-project and made the veil show the image on the rect
-   the project page left it at, so the first paint matches.
-   `findCard` puts the project's card in view and returns its cover. */
-export async function landFromProject(findCard) {
-  const html = document.documentElement;
-  if (!html.classList.contains('from-project')) return;
-  const id = html.dataset.pjId;
-  const image = getComputedStyle(html).getPropertyValue('--pj-img').trim();
-  let start = tileGuess(id);
-  try { if (html.dataset.pjRect) start = JSON.parse(html.dataset.pjRect); } catch { /* noop */ }
-  const card = await findCard(id);
-  const { el, backdrop } = makeClone(image, start);
-  el.style.borderRadius = TILE_RADIUS;
-  $('.pg-veil--reveal')?.remove();
-  html.classList.remove('from-project');
-
-  const done = () => { el.remove(); backdrop.remove(); };
-  if (!card) {
-    el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400, fill: 'forwards' });
-    backdrop.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400, fill: 'forwards' }).finished.then(done);
-    return;
+export function leaveProject(href, id) {
+  if (busy) return;
+  busy = true;
+  const back = prevIsIndex();
+  if (!back) {
+    try { sessionStorage.setItem('pj-close', id || ''); } catch { /* noop */ }
   }
-  const r = card.getBoundingClientRect();
-  el.animate(
-    [{ ...box(start), borderRadius: TILE_RADIUS }, { ...box(r), borderRadius: '64px' }],
-    { duration: DUR, easing: EASE, fill: 'forwards' }
-  ).finished.then(done);
-  backdrop.animate([{ opacity: 1 }, { opacity: 0 }], { duration: DUR * 0.8, delay: DUR * 0.2, easing: 'ease-in', fill: 'forwards' });
+  const go = () => { if (back) history.back(); else location.href = href; };
+  if (reduced || hasPageVT) { go(); return; }
+  const html = document.documentElement;
+  html.style.overflowX = 'clip';
+  html.animate(
+    [{ transform: 'translateX(0)' }, { transform: 'translateX(100%)' }],
+    { duration: 520, easing: EASE, fill: 'forwards' }
+  ).finished.then(go, go);
+}
+/* Back on this page from the bfcache: undo the fallback slide. */
+addEventListener('pageshow', (e) => {
+  if (!e.persisted) return;
+  document.documentElement.getAnimations().forEach((a) => a.cancel());
+  document.documentElement.style.overflowX = '';
+});
+
+/* Index side of the trip back. index.html's head script marks
+   html.pj-back with the project's id when the card has to be put in
+   view (after a Close with no history to go back to); `findCard`
+   does that. After a Back that reloaded the index, `restore` puts
+   the gallery back where it was. Then the waiting page slide (or, in
+   the fallback, the entrance veil) is released. */
+export async function landFromProject(findCard, restore) {
+  const html = document.documentElement;
+  const id = html.dataset.pjPlace;
+  try {
+    if (id) await findCard(id);
+    else if (html.dataset.pjRestore && restore) await restore();
+  } catch { /* noop */ }
+  window.__pjLanded = true;
+  html.classList.remove('pj-back');
+  dispatchEvent(new Event('pj-landed'));
 }
 
 function cover(href) {
