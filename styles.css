@@ -428,7 +428,7 @@ body.work-scroll .track { scroll-snap-type: none; }
 /* ---------------- experience ---------------- */
 .exp { padding-block: clamp(80px, 10vw, 140px); }
 .exp .sec-head .disp { font-size: clamp(2.2rem, 6vw, 6.5rem); }
-.exp-intro { color: var(--mute); max-width: 40rem; margin-top: 24px; }
+.exp-intro { color: var(--mute); max-width: 44rem; margin-top: 24px; text-wrap: pretty; }
 .exp-grid {
   grid-template-columns: minmax(0, 1fr) clamp(140px, 24vw, 380px);
   gap: 24px;
