@@ -84,7 +84,7 @@ function expand(href, from) {
   const bg = getComputedStyle(from).backgroundImage;
   const { el, backdrop } = makeClone(bg, r);
   el.animate(
-    [{ ...box(r), borderRadius: '2px' }, { ...box(to), borderRadius: TILE_RADIUS }],
+    [{ ...box(r), borderRadius: '64px' }, { ...box(to), borderRadius: TILE_RADIUS }],
     { duration: DUR, easing: EASE, fill: 'forwards' }
   );
   /* Ink fades in behind the clone so the page beneath is gone
@@ -153,7 +153,7 @@ export async function landFromProject(findCard) {
   }
   const r = card.getBoundingClientRect();
   el.animate(
-    [{ ...box(start), borderRadius: TILE_RADIUS }, { ...box(r), borderRadius: '2px' }],
+    [{ ...box(start), borderRadius: TILE_RADIUS }, { ...box(r), borderRadius: '64px' }],
     { duration: DUR, easing: EASE, fill: 'forwards' }
   ).finished.then(done);
   backdrop.animate([{ opacity: 1 }, { opacity: 0 }], { duration: DUR * 0.8, delay: DUR * 0.2, easing: 'ease-in', fill: 'forwards' });

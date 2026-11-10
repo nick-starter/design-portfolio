@@ -4,7 +4,7 @@
 ================================================================== */
 
 import { PROJECTS, projectCover } from './projects.js';
-import { armPageTransition, landFromProject } from './transition.js';
+import { armPageTransition, landFromProject } from './transition.js?v=3';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];

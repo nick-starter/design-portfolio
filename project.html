@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=46" />
+<link rel="stylesheet" href="styles.css?v=91" />
 <script>
   /* Arriving from a gallery card's expand: skip the veil reveal. The
      card's clone ended on a guess of where the first image tile sits;
@@ -52,23 +52,6 @@
   <div class="pj-stack wrap">
     <!-- ============ LEAD IMAGE ============ -->
     <figure class="pj-tile pj-tile--hero" id="pjHero"><img id="pjCover" src="assets/placeholder.png" alt="" /></figure>
-    <script>
-      /* Card expand hand-off: show the project image at once, start the
-         tile where the card's clone finished, then let it settle. */
-      (function () {
-        var a = window.__pjArrive, tile = document.getElementById('pjHero');
-        if (!a || !a.rect || !tile) return;
-        if (a.image) document.getElementById('pjCover').src = a.image;
-        var r = tile.getBoundingClientRect(), f = a.rect;
-        if (!r.width || !r.height) return;
-        tile.style.transformOrigin = '0 0';
-        tile.style.transform = 'translate(' + (f.left - r.left) + 'px,' + (f.top - r.top) + 'px) scale(' + (f.width / r.width) + ',' + (f.height / r.height) + ')';
-        requestAnimationFrame(function () { requestAnimationFrame(function () {
-          tile.style.transition = 'transform .5s cubic-bezier(.2,.7,.2,1)';
-          tile.style.transform = 'none';
-        }); });
-      })();
-    </script>
 
     <!-- ============ DETAILS: facts left, body text right ============ -->
     <section class="pj-details">
@@ -107,6 +90,6 @@
   <a href="https://www.linkedin.com/in/nchild/" target="_blank" rel="noopener">LinkedIn</a>
 </footer>
 
-<script type="module" src="project.js?v=23"></script>
+<script type="module" src="project.js?v=26"></script>
 </body>
 </html>

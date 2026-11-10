@@ -19,7 +19,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scrollbar-gutter: stable; }
 html, body { margin: 0; }
 
 body {
@@ -220,7 +220,7 @@ button { font: inherit; }
 }
 .logo-slide li img {
   width: auto;
-  --logo-h: clamp(1.15rem, 1.7vw, 1.5rem);
+  --logo-h: clamp(1.265rem, 1.87vw, 1.65rem);
   display: block;
   height: calc(var(--logo-h) * var(--logo-scale, 1));
   max-width: none;
@@ -245,6 +245,7 @@ button { font: inherit; }
 .logo-slide li img.logo-rebel       { --logo-scale: 1.05; }
 .logo-slide li img.logo-cargocrew   { --logo-scale: 1.6; }
 .logo-slide li img.logo-officeworks { --logo-scale: .9; }
+.logo-slide li img.logo-kitchenwarehouse { --logo-scale: 1.1; }
 @keyframes logo-slide {
   from { transform: translateX(0); }
   to { transform: translateX(calc(-50% - var(--logo-gap) / 2)); }
@@ -275,8 +276,9 @@ button { font: inherit; }
   font-stretch: 118%;
   line-height: 1.08;
 }
-.cols { color: var(--mute); grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 30px; display: grid; }
-.cols p { max-width: 30em; text-wrap: balance; hyphens: none; }
+.cols { color: var(--mute); columns: 2; column-gap: 48px; margin-top: 30px; display: block; }
+.cols p + p { margin-top: 1em; }
+.cols p { text-wrap: balance; hyphens: none; }
 .tools { gap: 14px; max-width: 680px; margin-top: clamp(40px, 5vw, 64px); display: grid; }
 .tools p { color: var(--mute); }
 .tools ul {
@@ -314,7 +316,7 @@ button { font: inherit; }
 }
 .about-hat .slot { width: 100%; aspect-ratio: 1; max-width: 560px; }
 .about-hat:has(.about-photo)::before { display: none; }
-.about-photo { width: 100%; height: auto; max-width: 560px; aspect-ratio: 1; object-fit: cover; object-position: 50% 30%; border-radius: 128px; display: block; }
+.about-photo { width: 100%; height: auto; max-width: 560px; aspect-ratio: 1; object-fit: cover; object-position: 50% 30%; border-radius: 64px; display: block; }
 .about-hat .cap { color: var(--mute); text-align: center; }
 
 /* ---------------- work ---------------- */
@@ -379,7 +381,7 @@ body.work-scroll .track { scroll-snap-type: none; }
   display: block;
   aspect-ratio: 1;
   background: #05080c;
-  border-radius: 2px;
+  border-radius: 64px;
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -848,7 +850,7 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   .roles span:nth-child(2) { padding-right: 0; }
   .about-grid, .c-grid { grid-template-columns: minmax(0, 1fr); }
   .about-copy { padding-left: 0; }
-  .cols { grid-template-columns: minmax(0, 1fr); }
+  .cols { columns: 1; }
   .tools ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .work-pin { min-height: 0; padding-top: calc(var(--safe-top) + 76px); }
   .work .sec-head { flex-wrap: wrap; }
@@ -957,3 +959,7 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .pg-veil { display: none; }
 }
+
+/* Hold the lead tile hidden until project.js has laid out the header
+   and starts the settle from the clone (see settleArrival). */
+.from-card .pj-tile--hero { visibility: hidden; }

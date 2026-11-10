@@ -5,7 +5,7 @@
 ================================================================== */
 
 import { PROJECTS, desktopScreen } from './projects.js';
-import { armPageTransition, leaveProject } from './transition.js';
+import { armPageTransition, leaveProject } from './transition.js?v=3';
 
 const $ = (s, r = document) => r.querySelector(s);
 
@@ -35,6 +35,33 @@ if (leadImage) {
   cover.src = leadImage;
   cover.alt = `${p.name} cover`;
 }
+
+/* Card expand hand-off: once the title, headline and web fonts are in
+   (so the tile is in its final spot), start the tile where the card's
+   clone finished and let it settle. Doing this before the header text
+   was filled made the tile jump mid-animation. */
+(function settleArrival() {
+  const a = window.__pjArrive;
+  const tile = $('#pjHero');
+  if (!a || !a.rect || !tile) return;
+  const run = () => {
+    if (tile.dataset.settled) return;
+    tile.dataset.settled = '1';
+    const r = tile.getBoundingClientRect();
+    const f = a.rect;
+    if (r.width && r.height) {
+      tile.style.transformOrigin = '0 0';
+      tile.style.transform = `translate(${f.left - r.left}px,${f.top - r.top}px) scale(${f.width / r.width},${f.height / r.height})`;
+    }
+    tile.style.visibility = 'visible';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      tile.style.transition = 'transform .5s cubic-bezier(.2,.7,.2,1)';
+      tile.style.transform = 'none';
+    }));
+  };
+  Promise.race([document.fonts?.ready || Promise.resolve(), new Promise((res) => setTimeout(res, 400))])
+    .then(() => requestAnimationFrame(run));
+})();
 
 /* ---------------- details ---------------- */
 /* Four facts, as on the reference: Role, Contribution, Duration,
