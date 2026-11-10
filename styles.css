@@ -285,16 +285,19 @@ button { font: inherit; }
 .tools p { color: var(--mute); }
 .tools ul {
   border-top: 1px solid var(--line);
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* the logos on one row, each as wide as its mark, spread across
+     (wrapping onto a second row if the column is ever too narrow) */
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 12px 24px;
   padding-top: 18px;
-  display: grid;
+  display: flex;
 }
 .tools li {
   font-family: var(--wide);
   color: var(--bone);
   opacity: .62;
-  font-size: clamp(.9rem, 1.36vw, 1.23rem);
+  font-size: clamp(.9rem, 1.22vw, 1.12rem);
   font-weight: 800;
   font-stretch: 112%;
   line-height: 1;
@@ -882,7 +885,7 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   .about-grid, .c-grid { grid-template-columns: minmax(0, 1fr); }
   .about-copy { padding-left: 0; }
   .cols { columns: 1; }
-  .tools ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tools ul { grid-template-columns: repeat(2, minmax(0, 1fr)); display: grid; }
   .work-pin { min-height: 0; padding-top: calc(var(--safe-top) + 76px); }
   .work .sec-head { flex-wrap: wrap; }
   .work .sec-head .disp { padding-left: 0; }
