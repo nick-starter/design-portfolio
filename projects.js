@@ -465,7 +465,7 @@ export const PROJECTS = [
   },
   {
     id: 'rebel',
-    image: 'assets/3.jpg',
+    image: 'assets/rebel-hero.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
     /* Before/after slider on the project page: `before` and `after`
        are image paths (same proportions work best). Add `compare` to

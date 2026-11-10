@@ -5,7 +5,7 @@
    slides it back off to the left.
 ================================================================= */
 
-import { PROJECTS } from './projects.js?v=2';
+import { PROJECTS } from './projects.js?v=3';
 
 const $ = (s, r = document) => r.querySelector(s);
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
