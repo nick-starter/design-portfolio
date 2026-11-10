@@ -3,8 +3,8 @@
    Work gallery, method step-through, nav spy.
 ================================================================== */
 
-import { PROJECTS, projectCover } from './projects.js?v=3';
-import { armPageTransition, landFromProject } from './transition.js?v=7';
+import { PROJECTS, projectCover } from './projects.js?v=4';
+import { armPageTransition, landFromProject } from './transition.js?v=8';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
