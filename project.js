@@ -4,8 +4,8 @@
    case study and prev/next navigation.
 ================================================================== */
 
-import { PROJECTS, desktopScreen } from './projects.js';
-import { armPageTransition, leaveProject } from './transition.js?v=4';
+import { PROJECTS, desktopScreen } from './projects.js?v=2';
+import { armPageTransition, leaveProject, fillTitle } from './transition.js?v=5';
 
 const $ = (s, r = document) => r.querySelector(s);
 
@@ -25,7 +25,7 @@ const md = document.querySelector('meta[name="description"]');
 if (md) md.setAttribute('content', `${p.name}: ${p.blurb}`);
 
 /* ---------------- header + lead image ---------------- */
-$('#pjName').textContent = p.name;
+fillTitle($('#pjName'), p);
 $('#pjHeadline').textContent = p.headline || p.blurb;
 const cover = $('#pjCover');
 /* `lead` overrides the gallery thumbnail as the project page's lead
@@ -218,7 +218,7 @@ function rememberTile() {
   for (let el = tile; el; el = el.offsetParent) { left += el.offsetLeft; top += el.offsetTop; }
   try {
     sessionStorage.setItem(
-      `pj-tile:${p.id}:${document.documentElement.clientWidth}x${innerHeight}`,
+      `pj-tile2:${p.id}:${document.documentElement.clientWidth}x${innerHeight}`,
       JSON.stringify({ left, top, width: tile.offsetWidth, height: tile.offsetHeight })
     );
   } catch { /* noop */ }

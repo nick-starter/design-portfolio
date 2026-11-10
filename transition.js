@@ -5,7 +5,7 @@
    slides it back off to the left.
 ================================================================= */
 
-import { PROJECTS } from './projects.js';
+import { PROJECTS } from './projects.js?v=2';
 
 const $ = (s, r = document) => r.querySelector(s);
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -45,15 +45,30 @@ const EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
 const DUR = 700;
 const TILE_RADIUS = '2px';
 
+/* Project title: the company logo (white, in a fixed-height box set
+   in CSS, so the header is the same height before and after the
+   image loads) or, for a project without one, the name as text.
+   Shared by the project page and tileGuess's measuring copy. */
+export function fillTitle(h1, p) {
+  if (!p.logo) { h1.textContent = p.name; return; }
+  const img = document.createElement('img');
+  img.src = p.logo;
+  img.alt = p.name;
+  img.decoding = 'async';
+  h1.classList.add('pj-logo');
+  if (p.logoScale) h1.style.setProperty('--pj-logo-s', p.logoScale);
+  h1.replaceChildren(img);
+}
+
 /* Where the project page's lead image sits. Exact if that project
    has been opened at this window size before (project.js records
    it); otherwise measured from an off-screen copy of the project
-   header (same title, headline and CSS), since the tile sits right
+   header (same logo or title, headline and CSS), since the tile sits right
    under it: full width less the page edge, 3:2. */
 function tileGuess(id) {
   const W = document.documentElement.clientWidth;
   try {
-    const seen = JSON.parse(sessionStorage.getItem(`pj-tile:${id}:${W}x${innerHeight}`) || 'null');
+    const seen = JSON.parse(sessionStorage.getItem(`pj-tile2:${id}:${W}x${innerHeight}`) || 'null');
     if (seen) return seen;
   } catch { /* noop */ }
   const p = PROJECTS.find((x) => x.id === id) || PROJECTS[0];
@@ -66,7 +81,7 @@ function tileGuess(id) {
     visibility: 'hidden', pointerEvents: 'none',
   });
   head.innerHTML = '<h1 class="disp"></h1><p class="pj-headline"></p>';
-  head.firstChild.textContent = p.name;
+  fillTitle(head.firstChild, p);
   head.lastChild.textContent = p.headline || p.blurb;
   document.body.appendChild(head);
   const r = head.getBoundingClientRect();

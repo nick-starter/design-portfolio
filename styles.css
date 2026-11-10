@@ -76,6 +76,7 @@ button { font: inherit; }
 
 /* ---------------- nav ---------------- */
 .nav {
+  max-width: none;
   z-index: 5;
   padding: calc(var(--safe-top) + 18px) var(--gut) 14px;
   justify-content: space-between;
@@ -98,7 +99,7 @@ button { font: inherit; }
   letter-spacing: .02em;
   font-stretch: 112%;
   gap: clamp(16px, 2.6vw, 40px);
-  font-size: .8125rem;
+  font-size: .875rem;
   font-weight: 700;
   display: flex;
 }
@@ -634,6 +635,28 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   display: grid;
 }
 .pj-head h1 { font-size: clamp(3rem, 10vw, 10rem); line-height: .9; }
+/* Company logo in place of the title, white on the ink. The box has
+   a fixed height before the image loads, so the header (and the
+   card expand that aims at the image tile under it) never shifts.
+   --pj-logo-s evens out the optical size of very wide or stacked
+   marks; object-fit keeps a width-capped logo in proportion. */
+.pj-head h1.pj-logo {
+  --pj-logo-h: clamp(3.25rem, 7.5vw, 7rem);
+  height: var(--pj-logo-h);
+  font-size: 0;
+  line-height: 0;
+  display: flex;
+  align-items: flex-end;
+}
+.pj-logo img {
+  height: calc(var(--pj-logo-h) * var(--pj-logo-s, 1));
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left bottom;
+  filter: brightness(0) invert(1);
+  display: block;
+}
 .pj-headline { text-wrap: pretty; max-width: 50%; font-size: clamp(1.15rem, 1.7vw, 1.6rem); line-height: 1.3; }
 
 /* Everything below the header shares one column and one gap */
@@ -893,6 +916,40 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   .pj-details { grid-template-columns: minmax(0, 1fr); }
   .pj-gallery { grid-template-columns: minmax(0, 1fr); }
   .pj-slot--half { aspect-ratio: 4 / 5; }
+}
+
+/* Phones: the hero heading as a left-aligned stack. The desktop
+   three-line, right-aligned setting has to shrink to ~27px to fit a
+   phone and its stepped padding-right then reads as a misalignment,
+   so here it wraps to five same-size lines: Senior / Product /
+   & Visual / Designer / / AI Engineer. */
+@media (max-width: 760px) {
+  .hero h1 {
+    white-space: normal;
+    text-wrap: wrap;
+    text-align: left;
+    /* AI ENGINEER. is ~8.8em wide: fill the width less 2 x 16px */
+    font-size: calc((100vw - 32px) / 8.8);
+    line-height: .88;
+    letter-spacing: -.015em;
+    width: auto;
+    max-width: none;
+    justify-self: stretch;
+    /* centred between the nav bar and the logo strip (the hero's top
+       padding runs 18px past the nav, hence the offset) */
+    align-self: center;
+    margin: -18px 0 0;
+  }
+  .hero { padding-inline: 16px; }
+  .hero h1 > span:first-child,
+  .hero h1 > span:nth-child(3) { padding-right: 0; }
+  .hero .slash { padding-right: .12em; }
+  /* The red slash moves up to close the DESIGNER line, so the last
+     line is "AI ENGINEER." on its own at the same size. That line is
+     the longest, so it sets the size (see font-size above). */
+  .hero h1 > span:nth-child(3) { white-space: nowrap; }
+  .hero h1 > span:nth-child(3) .slash { display: none; }
+  .hero h1 > span:nth-child(2)::after { content: "\00a0/"; color: var(--red); }
 }
 
 /* ---------------- page transition ---------------- */
