@@ -605,21 +605,28 @@ body.work-scroll .track { scroll-snap-type: none; }
 /* Big title and headline, a lead image, a details row, then a
    gallery of image tiles and prev/next across the bottom. */
 .pj { padding-bottom: clamp(24px, 4vw, 48px); }
-.d-close {
+.nav .d-close {
+  /* Pill from the reference: near-black fill a shade lighter than the
+     page, hairline grey border, off-white bold label, roomy padding
+     (about 1 : 1.7 height to width, label about a fifth of the height). */
   font-family: var(--wide);
-  color: var(--bone);
-  border: 1px solid var(--line);
-  backdrop-filter: blur(8px);
-  background: #0c1114bf;
+  color: #ebe6de;
+  border: 1px solid rgba(255, 255, 255, .14);
+  background: #0c0f12;
   border-radius: 999px;
-  padding: 12px 18px;
+  padding: 1.15em 1.35em;
   font-size: .875rem;
   font-weight: 700;
   font-stretch: 112%;
   line-height: 1;
-  transition: background .25s, color .25s;
+  display: inline-block;
+  /* taller than the nav's other links: let it overhang so the nav bar
+     (and the logo centred in it) keeps its height */
+  margin-block: -10px;
+  transition: border-color .25s, color .25s;
 }
-.d-close:hover { background: var(--bone); color: var(--ink); }
+.d-close:hover,
+.d-close:focus-visible { border-color: rgba(255, 255, 255, .42); color: #fff; }
 
 .red { color: var(--red); }
 
