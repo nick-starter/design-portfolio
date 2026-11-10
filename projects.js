@@ -409,9 +409,6 @@ export const PROJECTS = [
   {
     id: 'bupa',
     image: 'assets/2.jpg',
-    /* PLACEHOLDER: another designer's work (bpowell.co), here only to
-       show the layout. Replace with a real Bupa image before publishing. */
-    lead: 'assets/placeholder-lead.webp',
     /* Gallery slots, in page order: pair, full, pair, full, pair.
        null keeps the greyed stand-in. PLACEHOLDER images here are
        also from bpowell.co and must be replaced before publishing. */
@@ -468,6 +465,7 @@ export const PROJECTS = [
   {
     id: 'rebel',
     image: 'assets/3.jpg',
+    gallery: [null, 'assets/placeholder-tall-1.jpg'],
     /* Before/after slider on the project page: `before` and `after`
        are image paths (same proportions work best). Add `compare` to
        any project to enable it; without it the page shows the
@@ -544,6 +542,7 @@ export const PROJECTS = [
   {
     id: 'telstra',
     image: 'assets/4.jpg',
+    gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Telstra',
     client: 'Telstra',
     year: '2020 — 2022',
@@ -596,6 +595,7 @@ export const PROJECTS = [
   {
     id: 'officeworks',
     image: 'assets/5.jpg',
+    gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Officeworks',
     client: 'Officeworks',
     /* TODO: role, year, tags, blurb and outcome below still describe
@@ -650,6 +650,7 @@ export const PROJECTS = [
   {
     id: 'jwt',
     image: 'assets/6.jpg',
+    gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'JWT',
     client: 'JWT',
     year: '2012 — 2015',
@@ -702,6 +703,7 @@ export const PROJECTS = [
   {
     id: 'wcrs',
     image: 'assets/7.jpg',
+    gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'WCRS',
     client: 'WCRS',
     year: '2008 — 2012',
@@ -754,6 +756,7 @@ export const PROJECTS = [
   {
     id: 'cargocrew',
     image: 'assets/2.jpg',
+    gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Cargo Crew',
     client: 'Cargo Crew',
     year: '2024',
@@ -806,6 +809,7 @@ export const PROJECTS = [
   {
     id: 'suzuki',
     image: 'assets/3.jpg',
+    gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Suzuki',
     client: 'Suzuki Motorcycles',
     year: '2021',

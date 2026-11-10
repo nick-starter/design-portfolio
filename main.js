@@ -249,28 +249,6 @@ const spy = new IntersectionObserver((entries) => {
 }, { rootMargin: '-45% 0px -50% 0px' });
 spyTargets.forEach((x) => spy.observe(x.el));
 
-/* ---------------- stat count-up ---------------- */
-const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-function countUp(el) {
-  const to = Number(el.dataset.count || 0);
-  if (reduced) { el.textContent = `${to}+`; return; }
-  const dur = 1100;
-  const start = performance.now();
-  function tick(now) {
-    const t = Math.min(1, (now - start) / dur);
-    const eased = 1 - Math.pow(1 - t, 3);
-    el.textContent = `${Math.round(to * eased)}+`;
-    if (t < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-}
-const statObserver = new IntersectionObserver((entries, obs) => {
-  entries.forEach((e) => {
-    if (e.isIntersecting) { countUp(e.target); obs.unobserve(e.target); }
-  });
-}, { threshold: 0.6 });
-$$('.stat b[data-count]').forEach((b) => statObserver.observe(b));
-
 /* ---------------- copy email ---------------- */
 const copyBtn = $('#copyEmail');
 if (copyBtn) {
