@@ -79,16 +79,13 @@ const track = $('#track');
 const workIndex = $('#workIndex');
 const workTotal = $('#workTotal');
 
-function projectCardMarkup(p, i) {
-  const n = String(i + 1).padStart(2, '0');
+/* Cards are image only; the link's aria-label names the project. */
+function projectCardMarkup(p) {
   return `
     <article class="proj">
       <a class="proj-open" href="${projectUrl(p.id)}" aria-label="View ${p.name} project">
         <span class="cover cover--img"${p.image ? ` style="background-image: url(${p.image});"` : ''}></span>
       </a>
-      <div class="proj-meta">
-        <span class="mono n"><b>${n}.</b> ${p.name}</span>
-      </div>
     </article>`;
 }
 
