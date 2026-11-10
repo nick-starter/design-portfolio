@@ -15,10 +15,10 @@ const JOBS = [
   { yr: '2022', co: 'Super Retail Group', desc: 'UI Designer — Rebel Sport website · 2022 – 2023' },
   { yr: '2020', co: 'Telstra', desc: "Visual Designer — activation & recharge, Telstra 'Able' design system · 2020 – 2022" },
   { yr: '2015', co: 'TBWA \\ Tequila', desc: 'Senior Digital Designer — Nissan, ANZ, Medibank · 2015 – 2018' },
+  { yr: '2013', co: 'Sputnik Agency', desc: 'Digital Art Director · 2013 – 2015' },
   { yr: '2012', co: 'JWT', desc: 'Digital Creative Lead · 2012 – 2015' },
-  { yr: '2008', co: 'WCRS', desc: 'Senior Digital Designer · 2008 – 2012' },
+  { yr: '2008', co: 'WCRS', desc: 'Senior Digital Designer — Lotus, PlayStation · 2008 – 2012' },
   { yr: '2005', co: 'Publicis', desc: 'Digital Designer · 2005 – 2008' },
-  { yr: '2005', co: 'Staffordshire University', desc: 'BA Hons (First Class) — Interactive Multimedia' },
 ];
 
 const METHOD = [
