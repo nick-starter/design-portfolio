@@ -5,7 +5,7 @@
 ================================================================== */
 
 import { PROJECTS, desktopScreen } from './projects.js';
-import { armPageTransition, leaveProject } from './transition.js?v=3';
+import { armPageTransition, leaveProject } from './transition.js?v=4';
 
 const $ = (s, r = document) => r.querySelector(s);
 
@@ -54,6 +54,7 @@ if (leadImage) {
       tile.style.transform = `translate(${f.left - r.left}px,${f.top - r.top}px) scale(${f.width / r.width},${f.height / r.height})`;
     }
     tile.style.visibility = 'visible';
+    $('.pg-veil--reveal')?.remove();
     requestAnimationFrame(() => requestAnimationFrame(() => {
       tile.style.transition = 'transform .5s cubic-bezier(.2,.7,.2,1)';
       tile.style.transform = 'none';

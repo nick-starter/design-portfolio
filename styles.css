@@ -932,9 +932,14 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
 .pg-expand-bg { inset: 0; background: var(--ink); }
 .pg-expand-img { background-size: cover; background-position: center; position: absolute; inset: 0; }
 /* Index arriving from a project Close: the veil holds still and
-   shows the hero image until landFromProject() takes over. */
-.from-project .pg-veil--reveal { animation: none; }
-.from-project .pg-veil--reveal::after {
+   shows the hero image until landFromProject() takes over. A project
+   arriving from a card's expand does the same, minus the ink, until
+   settleArrival() hands over to the real tile. */
+.from-project .pg-veil--reveal,
+.from-card .pg-veil--reveal { animation: none; }
+.from-card .pg-veil--reveal { background: none; }
+.from-project .pg-veil--reveal::after,
+.from-card .pg-veil--reveal::after {
   content: "";
   background: var(--pj-img) center / cover no-repeat;
   border-radius: 2px;
@@ -944,8 +949,7 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   top: var(--pj-top, 0);
   left: var(--pj-left, 0);
 }
-/* Arrived via the expand: no veil, and everything but the image rises in. */
-.from-card .pg-veil--reveal { display: none; }
+/* Arrived via the expand: everything but the image rises in. */
 .from-card .pj-head,
 .from-card .pj-stack > :not(.pj-tile--hero):not(script),
 .from-card .nav { animation: pj-rise .6s cubic-bezier(.2, .7, .2, 1) both; }

@@ -5,6 +5,8 @@
    slides it back off to the left.
 ================================================================= */
 
+import { PROJECTS } from './projects.js';
+
 const $ = (s, r = document) => r.querySelector(s);
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -42,23 +44,36 @@ const COLLAPSE_KEY = 'pj-collapse';
 const EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
 const DUR = 700;
 const TILE_RADIUS = '2px';
-const clamp = (lo, v, hi) => Math.min(hi, Math.max(lo, v));
 
 /* Where the project page's lead image sits. Exact if that project
    has been opened at this window size before (project.js records
-   it); otherwise an estimate mirroring the CSS: the 40px page edge,
-   the header's padding and type size, and the 3:2 tile. */
+   it); otherwise measured from an off-screen copy of the project
+   header (same title, headline and CSS), since the tile sits right
+   under it: full width less the page edge, 3:2. */
 function tileGuess(id) {
   const W = document.documentElement.clientWidth;
   try {
     const seen = JSON.parse(sessionStorage.getItem(`pj-tile:${id}:${W}x${innerHeight}`) || 'null');
     if (seen) return seen;
   } catch { /* noop */ }
-  const g = W <= 900 ? clamp(16, W * 0.044, 72) : 40;
-  const title = clamp(48, W * 0.1, 160) * 0.9;
-  const top = 110 + title + clamp(40, W * 0.07, 110) + 90 + clamp(28, W * 0.035, 48);
-  const width = W - 2 * g;
-  return { left: g, top, width, height: (width * 2) / 3 };
+  const p = PROJECTS.find((x) => x.id === id) || PROJECTS[0];
+  const head = document.createElement('header');
+  head.className = 'pj-head';
+  head.setAttribute('aria-hidden', 'true');
+  Object.assign(head.style, {
+    position: 'absolute', left: '0', top: '0', width: '100%', boxSizing: 'border-box',
+    paddingInline: matchMedia('(max-width: 900px)').matches ? 'var(--gut)' : '40px',
+    visibility: 'hidden', pointerEvents: 'none',
+  });
+  head.innerHTML = '<h1 class="disp"></h1><p class="pj-headline"></p>';
+  head.firstChild.textContent = p.name;
+  head.lastChild.textContent = p.headline || p.blurb;
+  document.body.appendChild(head);
+  const r = head.getBoundingClientRect();
+  const g = parseFloat(getComputedStyle(head).paddingLeft) || 0;
+  head.remove();
+  const width = r.width - 2 * g;
+  return { left: g, top: r.height, width, height: (width * 2) / 3 };
 }
 const box = (r) => ({ left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px` });
 const plain = (r) => ({ left: r.left, top: r.top, width: r.width, height: r.height });
