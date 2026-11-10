@@ -1,0 +1,9 @@
+{
+  "name": "design-portfolio",
+  "private": true,
+  "description": "Nick Child design portfolio, a static site served by GitHub Pages at nickchild.co",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/build-pages.mjs"
+  }
+}

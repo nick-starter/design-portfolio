@@ -50,3 +50,17 @@ python3 -m http.server 8000
 1. Create a repository (e.g. `design-portfolio`) and push this folder.
 2. Settings → Pages → Deploy from a branch → `main` / `/ (root)`.
 3. The site publishes at `https://<username>.github.io/design-portfolio/`.
+
+## Previewing locally
+
+Project pages live at clean URLs (`/rebel`), which GitHub Pages maps to
+`rebel.html`. A plain `python3 -m http.server` doesn't do that mapping, so
+project pages 404 there. Use the bundled zero-dependency server instead:
+
+```
+node scripts/serve.mjs      # or: npm run dev
+```
+
+then open http://localhost:8000 (set `PORT=` to change the port). After
+editing `project.html` or project ids, run `node scripts/build-pages.mjs`
+(or `npm run build`) to regenerate the project pages.
