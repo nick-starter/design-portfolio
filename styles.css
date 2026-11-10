@@ -247,6 +247,7 @@ button { font: inherit; }
 .logo-slide li img.logo-cargocrew   { --logo-scale: 1.6; }
 .logo-slide li img.logo-officeworks { --logo-scale: .9; }
 .logo-slide li img.logo-kitchenwarehouse { --logo-scale: 1.1; }
+.logo-slide li img.logo-lotus       { --logo-scale: .88; }
 @keyframes logo-slide {
   from { transform: translateX(0); }
   to { transform: translateX(calc(-50% - var(--logo-gap) / 2)); }
