@@ -1075,6 +1075,8 @@ html.pj-vt::view-transition-old(root) { z-index: 1; box-shadow: -30px 0 80px rgb
   /* project pages: Close and Menu sit together at the right */
   .nav .d-close { margin-left: auto; }
   body:has(.pj) .nav { gap: 8px; }
+  /* no Menu on project pages: Close is the only control */
+  body:has(.pj) .mm-open { display: none !important; }
 }
 html.mm-lock, html.mm-lock body { overflow: hidden; }
 .mm {
