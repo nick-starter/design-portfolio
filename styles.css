@@ -447,7 +447,17 @@ body.work-scroll .track { scroll-snap-type: none; }
   overflow-wrap: break-word;
   text-wrap: balance;
 }
-.proj-meta .n b { color: var(--red); font-weight: inherit; }
+/* small red mono number, like the Method steps */
+.proj-meta .n b {
+  color: var(--red);
+  font-family: var(--mono);
+  font-size: .9375rem;
+  font-weight: 400;
+  font-stretch: 100%;
+  letter-spacing: 0;
+  vertical-align: baseline;
+  margin-right: .9rem;
+}
 /* ---------------- experience ---------------- */
 .exp { padding-block: clamp(80px, 10vw, 140px); }
 .exp .sec-head .disp { font-size: clamp(2.2rem, 6vw, 6.5rem); }
