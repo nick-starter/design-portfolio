@@ -278,8 +278,8 @@ button { font: inherit; }
   font-stretch: 118%;
   line-height: 1.08;
 }
-/* fixed three-line break on larger screens; phones wrap naturally */
-@media (max-width: 760px) { .statement { font-size: clamp(1.6rem, 7vw, 2.2rem); } .statement .lb { display: none; } }
+/* same three lines at every size; phones scale the type to fit */
+@media (max-width: 760px) { .statement { font-size: 5.4vw; } }
 .cols { color: var(--mute); columns: 2; column-gap: 48px; margin-top: 30px; display: block; }
 .cols p + p { margin-top: 1em; }
 .cols p { text-wrap: balance; hyphens: none; }
