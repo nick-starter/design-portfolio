@@ -486,7 +486,7 @@ export const PROJECTS = [
   },
   {
     id: 'telstra',
-    image: 'assets/4.jpg',
+    image: 'assets/telstra-hero.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Telstra',
     logo: 'assets/logos/telstra.svg',
