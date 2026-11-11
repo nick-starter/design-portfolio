@@ -10,7 +10,7 @@
 <script>
   /* /rebel/ or /Rebel → /rebel; anything else → home */
   (function () {
-    var ids = ["rebel","telstra","officeworks","jwt","wcrs","cargocrew","suzuki"];
+    var ids = ["rebel","telstra","officeworks","jwt","cargocrew","suzuki"];
     var s = location.pathname.toLowerCase().replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
     location.replace(ids.indexOf(s) >= 0 ? '/' + s + location.search + location.hash : '/');
   })();
