@@ -407,63 +407,6 @@ export function desktopScreen(p, W = 1400, H = 1860) {
 
 export const PROJECTS = [
   {
-    id: 'bupa',
-    image: 'assets/2.jpg',
-    /* Gallery slots, in page order: pair, full, pair, full, pair.
-       null keeps the greyed stand-in. PLACEHOLDER images here are
-       also from bpowell.co and must be replaced before publishing. */
-    gallery: [null, 'assets/placeholder-tall-1.jpg'],
-    name: 'Bupa',
-    logo: 'assets/logos/bupa.png?v=2',
-    client: 'Bupa',
-    year: '2023 — Now',
-    role: 'Senior Visual & Interaction Designer',
-    tags: ['Digital', 'Design System', 'Accessibility'],
-    blurb:
-      "Senior visual and interaction design across Bupa's digital health experiences — cover, claims and care journeys — helping shape the components and patterns teams build with.",
-    outcome: 'Design system patterns · accessible health journeys',
-    brand: 'aurora',
-    seed: 1.2,
-    nav: ['Home', 'Cover', 'Claims', 'Find care', 'Account'],
-    navExtra: ['Wellbeing', 'Support'],
-    mobileTitle: 'Your cover',
-    mobileKpi: 'Active',
-    mobileHeroLabel: 'Claim progress',
-    mobileHeroValue: '$412',
-    mobileHeroUnit: 'of $680 processed',
-    mobileRingLabel: 'Extras used',
-    ringPct: 0.61,
-    ringValue: '61%',
-    ringSub: 'this year',
-    mobileRows: [
-      { k: 'Hospital', v: 'Active' },
-      { k: 'Extras', v: '61% used' },
-      { k: 'Next payment', v: '12d' },
-    ],
-    mobileActions: [
-      { t: 'Make a claim', s: 'Snap a receipt' },
-      { t: 'Find a provider', s: '2,400 near you' },
-      { t: 'Digital card', s: 'Ready on your phone' },
-    ],
-    mobileCta: 'Make a claim',
-    desktopTitle: 'Claims overview',
-    desktopSub: 'Your hospital and extras at a glance',
-    kpis: [
-      { k: 'Claims this year', v: '14', d: '+3', up: true },
-      { k: 'Amount back', v: '$2.4k', d: '+$420', up: true },
-      { k: 'Days to process', v: '3', d: '−1d', up: true },
-    ],
-    chartTitle: 'Claim value over time',
-    listTitle: 'Recent claims',
-    table: [
-      { k: 'Dental · Check-up', v: '$180' },
-      { k: 'Optical · Lenses', v: '$240' },
-      { k: 'Physio · Session', v: '$95' },
-      { k: 'GP · Consult', v: '$85' },
-      { k: 'Pharmacy', v: '$42' },
-    ],
-  },
-  {
     id: 'rebel',
     image: 'assets/rebel-hero-3.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
