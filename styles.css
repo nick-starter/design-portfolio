@@ -439,7 +439,13 @@ body.work-scroll .track { scroll-snap-type: none; }
   font-stretch: 125%;
   line-height: 1;
   font-size: clamp(1.4rem, 2.8vw, 2.6rem);
-  white-space: nowrap;
+  /* long names wrap inside the card instead of running under the next one */
+  display: block;
+  max-width: 100%;
+  white-space: normal;
+  line-height: 1.05;
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
 .proj-meta .n b { color: var(--red); font-weight: inherit; }
 /* ---------------- experience ---------------- */
