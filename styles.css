@@ -271,15 +271,13 @@ button { font: inherit; }
   font-family: var(--wide);
   text-transform: uppercase;
   text-wrap: balance;
-  max-width: none;
+  max-width: 24em;
   margin-top: 24px;
-  font-size: clamp(1.9rem, 3.7vw, 3.5rem);
+  font-size: clamp(1.35rem, 2.5vw, 2.35rem);
   font-weight: 900;
   font-stretch: 118%;
   line-height: 1.08;
 }
-/* same three lines at every size; phones scale the type to fit */
-@media (max-width: 760px) { .statement { font-size: 5.4vw; } }
 .cols { color: var(--mute); columns: 2; column-gap: 48px; margin-top: 30px; display: block; }
 .cols p + p { margin-top: 1em; }
 .cols p { text-wrap: balance; hyphens: none; }
