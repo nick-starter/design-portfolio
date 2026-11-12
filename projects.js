@@ -411,8 +411,8 @@ export const PROJECTS = [
     image: 'assets/rebel-hero-3.jpg',
     gallery: [
       {
-        src: 'assets/rebel-hand-mockup.jpg',
-        alt: 'Hand holding a phone showing the Rebel mobile homepage with the adidas Originals exclusive launch',
+        src: 'assets/rebel-hand-mockup-v2.jpg',
+        alt: 'Hand holding a phone showing a Rebel product page for NikeCourt Air Zoom GP Turbo tennis shoes.',
       },
       'assets/placeholder-tall-1.jpg',
     ],
