@@ -4,8 +4,8 @@
    case study and prev/next navigation.
 ================================================================== */
 
-import { PROJECTS, desktopScreen } from './projects.js?v=18';
-import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf, mountHero3d } from './transition.js?v=23';
+import { PROJECTS, desktopScreen } from './projects.js?v=19';
+import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=24';
 
 const $ = (s, r = document) => r.querySelector(s);
 
@@ -34,7 +34,6 @@ if (leadImage) {
   cover.src = leadImage;
   cover.alt = `${p.name} cover`;
 }
-mountHero3d($('#pjHero'), p);
 
 /* Card expand hand-off: once the title, headline and web fonts are in
    (so the tile is in its final spot), start the tile where the card's

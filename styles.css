@@ -429,78 +429,7 @@ body.work-scroll .track { scroll-snap-type: none; }
   transform: scale3d(1, 1, 1);
 }
 .proj-open:hover .cover canvas,
-.proj-open:hover .cover--img:not(.hero-3d-host) { transform: scale3d(1.008, 1.008, 1); }
-
-/* 3D hero hover (plate + cutout). The host keeps the flat still as
-   its background-image so the card-to-hero morph is unchanged. */
-.cover.hero-3d-host {
-  /* Let the turning cutout and its hover shadow lift off the plate
-     without being clipped; the plate keeps the card's corner radius. */
-  overflow: visible;
-}
-.hero-3d {
-  position: absolute;
-  inset: 0;
-  perspective: 1200px;
-  perspective-origin: 50% 50%;
-  pointer-events: none;
-  z-index: 1;
-  border-radius: inherit;
-}
-.hero-3d-plate,
-.hero-3d-cutout,
-.hero-3d-plate img,
-.hero-3d-cutout img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  object-position: center;
-  pointer-events: none;
-}
-.hero-3d-plate,
-.hero-3d-plate img {
-  border-radius: inherit;
-}
-.hero-3d-cutout {
-  --ry: 0deg;
-  --rx: 0deg;
-  --tz: 0px;
-  --zs: 1;
-  --fy: 0deg;
-  --fx: 0deg;
-  transform: rotateY(calc(var(--ry) + var(--fy))) rotateX(calc(var(--rx) + var(--fx))) translateZ(var(--tz)) scale(var(--zs));
-  transform-origin: center center;
-  transform-style: preserve-3d;
-  transition: transform 1.8s cubic-bezier(.22, .61, .36, 1), filter 1.8s cubic-bezier(.22, .61, .36, 1);
-  will-change: transform, filter;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0));
-  z-index: 1;
-}
-@media (hover: hover) and (pointer: fine) {
-  .proj-open:hover .hero-3d-cutout,
-  .hero-3d-host:hover .hero-3d-cutout {
-    --ry: -14deg;
-    --rx: 4deg;
-    --tz: 20px;
-    --zs: 1.03;
-    filter: drop-shadow(16px 18px 26px rgba(0, 0, 0, 0.35));
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-3d-cutout {
-    transition: none;
-    --ry: 0deg !important;
-    --rx: 0deg !important;
-    --tz: 0px !important;
-    --zs: 1 !important;
-    --fy: 0deg !important;
-    --fx: 0deg !important;
-    filter: none;
-  }
-}
+.proj-open:hover .cover--img { transform: scale3d(1.008, 1.008, 1); }
 .proj-meta { align-items: baseline; display: block; }
 .proj-meta .n {
   color: var(--bone);
