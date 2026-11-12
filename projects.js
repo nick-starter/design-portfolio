@@ -425,10 +425,10 @@ export const PROJECTS = [
     /* `headline` is the one line under the title (the blurb is used
        when there isn't one). `gallery` can list up to 8 image paths
        for the slots (pair, full, pair, …). */
-    headline: 'A premium redesign of the Rebel website, tested with real customers before it went live.',
+    headline: 'Redesigned the Rebel website to feel premium, lifting click-through on every page tested and winning Adidas Originals onto the site.',
     blurb:
-      "The old Rebel site was dated enough that suppliers like Adidas wouldn't put lines such as Originals on it. On contract at Super Retail Group, I redesigned the navigation, listing and product pages to feel as premium as Rebel's new concept stores, and each change was A/B tested with customers before it went live. Originals went on the site afterwards, and the design is still live.",
-    outcome: 'Premium e-commerce redesign · A/B tested to launch',
+      "Redesigned Rebel's navigation, listing and product pages to match its upmarket Rebel X stores. Every change was A/B tested with real customers and click-through rose significantly on each page redesigned. Adidas, which had held lines like Originals back because of how the old site looked, put them online afterwards, and the design is still live.",
+    outcome: 'Click-through up on every page tested · Adidas Originals won',
     /* Case study copy: shown as the body text in the project page's
        details row, as running paragraphs in this order. */
     story: {
@@ -436,11 +436,11 @@ export const PROJECTS = [
         "The old Rebel site was dated. It had got to the point where some suppliers, Adidas among them, didn't want lines like Originals sold on it because of how it looked. Rebel was also rebuilding its stores as more upmarket Rebel X concept stores, and the business wanted the website to feel the same way, closer to what Nike and Adidas do online.",
       ],
       approach: [
-        "This was a contract at Super Retail Group. I worked through the navigation, the product listing page, the product page and even how images were displayed, and designed several options for each. We ran workshops with stakeholders most weeks to pick the strongest ones. Those went to the optimisation team, who switched each design on for a small number of customers, checked how it converted, and turned it up to everyone if it was doing better.",
+        "This was a contract at Super Retail Group, working through the navigation, the product listing page, the product page and even how images were displayed, and designed several options for each. We ran workshops with stakeholders most weeks to pick the strongest ones. Those went to the optimisation team, who switched each design on for a small number of customers, checked how it converted, and turned it up to everyone if it was doing better.",
         "Nothing radical changed. Rebel's brand guidelines are strict, so the premium feel had to come from a better header, better typography and layout, and a set of templates for editorial-style content.",
       ],
       outcome: [
-        "Adidas Originals went onto the site after the project finished. In the tests, click-through went up significantly on each page we changed, and the design is still live. The UX was already solid before I started. Making it look better got people using it more, which is the aesthetic-usability effect doing what it says.",
+        "Adidas Originals went onto the site after the project finished. In the tests, click-through went up significantly on each page we changed, and the design is still live. The UX was already solid before the project started. Making it look better got people using it more, which is the aesthetic-usability effect doing what it says.",
       ],
     },
     brand: 'ember',
@@ -495,8 +495,8 @@ export const PROJECTS = [
     role: 'Visual Designer',
     tags: ['Mobile', 'Accessibility', 'Design System'],
     blurb:
-      "Highly functional, accessible phone activation and recharge flows, designed in a fast-paced agile environment — plus a member of the guild defining the Telstra 'Able' design system.",
-    outcome: "Telstra 'Able' design system · accessible activation",
+      "Designed Telstra's prepaid activation and recharge flows, from choosing a plan to verifying ID, so customers can get connected on their own, accessibly, on any device. Shipped in fast agile squads and helped define Able, the design system Telstra's digital teams build with.",
+    outcome: "Self-serve activation & recharge · Able design system",
     brand: 'ocean',
     seed: 3.9,
     nav: ['Overview', 'Plans', 'Recharge', 'Usage', 'Support'],
@@ -627,8 +627,8 @@ export const PROJECTS = [
     role: 'UX / UI Design',
     tags: ['Web', 'E-commerce', 'Brand'],
     blurb:
-      'Home of the modern uniform. A design-led e-commerce experience for a Melbourne workwear brand — browsing, bespoke uniform builds and corporate ordering, from research through to shipped UI.',
-    outcome: 'Design-led uniform e-commerce · bespoke ordering',
+      'Designed Cargo Crew's online store so teams can personalise uniforms right on the product page, adding name embroidery or their own logo, with wholesale pricing for corporate orders. Taken from research through to shipped UI for the Melbourne workwear brand.',
+    outcome: 'Customisation built into the product page',
     brand: 'cargo',
     seed: 8.6,
     nav: ['Shop', 'Men', 'Women', 'Custom', 'Corporate'],
@@ -682,8 +682,8 @@ export const PROJECTS = [
     role: 'Digital Design',
     tags: ['Web', 'Automotive', 'Campaign'],
     blurb:
-      "Digital design for Suzuki's motorcycle range — model discovery, a test-ride booking flow and campaign landing pages for the V-Strom and GSX-R families.",
-    outcome: 'Range discovery · test-ride booking flow',
+      "Designed a build-your-bike journey for Suzuki Motorcycles: choose a colour, add parts, accessories and servicing, and watch the ride-away price and weekly finance update as you go, then send the build straight to a dealer.",
+    outcome: 'Build-your-bike configurator · straight to a dealer',
     brand: 'suzuki',
     seed: 9.3,
     nav: ['Range', 'Road', 'Off-road', 'Scooters', 'Dealers'],
