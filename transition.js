@@ -5,7 +5,7 @@
    slides it back off to the left.
 ================================================================= */
 
-import { PROJECTS } from './projects.js?v=17';
+import { PROJECTS } from './projects.js?v=18';
 
 const $ = (s, r = document) => r.querySelector(s);
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -28,6 +28,61 @@ if (veil) {
 /* Clean URLs: the index is "/", each project lives at "/<id>"
    (a generated <id>.html, see scripts/build-pages.mjs). */
 export const projectUrl = (id) => `/${id}`;
+
+/* 3D hero hover: a cutout of the subject turns over a still plate.
+   Homepage covers and the project lead tile opt in via `heroCutout`
+   + `heroPlate` on the project. The host's existing image (the flat
+   still) stays in place as the morph / no-WebP fallback. */
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+function pictureLayer(className, webp, fallback) {
+  const picture = document.createElement('picture');
+  picture.className = className;
+  if (webp && fallback && webp !== fallback) {
+    const source = document.createElement('source');
+    source.type = 'image/webp';
+    source.srcset = webp;
+    picture.appendChild(source);
+  }
+  const img = document.createElement('img');
+  img.src = fallback || webp;
+  img.alt = '';
+  img.draggable = false;
+  img.decoding = 'async';
+  picture.appendChild(img);
+  return picture;
+}
+
+export function mountHero3d(host, p) {
+  if (!host || !p?.heroCutout || !p?.heroPlate) return;
+  if (host.querySelector(':scope > .hero-3d')) return;
+  host.classList.add('hero-3d-host');
+  const stage = document.createElement('div');
+  stage.className = 'hero-3d';
+  stage.setAttribute('aria-hidden', 'true');
+  stage.append(
+    pictureLayer('hero-3d-plate', p.heroPlate, p.heroPlateFallback || p.heroPlate),
+    pictureLayer('hero-3d-cutout', p.heroCutout, p.heroCutoutFallback || p.heroCutout),
+  );
+  host.appendChild(stage);
+  if (!finePointer || reduced) return;
+  const cut = stage.querySelector('.hero-3d-cutout');
+  const onMove = (e) => {
+    const r = host.getBoundingClientRect();
+    if (!r.width || !r.height) return;
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    cut.style.setProperty('--fy', `${(x * 6).toFixed(2)}deg`);
+    cut.style.setProperty('--fx', `${(-y * 4).toFixed(2)}deg`);
+  };
+  const onLeave = () => {
+    cut.style.removeProperty('--fy');
+    cut.style.removeProperty('--fx');
+  };
+  host.addEventListener('pointermove', onMove);
+  host.addEventListener('pointerleave', onLeave);
+}
+
 export function slugOf(u) {
   try {
     const url = new URL(u, location.href);

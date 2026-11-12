@@ -3,8 +3,8 @@
    Work gallery, method step-through, nav spy.
 ================================================================== */
 
-import { PROJECTS, projectCover } from './projects.js?v=17';
-import { armPageTransition, landFromProject, projectUrl } from './transition.js?v=22';
+import { PROJECTS, projectCover } from './projects.js?v=18';
+import { armPageTransition, landFromProject, projectUrl, mountHero3d } from './transition.js?v=23';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -37,13 +37,13 @@ function coverSource(p) {
   return coverCache.get(p.id);
 }
 
-function coverEl(p) {
-  const wrap = document.createElement('span');
-  wrap.className = 'cover' + (p.image ? ' cover--img' : '');
+function applyCoverMedia(wrap, p) {
+  wrap.classList.add('cover');
   if (p.image) {
+    wrap.classList.add('cover--img');
     wrap.style.backgroundImage = `url(${p.image})`;
   }
-  if (!p.image) {
+  if (!p.image && !wrap.querySelector('canvas')) {
     const src = coverSource(p);
     src.style.width = '100%';
     src.style.height = '100%';
@@ -53,11 +53,23 @@ function coverEl(p) {
     src.style.inset = 0;
     wrap.appendChild(src);
   }
+  mountHero3d(wrap, p);
+}
+
+function coverEl(p) {
+  const wrap = document.createElement('span');
+  applyCoverMedia(wrap, p);
   return wrap;
 }
 
 function fillSlot(el, p) {
   if (!el) return;
+  /* Work-gallery cards already have a .cover (needed as the morph
+     source). Enhance that node in place so we don't nest a second one. */
+  if (el.classList.contains('cover')) {
+    applyCoverMedia(el, p);
+    return;
+  }
   el.appendChild(coverEl(p));
 }
 
