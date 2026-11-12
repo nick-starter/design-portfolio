@@ -433,6 +433,11 @@ body.work-scroll .track { scroll-snap-type: none; }
 
 /* 3D hero hover (plate + cutout). The host keeps the flat still as
    its background-image so the card-to-hero morph is unchanged. */
+.cover.hero-3d-host {
+  /* Let the turning cutout and its hover shadow lift off the plate
+     without being clipped; the plate keeps the card's corner radius. */
+  overflow: visible;
+}
 .hero-3d {
   position: absolute;
   inset: 0;
@@ -440,6 +445,7 @@ body.work-scroll .track { scroll-snap-type: none; }
   perspective-origin: 50% 50%;
   pointer-events: none;
   z-index: 1;
+  border-radius: inherit;
 }
 .hero-3d-plate,
 .hero-3d-cutout,
@@ -453,6 +459,10 @@ body.work-scroll .track { scroll-snap-type: none; }
   object-fit: cover;
   object-position: center;
   pointer-events: none;
+}
+.hero-3d-plate,
+.hero-3d-plate img {
+  border-radius: inherit;
 }
 .hero-3d-cutout {
   --ry: 0deg;
