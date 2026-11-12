@@ -439,8 +439,11 @@ body.work-scroll .track { scroll-snap-type: none; }
   font-stretch: 125%;
   line-height: 1;
   font-size: clamp(1.4rem, 2.8vw, 2.6rem);
-  /* long names wrap inside the card instead of running under the next one */
-  display: block;
+  /* long names wrap inside the card instead of running under the next one;
+     number in its own column so wrapped lines align with the first word */
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: first baseline;
   max-width: 100%;
   white-space: normal;
   line-height: 1.05;
@@ -455,7 +458,6 @@ body.work-scroll .track { scroll-snap-type: none; }
   font-weight: 400;
   font-stretch: 100%;
   letter-spacing: 0;
-  vertical-align: baseline;
   margin-right: .9rem;
 }
 /* ---------------- experience ---------------- */
