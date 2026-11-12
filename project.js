@@ -4,8 +4,8 @@
    case study and prev/next navigation.
 ================================================================== */
 
-import { PROJECTS, desktopScreen } from './projects.js?v=12';
-import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=17';
+import { PROJECTS, desktopScreen } from './projects.js?v=13';
+import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=18';
 
 const $ = (s, r = document) => r.querySelector(s);
 
@@ -90,15 +90,18 @@ $('#pjBody').innerHTML = bodyParas.map((t) => `<p>${t}</p>`).join('');
 
 /* ---------------- gallery ---------------- */
 /* Fixed rhythm of slots: a pair of tall tiles, then one full-width
-   tile, repeated. `p.gallery` lists an image per slot; any slot
+   tile, repeated. `p.gallery` lists an image per slot (a path, or `{ src, alt }`); any slot
    without one shows the project's main image as a placeholder. */
 const SLOTS = ['half', 'half', 'full', 'half', 'half', 'full', 'half', 'half'];
 const galleryEl = $('#pjGallery');
+const escAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 galleryEl.innerHTML = SLOTS.map((kind, i) => {
-  const src = (p.gallery && p.gallery[i]) || p.image || 'assets/placeholder.png';
-  const real = Boolean(p.gallery && p.gallery[i]);
+  const item = p.gallery && p.gallery[i];
+  const src = (item && item.src) || item || p.image || 'assets/placeholder.png';
+  const real = Boolean(item);
+  const alt = real ? (item.alt || `${p.name} — image ${i + 1}`) : '';
   return `<figure class="pj-tile pj-slot--${kind}${real ? '' : ' is-placeholder'}">
-    <img src="${src}" alt="${real ? `${p.name} — image ${i + 1}` : ''}" loading="lazy" />
+    <img src="${escAttr(src)}" alt="${escAttr(alt)}" loading="lazy" />
   </figure>`;
 }).join('');
 
