@@ -408,7 +408,7 @@ export function desktopScreen(p, W = 1400, H = 1860) {
 export const PROJECTS = [
   {
     id: 'rebel',
-    image: 'assets/rebel-hand-mockup-v4.jpg',
+    image: 'assets/rebel-hand-mockup-v5.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
     /* Before/after slider on the project page: `before` and `after`
        are image paths (same proportions work best). Add `compare` to
