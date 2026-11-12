@@ -495,8 +495,8 @@ export const PROJECTS = [
     role: 'Visual Designer',
     tags: ['Mobile', 'Accessibility', 'Design System'],
     blurb:
-      "Designed Telstra's prepaid activation and recharge flows, from choosing a plan to verifying ID, so customers can get connected on their own, accessibly, on any device. Shipped in fast agile squads and helped define Able, the design system Telstra's digital teams build with.",
-    outcome: "Self-serve activation & recharge · Able design system",
+      "Designed the prepaid flows behind 2.5 million Telstra recharges a month, from activation, choosing a plan and verifying ID through to complex journeys like international roaming, so customers can get connected on their own, accessibly, on any device. Shipped in fast agile squads and helped define Able, the design system Telstra's digital teams build with. A Telstra Design Awards winner.",
+    outcome: "2.5M prepaid recharges a month · Telstra Design Awards winner",
     brand: 'ocean',
     seed: 3.9,
     nav: ['Overview', 'Plans', 'Recharge', 'Usage', 'Support'],
@@ -627,8 +627,7 @@ export const PROJECTS = [
     role: 'UX / UI Design',
     tags: ['Web', 'E-commerce', 'Brand'],
     blurb:
-      'Designed Cargo Crew's online store so teams can personalise uniforms right on the product page, adding name embroidery or their own logo, with wholesale pricing for corporate orders. Taken from research through to shipped UI for the Melbourne workwear brand.',
-    outcome: 'Customisation built into the product page',
+      "Designed Cargo Crew's online store so teams can personalise uniforms right on the product page, adding name embroidery or their own logo, with wholesale pricing for corporate orders. Taken from research through to shipped UI for the Melbourne workwear brand.",    outcome: 'Customisation built into the product page',
     brand: 'cargo',
     seed: 8.6,
     nav: ['Shop', 'Men', 'Women', 'Custom', 'Corporate'],
