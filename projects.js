@@ -671,7 +671,7 @@ export const PROJECTS = [
   },
   {
     id: 'suzuki',
-    image: 'assets/suzuki-ipad-mockup-v3.jpg',
+    image: 'assets/suzuki-ipad-mockup-v4.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Suzuki',
     logo: 'assets/logos/suzuki.svg',
