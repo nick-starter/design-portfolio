@@ -3,8 +3,8 @@
    Work gallery, method step-through, nav spy.
 ================================================================== */
 
-import { PROJECTS, projectCover } from './projects.js?v=30';
-import { armPageTransition, landFromProject, projectUrl } from './transition.js?v=36';
+import { PROJECTS, projectCover } from './projects.js?v=31';
+import { armPageTransition, landFromProject, projectUrl } from './transition.js?v=37';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -42,6 +42,7 @@ function coverEl(p) {
   wrap.className = 'cover' + (p.image ? ' cover--img' : '');
   if (p.image) {
     wrap.style.backgroundImage = `url(${p.image})`;
+    if (p.cardPos) wrap.style.backgroundPosition = p.cardPos;
   }
   if (!p.image) {
     const src = coverSource(p);
@@ -84,7 +85,7 @@ function projectCardMarkup(p, i) {
   return `
     <article class="proj">
       <a class="proj-open" href="${projectUrl(p.id)}" aria-label="View ${p.name} project">
-        <span class="cover cover--img"${p.image ? ` style="background-image: url(${p.image});"` : ''}></span>
+        <span class="cover cover--img"${p.image ? ` style="background-image: url(${p.image});${p.cardPos ? ` background-position: ${p.cardPos};` : ''}"` : ''}></span>
       </a>
       <div class="proj-meta">
         <span class="mono n"><b>${n}</b><span>${p.name}</span></span>

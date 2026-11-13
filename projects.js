@@ -671,7 +671,11 @@ export const PROJECTS = [
   },
   {
     id: 'suzuki',
-    image: 'assets/suzuki-ipad-mockup-v9.jpg',
+    image: 'assets/suzuki-ipad-mockup-v10.jpg',
+    /* Crops that keep the whole iPad in the square card and the 9:10
+       phone hero; the 16:9 / 16:10 desktop hero stays centred. */
+    cardPos: '43% 50%',
+    heroPosNarrow: '44% 50%',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Suzuki',
     logo: 'assets/logos/suzuki.svg',

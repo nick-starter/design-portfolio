@@ -4,8 +4,8 @@
    case study and prev/next navigation.
 ================================================================== */
 
-import { PROJECTS, desktopScreen } from './projects.js?v=30';
-import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=36';
+import { PROJECTS, desktopScreen } from './projects.js?v=31';
+import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=37';
 
 const $ = (s, r = document) => r.querySelector(s);
 
@@ -36,6 +36,7 @@ if (leadImage) {
 }
 /* Crop of the full-bleed lead image (CSS object-position). */
 if (p.heroPos) document.documentElement.style.setProperty('--pj-pos', p.heroPos);
+if (p.heroPosNarrow) document.documentElement.style.setProperty('--pj-pos-narrow', p.heroPosNarrow);
 
 /* Card expand hand-off: the lead image is full-bleed at the top of the
    page, so its spot doesn't depend on the header any more; once the web

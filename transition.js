@@ -5,7 +5,7 @@
    slides it back off to the left.
 ================================================================= */
 
-import { PROJECTS } from './projects.js?v=30';
+import { PROJECTS } from './projects.js?v=31';
 
 const $ = (s, r = document) => r.querySelector(s);
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -132,7 +132,12 @@ function tileGuess(id) {
 const box = (r) => ({ left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px` });
 
 /* A project's crop for its full-bleed lead image (`heroPos`). */
-export const heroPos = (id) => (PROJECTS.find((x) => x.id === id) || {}).heroPos || '50% 50%';
+/* `heroPosNarrow` overrides it where the hero is the 9:10 crop. */
+const narrowHero = () => matchMedia('(max-aspect-ratio: 9 / 10)').matches;
+export const heroPos = (id) => {
+  const p = PROJECTS.find((x) => x.id === id) || {};
+  return (narrowHero() && p.heroPosNarrow) || p.heroPos || '50% 50%';
+};
 
 function makeClone(bg, rect, pos) {
   const backdrop = document.createElement('div');
@@ -155,7 +160,14 @@ function expand(href, from) {
   const id = slugOf(href) || '';
   const to = tileGuess(id);
   const bg = getComputedStyle(from).backgroundImage;
-  const { el, backdrop } = makeClone(bg, r, heroPos(id));
+  /* The clone starts on the card's crop (`cardPos`) and pans to the
+     hero's as it grows. */
+  const fromPos = getComputedStyle(from).backgroundPosition;
+  const toPos = heroPos(id);
+  const { el, backdrop } = makeClone(bg, r, fromPos);
+  if (fromPos !== toPos) {
+    el.firstChild.animate([{ backgroundPosition: fromPos }, { backgroundPosition: toPos }], { duration: DUR, easing: EASE, fill: 'forwards' });
+  }
   /* The project's lead image (may differ from the card's) starts
      loading now, so the project page finds it in the cache. */
   const p = PROJECTS.find((x) => x.id === id);

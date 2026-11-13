@@ -971,6 +971,8 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
    stays whole). */
 @media (max-aspect-ratio: 9 / 10) {
   .pj-tile--hero { height: auto; min-height: 0; aspect-ratio: 9 / 10; }
+  /* A project's `heroPosNarrow` crop for the 9:10 hero. */
+  .pj-tile--hero > img { object-position: var(--pj-pos-narrow, var(--pj-pos, 50% 50%)); }
 }
 
 /* Phones: the hero heading as a left-aligned stack. The desktop
