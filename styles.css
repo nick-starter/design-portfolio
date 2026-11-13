@@ -624,8 +624,9 @@ body.work-scroll .track { scroll-snap-type: none; }
 .foot a:hover { color: var(--red); }
 
 /* ---------------- project page ---------------- */
-/* Big title and headline, a lead image, a details row, then a
-   gallery of image tiles and prev/next across the bottom. */
+/* A full-bleed lead image filling the first screen, then the big
+   title and headline, a details row, a gallery of image tiles and
+   prev/next across the bottom. */
 .pj { padding-bottom: clamp(24px, 4vw, 48px); }
 .nav .d-close {
   /* Pill from the reference: near-black fill a shade lighter than the
@@ -659,7 +660,7 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
 /* Header: a very large title, then a one-line headline */
 .pj-head {
   gap: clamp(40px, 7vw, 110px);
-  padding-top: calc(var(--safe-top) + 110px);
+  padding-top: clamp(48px, 7vw, 110px);
   padding-bottom: clamp(28px, 3.5vw, 48px);
   display: grid;
 }
@@ -707,7 +708,25 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   position: absolute;
   inset: 0;
 }
-.pj-tile--hero { aspect-ratio: 3 / 2; }
+/* Lead image: edge to edge and the height of the window (svh, so
+   mobile browser chrome showing/hiding doesn't make it jump), under
+   the fixed nav. --pj-pos (a project's `heroPos`) picks the crop. A
+   soft shade along the top keeps the logo and Close legible. */
+.pj-tile--hero {
+  border-radius: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 420px;
+}
+.pj-tile--hero > img { object-position: var(--pj-pos, 50% 50%); }
+.pj-tile--hero::after {
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(rgba(8, 10, 12, .42), rgba(8, 10, 12, 0) clamp(110px, 14vh, 170px));
+  position: absolute;
+  inset: 0;
+}
 
 /* Details: small labelled facts in two columns on the left half,
    body text on the right half */
@@ -940,11 +959,18 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   .foot { grid-template-columns: minmax(0, 1fr); height: auto; }
   .foot > * { border-right: 0; border-bottom: 1px solid var(--line); min-height: 0; padding: 20px clamp(24px, 4vw, 56px); display: block; }
   body:has(.pj) .wrap { padding-inline: var(--gut); }
-  .pj-head { padding-top: calc(var(--safe-top) + 96px); }
+  .pj-head { padding-top: clamp(40px, 10vw, 72px); }
   .pj-headline { max-width: none; }
   .pj-details { grid-template-columns: minmax(0, 1fr); }
   .pj-gallery { grid-template-columns: minmax(0, 1fr); }
   .pj-slot--half { aspect-ratio: 4 / 5; }
+}
+/* Portrait phones: a 16:9 or 4:3 hero cropped to the full window
+   height would show only a sliver of the device, so the lead image
+   runs full width at 9:10 instead (still edge to edge, and the device
+   stays whole). */
+@media (max-aspect-ratio: 9 / 10) {
+  .pj-tile--hero { height: auto; min-height: 0; aspect-ratio: 9 / 10; }
 }
 
 /* Phones: the hero heading as a left-aligned stack. The desktop
@@ -1024,8 +1050,8 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
 .from-card .pg-veil--reveal { background: none; }
 .from-card .pg-veil--reveal::after {
   content: "";
-  background: var(--pj-img) center / cover no-repeat;
-  border-radius: 2px;
+  background: var(--pj-img) var(--pj-pos, center) / cover no-repeat;
+  border-radius: 0;
   width: var(--pj-width, 100%);
   height: var(--pj-height, 56vw);
   position: absolute;

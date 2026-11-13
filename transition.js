@@ -81,7 +81,7 @@ addEventListener('pageshow', (e) => {
 const EXPAND_KEY = 'pj-expand';
 const EASE = 'cubic-bezier(0.76, 0, 0.24, 1)';
 const DUR = 700;
-const TILE_RADIUS = '2px';
+const TILE_RADIUS = '0px';
 
 /* Project title: the company logo (white, in a fixed-height box set
    in CSS, so the header is the same height before and after the
@@ -98,45 +98,42 @@ export function fillTitle(h1, p) {
   h1.replaceChildren(img);
 }
 
-/* Where the project page's lead image sits. Exact if that project
-   has been opened at this window size before (project.js records
-   it); otherwise measured from an off-screen copy of the project
-   header (same logo or title, headline and CSS), since the tile sits right
-   under it: full width less the page edge, 3:2. */
+/* Where the project page's lead image sits: full-bleed at the top
+   of the page, so the window's width by the lead tile's CSS height
+   (the window height, or 4:5 on portrait phones). Exact if that project
+   has been opened at this window size before (project.js records it);
+   otherwise measured from an off-screen tile with the same classes. */
 function tileGuess(id) {
   const W = document.documentElement.clientWidth;
   try {
-    const seen = JSON.parse(sessionStorage.getItem(`pj-tile2:${id}:${W}x${innerHeight}`) || 'null');
+    const seen = JSON.parse(sessionStorage.getItem(`pj-tile3:${id}:${W}x${innerHeight}`) || 'null');
     if (seen) return seen;
   } catch { /* noop */ }
-  const p = PROJECTS.find((x) => x.id === id) || PROJECTS[0];
-  const head = document.createElement('header');
-  head.className = 'pj-head';
-  head.setAttribute('aria-hidden', 'true');
-  Object.assign(head.style, {
-    position: 'absolute', left: '0', top: '0', width: '100%', boxSizing: 'border-box',
-    paddingInline: matchMedia('(max-width: 900px)').matches ? 'var(--gut)' : '40px',
+  const probe = document.createElement('figure');
+  probe.className = 'pj-tile pj-tile--hero';
+  probe.setAttribute('aria-hidden', 'true');
+  Object.assign(probe.style, {
+    position: 'absolute', left: '0', top: '0', width: `${W}px`, margin: '0',
     visibility: 'hidden', pointerEvents: 'none',
   });
-  head.innerHTML = '<h1 class="disp"></h1><p class="pj-headline"></p>';
-  fillTitle(head.firstChild, p);
-  head.lastChild.textContent = p.headline || p.blurb;
-  document.body.appendChild(head);
-  const r = head.getBoundingClientRect();
-  const g = parseFloat(getComputedStyle(head).paddingLeft) || 0;
-  head.remove();
-  const width = r.width - 2 * g;
-  return { left: g, top: r.height, width, height: (width * 2) / 3 };
+  document.body.appendChild(probe);
+  const height = probe.getBoundingClientRect().height || innerHeight;
+  probe.remove();
+  return { left: 0, top: 0, width: W, height };
 }
 const box = (r) => ({ left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px` });
 
-function makeClone(bg, rect) {
+/* A project's crop for its full-bleed lead image (`heroPos`). */
+export const heroPos = (id) => (PROJECTS.find((x) => x.id === id) || {}).heroPos || '50% 50%';
+
+function makeClone(bg, rect, pos) {
   const backdrop = document.createElement('div');
   backdrop.className = 'pg-expand pg-expand-bg';
   const el = document.createElement('div');
   el.className = 'pg-expand';
   el.innerHTML = '<div class="pg-expand-img"></div>';
   el.firstChild.style.backgroundImage = bg;
+  if (pos) el.firstChild.style.backgroundPosition = pos;
   Object.assign(el.style, box(rect));
   [backdrop, el].forEach((n) => n.setAttribute('aria-hidden', 'true'));
   document.body.append(backdrop, el);
@@ -149,7 +146,7 @@ function expand(href, from) {
   const id = slugOf(href) || '';
   const to = tileGuess(id);
   const bg = getComputedStyle(from).backgroundImage;
-  const { el, backdrop } = makeClone(bg, r);
+  const { el, backdrop } = makeClone(bg, r, heroPos(id));
   el.animate(
     [{ ...box(r), borderRadius: '64px' }, { ...box(to), borderRadius: TILE_RADIUS }],
     { duration: DUR, easing: EASE, fill: 'forwards' }
@@ -168,6 +165,7 @@ function expand(href, from) {
         id,
         image,
         rect: to,
+        pos: heroPos(id),
       }));
     } catch { /* noop */ }
     location.href = href;

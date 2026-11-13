@@ -30,10 +30,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/styles.css?v=116" />
+<link rel="stylesheet" href="/styles.css?v=117" />
 <script>
   /* Arriving from a gallery card's expand: skip the veil reveal. The
-     card's clone ended on where the first image tile should sit;
+     card's clone ended on the full-bleed lead image at the top;
      project.js settles the tile from there (see settleArrival). */
   try {
     var arrive = JSON.parse(sessionStorage.getItem('pj-expand') || 'null');
@@ -45,6 +45,7 @@
       /* Hold the clone's image on its final rect from the first paint,
          so nothing blinks while the tile waits for the header. */
       if (arrive.image) h.style.setProperty('--pj-img', 'url("' + arrive.image + '")');
+      if (arrive.pos) h.style.setProperty('--pj-pos', arrive.pos);
       if (arrive.rect) {
         ['left', 'top', 'width', 'height'].forEach(function (k) { h.style.setProperty('--pj-' + k, arrive.rect[k] + 'px'); });
       }
@@ -68,6 +69,9 @@
 
 <main class="pj">
 
+  <!-- ============ LEAD IMAGE: full-bleed, fills the first screen ============ -->
+  <figure class="pj-tile pj-tile--hero" id="pjHero"><img id="pjCover" src="/assets/placeholder.png" alt="" /></figure>
+
   <!-- ============ HEADER: big title, one-line headline ============ -->
   <header class="pj-head wrap">
     <h1 class="disp" id="pjName">Project</h1>
@@ -75,9 +79,6 @@
   </header>
 
   <div class="pj-stack wrap">
-    <!-- ============ LEAD IMAGE ============ -->
-    <figure class="pj-tile pj-tile--hero" id="pjHero"><img id="pjCover" src="/assets/placeholder.png" alt="" /></figure>
-
     <!-- ============ DETAILS: facts left, body text right ============ -->
     <section class="pj-details">
       <dl class="pj-meta" id="pjFacts"></dl>
@@ -115,7 +116,7 @@
   <a href="https://www.linkedin.com/in/nchild/" target="_blank" rel="noopener">LinkedIn</a>
 </footer>
 
-<script type="module" src="/project.js?v=54"></script>
+<script type="module" src="/project.js?v=55"></script>
 <script type="module" src="/menu.js?v=1"></script>
 </body>
 </html>

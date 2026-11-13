@@ -5,7 +5,7 @@
 ================================================================== */
 
 import { PROJECTS, desktopScreen } from './projects.js?v=25';
-import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=30';
+import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=31';
 
 const $ = (s, r = document) => r.querySelector(s);
 
@@ -34,11 +34,13 @@ if (leadImage) {
   cover.src = leadImage;
   cover.alt = `${p.name} cover`;
 }
+/* Crop of the full-bleed lead image (CSS object-position). */
+if (p.heroPos) document.documentElement.style.setProperty('--pj-pos', p.heroPos);
 
-/* Card expand hand-off: once the title, headline and web fonts are in
-   (so the tile is in its final spot), start the tile where the card's
-   clone finished and let it settle. Doing this before the header text
-   was filled made the tile jump mid-animation. */
+/* Card expand hand-off: the lead image is full-bleed at the top of the
+   page, so its spot doesn't depend on the header any more; once the web
+   fonts are in (or 400ms), start the tile where the card's clone
+   finished and let it settle. */
 (function settleArrival() {
   const a = window.__pjArrive;
   const tile = $('#pjHero');
@@ -220,7 +222,7 @@ function rememberTile() {
   for (let el = tile; el; el = el.offsetParent) { left += el.offsetLeft; top += el.offsetTop; }
   try {
     sessionStorage.setItem(
-      `pj-tile2:${p.id}:${document.documentElement.clientWidth}x${innerHeight}`,
+      `pj-tile3:${p.id}:${document.documentElement.clientWidth}x${innerHeight}`,
       JSON.stringify({ left, top, width: tile.offsetWidth, height: tile.offsetHeight })
     );
   } catch { /* noop */ }
