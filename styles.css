@@ -1046,8 +1046,10 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
 /* A project arriving from a card's expand: the veil holds still,
    minus the ink, and shows the hero image until settleArrival()
    hands over to the real tile. */
+/* The veil stays opaque ink (not see-through) so the page underneath,
+   with its title and text not yet filled in, never shows. */
 .from-card .pg-veil--reveal { animation: none; }
-.from-card .pg-veil--reveal { background: none; }
+.from-card .pg-veil--reveal { background: var(--ink); }
 .from-card .pg-veil--reveal::after {
   content: "";
   background: var(--pj-img) var(--pj-pos, center) / cover no-repeat;
@@ -1074,6 +1076,16 @@ html.pj-vt::view-transition-image-pair(root) { isolation: auto; }
 html.pj-vt::view-transition-old(root),
 html.pj-vt::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 html.pj-vt::view-transition-old(root) { z-index: 1; box-shadow: -30px 0 80px rgba(0, 0, 0, .6); }
+
+/* Card → project: the homepage's last frame (the clone on the hero
+   rect) is held over the new page, no cross-fade, until project.js
+   calls skipTransition() once the hero is decoded; the hold's length
+   is only a safety net. */
+html.from-card::view-transition-group(root) { animation: none; }
+html.from-card::view-transition-image-pair(root) { isolation: auto; }
+html.from-card::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+html.from-card::view-transition-old(root) { animation: pj-hold 1.6s step-end both; mix-blend-mode: normal; z-index: 1; }
+@keyframes pj-hold { to { opacity: 0; } }
 
 @keyframes pj-rise {
   from { opacity: 0; transform: translateY(18px); }

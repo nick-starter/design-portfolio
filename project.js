@@ -4,8 +4,8 @@
    case study and prev/next navigation.
 ================================================================== */
 
-import { PROJECTS, desktopScreen } from './projects.js?v=25';
-import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=31';
+import { PROJECTS, desktopScreen } from './projects.js?v=26';
+import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=32';
 
 const $ = (s, r = document) => r.querySelector(s);
 
@@ -39,8 +39,9 @@ if (p.heroPos) document.documentElement.style.setProperty('--pj-pos', p.heroPos)
 
 /* Card expand hand-off: the lead image is full-bleed at the top of the
    page, so its spot doesn't depend on the header any more; once the web
-   fonts are in (or 400ms), start the tile where the card's clone
-   finished and let it settle. */
+   fonts are in and the image is decoded (or 1.2s), start the tile where
+   the card's clone finished, drop the held homepage frame and let it
+   settle. */
 (function settleArrival() {
   const a = window.__pjArrive;
   const tile = $('#pjHero');
@@ -56,13 +57,23 @@ if (p.heroPos) document.documentElement.style.setProperty('--pj-pos', p.heroPos)
     }
     tile.style.visibility = 'visible';
     $('.pg-veil--reveal')?.remove();
+    /* Drop the held homepage frame now the tile is on the clone's rect. */
+    try { window.__pjVT?.skipTransition(); } catch { /* noop */ }
     requestAnimationFrame(() => requestAnimationFrame(() => {
       tile.style.transition = 'transform .5s cubic-bezier(.2,.7,.2,1)';
       tile.style.transform = 'none';
     }));
   };
-  Promise.race([document.fonts?.ready || Promise.resolve(), new Promise((res) => setTimeout(res, 400))])
-    .then(() => requestAnimationFrame(run));
+  /* Wait for the fonts and for the hero to be decoded, so the tile is
+     never shown (and the veil never lifted) on a blank image. */
+  const decoded = Promise.all([
+    cover.decode ? cover.decode().catch(() => {}) : null,
+    window.__pjArriveDecode,
+  ]);
+  Promise.race([
+    Promise.all([document.fonts?.ready, decoded]),
+    new Promise((res) => setTimeout(res, 1200)),
+  ]).then(() => requestAnimationFrame(run));
 })();
 
 /* ---------------- details ---------------- */

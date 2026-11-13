@@ -5,7 +5,7 @@
    slides it back off to the left.
 ================================================================= */
 
-import { PROJECTS } from './projects.js?v=25';
+import { PROJECTS } from './projects.js?v=26';
 
 const $ = (s, r = document) => r.querySelector(s);
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -44,9 +44,16 @@ const onProject = document.documentElement.dataset.page === 'project';
    are only used for project → index: the page slide run by the
    index's head script. Every other navigation has its own
    transition, so the browser's default cross-fade is skipped. */
+/* The card expand is the other exception: its view transition keeps
+   a snapshot of this page (the clone sitting on the project's hero
+   rect) on screen until the project page has its hero decoded and
+   calls skipTransition() (see settleArrival), so there's no frame of
+   bare ink or unfilled page in between. */
+let expanding = false;
 addEventListener('pageswap', (e) => {
   if (!e.viewTransition) return;
   const to = e.activation && e.activation.entry && e.activation.entry.url;
+  if (expanding) return;
   if (!(onProject && to && isIndexUrl(to))) e.viewTransition.skipTransition();
 });
 /* Tell the index which project it is coming back from (covers
@@ -68,6 +75,7 @@ let busy = false;
 addEventListener('pageshow', (e) => {
   if (!e.persisted) return;
   busy = false;
+  expanding = false;
   document.querySelectorAll('.pg-veil--cover, .pg-expand').forEach((el) => el.remove());
 });
 
@@ -142,11 +150,17 @@ function makeClone(bg, rect, pos) {
 
 function expand(href, from) {
   busy = true;
+  expanding = true;
   const r = from.getBoundingClientRect();
   const id = slugOf(href) || '';
   const to = tileGuess(id);
   const bg = getComputedStyle(from).backgroundImage;
   const { el, backdrop } = makeClone(bg, r, heroPos(id));
+  /* The project's lead image (may differ from the card's) starts
+     loading now, so the project page finds it in the cache. */
+  const p = PROJECTS.find((x) => x.id === id);
+  const lead = p && (p.lead || p.image);
+  if (lead) { const warm = new Image(); warm.src = lead; }
   el.animate(
     [{ ...box(r), borderRadius: '64px' }, { ...box(to), borderRadius: TILE_RADIUS }],
     { duration: DUR, easing: EASE, fill: 'forwards' }
