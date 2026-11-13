@@ -597,7 +597,7 @@ export const PROJECTS = [
   },
   {
     id: 'kitchenwarehouse',
-    image: 'assets/kitchenwarehouse-hero.jpg',
+    image: 'assets/kitchenwarehouse-two-up.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Kitchen Warehouse',
     logo: 'assets/logos/kitchenwarehouse.png',
