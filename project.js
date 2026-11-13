@@ -42,10 +42,19 @@ if (p.heroPos) document.documentElement.style.setProperty('--pj-pos', p.heroPos)
    fonts are in and the image is decoded (or 1.2s), start the tile where
    the card's clone finished, drop the held homepage frame and let it
    settle. */
+/* Logo + Close fade in: 150ms after the hero lands, or 250ms after the
+   hero has decoded on a direct load (1s cap). */
+const showChrome = (delay) => setTimeout(() => document.documentElement.classList.remove('pj-chrome-wait'), delay);
 (function settleArrival() {
   const a = window.__pjArrive;
   const tile = $('#pjHero');
-  if (!a || !a.rect || !tile) return;
+  if (!a || !a.rect || !tile) {
+    Promise.race([
+      cover.decode ? cover.decode().catch(() => {}) : null,
+      new Promise((res) => setTimeout(res, 1000)),
+    ]).then(() => showChrome(250));
+    return;
+  }
   const run = () => {
     if (tile.dataset.settled) return;
     tile.dataset.settled = '1';
@@ -62,6 +71,7 @@ if (p.heroPos) document.documentElement.style.setProperty('--pj-pos', p.heroPos)
     requestAnimationFrame(() => requestAnimationFrame(() => {
       tile.style.transition = 'transform .5s cubic-bezier(.2,.7,.2,1)';
       tile.style.transform = 'none';
+      showChrome(500 + 150);
     }));
   };
   /* Wait for the fonts and for the hero to be decoded, so the tile is

@@ -1062,8 +1062,20 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
 }
 /* Arrived via the expand: everything but the image rises in. */
 .from-card .pj-head,
-.from-card .pj-stack > :not(.pj-tile--hero):not(script),
-.from-card .nav { animation: pj-rise .6s cubic-bezier(.2, .7, .2, 1) both; }
+.from-card .pj-stack > :not(.pj-tile--hero):not(script) { animation: pj-rise .6s cubic-bezier(.2, .7, .2, 1) both; }
+/* Project pages: the CHILD logo and Close fade in after the hero has
+   landed (or shortly after a direct load); project.js removes
+   .pj-chrome-wait. */
+[data-page="project"] .nav .logo,
+[data-page="project"] .nav .d-close { transition: opacity .4s ease; }
+.pj-chrome-wait .nav .logo,
+.pj-chrome-wait .nav .d-close { opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  [data-page="project"] .nav .logo,
+  [data-page="project"] .nav .d-close { transition: none; }
+  .pj-chrome-wait .nav .logo,
+  .pj-chrome-wait .nav .d-close { opacity: 1; pointer-events: auto; }
+}
 .from-card .pj-stack > :not(.pj-tile--hero):not(script) { animation-delay: .08s; }
 /* Project → index: the project page slides off to the right as one
    piece (index.html's head script runs it as a view transition). The
