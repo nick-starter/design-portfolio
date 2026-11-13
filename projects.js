@@ -597,10 +597,10 @@ export const PROJECTS = [
   },
   {
     id: 'kitchenwarehouse',
-    image: 'assets/kitchenwarehouse-two-up-v2.jpg',
+    image: 'assets/kitchenwarehouse-two-up-v3.jpg',
     /* Centre the pair of phones in the square card and the 9:10 phone hero. */
-    cardPos: '54% 50%',
-    heroPosNarrow: '54% 50%',
+    cardPos: '49% 50%',
+    heroPosNarrow: '49% 50%',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Kitchen Warehouse',
     logo: 'assets/logos/kitchenwarehouse.png',
