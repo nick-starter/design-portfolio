@@ -483,7 +483,7 @@ export const PROJECTS = [
   },
   {
     id: 'telstra',
-    image: 'assets/telstra-three-up-v3.jpg',
+    image: 'assets/telstra-three-up-v4.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Telstra',
     cardName: ['Telstra', 'Prepaid'],
