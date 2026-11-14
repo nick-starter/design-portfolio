@@ -3,8 +3,8 @@
    Work gallery, method step-through, nav spy.
 ================================================================== */
 
-import { PROJECTS, projectCover } from './projects.js?v=38';
-import { armPageTransition, landFromProject, projectUrl } from './transition.js?v=44';
+import { PROJECTS, projectCover } from './projects.js?v=39';
+import { armPageTransition, landFromProject, projectUrl } from './transition.js?v=45';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -88,7 +88,7 @@ function projectCardMarkup(p, i) {
         <span class="cover cover--img"${p.image ? ` style="background-image: url(${p.image});${p.cardPos ? ` background-position: ${p.cardPos};` : ''}"` : ''}></span>
       </a>
       <div class="proj-meta">
-        <span class="mono n"><b>${n}</b><span>${p.name}</span></span>
+        <span class="mono n"><b>${n}</b><span>${p.cardName ? p.cardName.join('<br>') : p.name}</span></span>
       </div>
     </article>`;
 }
