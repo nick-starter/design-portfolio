@@ -410,11 +410,6 @@ export const PROJECTS = [
     id: 'rebel',
     image: 'assets/rebel-hand-mockup-v8.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
-    /* Before/after slider on the project page: `before` and `after`
-       are image paths (same proportions work best). Add `compare` to
-       any project to enable it; without it the page shows the
-       generated web mockup tile instead. */
-    compare: { before: 'assets/rebel-before.webp', after: 'assets/rebel-after.webp' },
     name: 'Rebel',
     logo: 'assets/logos/rebel.png',
     client: 'Super Retail Group',

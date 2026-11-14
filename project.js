@@ -4,8 +4,8 @@
    case study and prev/next navigation.
 ================================================================== */
 
-import { PROJECTS, desktopScreen } from './projects.js?v=34';
-import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=40';
+import { PROJECTS } from './projects.js?v=35';
+import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=41';
 
 const $ = (s, r = document) => r.querySelector(s);
 
@@ -128,110 +128,6 @@ galleryEl.innerHTML = SLOTS.map((kind, i) => {
     <img src="${escAttr(src)}" alt="${escAttr(alt)}" loading="lazy" />
   </figure>`;
 }).join('');
-
-/* Before / after slider. Shown for projects with a `compare` entry
-   in projects.js; it then stands in for the plain web mockup. The
-   old design sits on top, clipped to the left of the handle. */
-function mountCompare(fig, cmp) {
-  const stage = $('.ba-stage', fig);
-  const range = $('.ba-range', fig);
-  const layer = (sel, src, alt, fallback) => {
-    const el = $(sel, fig);
-    if (src) {
-      const img = new Image();
-      img.src = src;
-      img.alt = alt;
-      img.draggable = false;
-      el.appendChild(img);
-    } else {
-      el.appendChild(fallback());
-    }
-  };
-  layer('.ba-after', cmp.after, `${p.name} — new design`, () => desktopScreen(p));
-  layer('.ba-before', cmp.before, `${p.name} — previous design`, () => {
-    const img = new Image();
-    img.src = 'assets/placeholder.png';
-    img.alt = 'Previous design (placeholder)';
-    img.draggable = false;
-    return img;
-  });
-
-  /* Pixel dissolve: the old design is masked by a grid of square
-     cells. Each cell has its own random threshold, so cells within
-     a band around the handle flip to the new design at different
-     moments and the change sweeps across as scattered pixels. */
-  const COLS = 96;
-  const ROWS = 128;             // 3:4, same as the frame
-  const CELL = 4;               // mask pixels per cell
-  const BAND = 0.34;            // width of the scatter, as a share of the frame
-  const mask = document.createElement('canvas');
-  mask.width = COLS * CELL;
-  mask.height = ROWS * CELL;
-  const mctx = mask.getContext('2d');
-  let seed = 7;
-  const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
-  const thresholds = Array.from({ length: COLS * ROWS }, rand);
-  const before = $('.ba-before', fig);
-  stage.classList.add('ba-stage--px');
-  let maskRaf = 0;
-  let lastKey = '';
-  function paintMask(pos) {
-    /* stretch 0–1 so both ends are clean: nothing at 0, everything at 1 */
-    const edge = pos * (1 + BAND) - BAND / 2;
-    const on = [];
-    for (let c = 0; c < COLS; c++) {
-      const cx = (c + 0.5) / COLS;
-      for (let r = 0; r < ROWS; r++) {
-        if (cx < edge + (thresholds[r * COLS + c] - 0.5) * BAND) on.push(c, r);
-      }
-    }
-    const key = on.join(',');
-    if (key === lastKey) return;
-    lastKey = key;
-    mctx.clearRect(0, 0, mask.width, mask.height);
-    mctx.fillStyle = '#000';
-    for (let i = 0; i < on.length; i += 2) mctx.fillRect(on[i] * CELL, on[i + 1] * CELL, CELL, CELL);
-    const url = `url(${mask.toDataURL()})`;
-    before.style.webkitMaskImage = url;
-    before.style.maskImage = url;
-  }
-
-  const set = (v) => {
-    const pos = Math.min(100, Math.max(0, v));
-    stage.style.setProperty('--pos', `${pos}%`);
-    range.value = pos;
-    cancelAnimationFrame(maskRaf);
-    maskRaf = requestAnimationFrame(() => paintMask(pos / 100));
-  };
-  const fromPointer = (e) => {
-    const r = stage.getBoundingClientRect();
-    set(((e.clientX - r.left) / r.width) * 100);
-  };
-  let dragging = false;
-  stage.addEventListener('pointerdown', (e) => {
-    if (e.button !== 0) return;
-    dragging = true;
-    stage.setPointerCapture(e.pointerId);
-    stage.classList.add('is-dragging');
-    fromPointer(e);
-  });
-  stage.addEventListener('pointermove', (e) => { if (dragging) fromPointer(e); });
-  const stop = () => { dragging = false; stage.classList.remove('is-dragging'); };
-  stage.addEventListener('pointerup', stop);
-  stage.addEventListener('pointercancel', stop);
-  /* keyboard: the range input is focusable and drives the same value */
-  range.addEventListener('input', () => set(+range.value));
-  range.addEventListener('keydown', (e) => e.stopPropagation());
-  set(50);
-  $('#pjCompareTile').hidden = false;
-}
-
-if (p.compare) {
-  mountCompare($('#pjCompare'), p.compare);
-  galleryEl.querySelector('.pj-slot--full').replaceWith($('#pjCompareTile'));
-} else {
-  $('#pjCompareTile').remove();
-}
 
 /* Remember where the lead image sits on this project at this window
    size, so the gallery card's expand can aim straight at it. Measured
