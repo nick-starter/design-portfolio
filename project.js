@@ -161,8 +161,20 @@ nextA.innerHTML = `<span class="d-pn-t"><span class="mono">Next project</span><s
 addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') location.href = prevA.href;
   if (e.key === 'ArrowRight') location.href = nextA.href;
-  /* Escape = Close, via click() so it plays the same page transition */
-  if (e.key === 'Escape') $('.d-close').click();
+  /* Escape = Close, via click() so it plays the same page transition.
+     Ignore key-repeat and focused fields; if an overlay (mobile menu,
+     dialog) already handled Escape, leave the project open. */
+  if (e.key !== 'Escape' || e.repeat || e.defaultPrevented) return;
+  const t = e.target;
+  if (t instanceof HTMLElement && (
+    t.closest('input, textarea, select, [contenteditable="true"]') ||
+    t.isContentEditable
+  )) return;
+  if (document.querySelector('.mm.is-open, dialog[open]')) return;
+  const close = $('.d-close');
+  if (!close) return;
+  e.preventDefault();
+  close.click();
 });
 
 /* ---------------- misc ---------------- */
