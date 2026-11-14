@@ -408,7 +408,7 @@ export function desktopScreen(p, W = 1400, H = 1860) {
 export const PROJECTS = [
   {
     id: 'rebel',
-    image: 'assets/rebel-hand-mockup-v9.jpg',
+    image: 'assets/rebel-hand-mockup-v10.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Rebel',
     /* Home card title, one entry per line (the project page keeps `name`). */
