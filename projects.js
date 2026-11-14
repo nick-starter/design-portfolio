@@ -620,7 +620,9 @@ export const PROJECTS = [
   },
   {
     id: 'cargocrew',
-    image: 'assets/cargocrew-hero.jpg',
+    image: 'assets/cargocrew-hero-v2.jpg',
+    cardPos: '8% 50%',
+    heroPosNarrow: '14% 50%',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Cargo Crew',
     cardName: ['Cargo', 'Crew'],
