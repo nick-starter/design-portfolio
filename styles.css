@@ -873,7 +873,7 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   .pj-tile--hero > img { object-position: var(--pj-pos-narrow, var(--pj-pos, 50% 50%)); }
 }
 
-/* Phones: the hero heading as a left-aligned stack. The desktop
+/* Phones: the hero heading as a centred stack. The desktop
    three-line, right-aligned setting has to shrink to ~27px to fit a
    phone and its stepped padding-right then reads as a misalignment,
    so here it wraps to five same-size lines: Senior / Product /
@@ -882,7 +882,7 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   .hero h1 {
     white-space: normal;
     text-wrap: wrap;
-    text-align: left;
+    text-align: center;
     /* AI ENGINEER. is ~8.8em wide: fill the width less 2 x 16px */
     font-size: calc((100vw - 32px) / 8.8);
     line-height: .88;
