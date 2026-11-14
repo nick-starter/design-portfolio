@@ -538,7 +538,7 @@ export const PROJECTS = [
   },
   {
     id: 'officeworks',
-    image: 'assets/officeworks-hero-v2.jpg',
+    image: 'assets/officeworks-hero-v3.jpg',
     cardPos: '50% 50%',
     heroPosNarrow: '50% 50%',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
