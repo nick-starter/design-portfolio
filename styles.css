@@ -905,6 +905,10 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   .hero h1 > span:nth-child(3) { white-space: nowrap; }
   .hero h1 > span:nth-child(3) .slash { display: none; }
   .hero h1 > span:nth-child(2)::after { content: "\00a0/"; color: var(--red); }
+  /* Design journey: hide the sticky project still and drop the
+     92px column it occupied under the 900px grid. */
+  .exp-lane { display: none; }
+  .exp-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* ---------------- page transition ---------------- */
