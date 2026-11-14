@@ -408,7 +408,7 @@ export function desktopScreen(p, W = 1400, H = 1860) {
 export const PROJECTS = [
   {
     id: 'rebel',
-    image: 'assets/rebel-hand-mockup-v8.jpg',
+    image: 'assets/rebel-hand-mockup-v9.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Rebel',
     logo: 'assets/logos/rebel.png',
@@ -481,7 +481,7 @@ export const PROJECTS = [
   },
   {
     id: 'telstra',
-    image: 'assets/telstra-three-up-v2.jpg',
+    image: 'assets/telstra-three-up-v3.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg'],
     name: 'Telstra',
     logo: 'assets/logos/telstra.svg',
@@ -592,7 +592,7 @@ export const PROJECTS = [
   },
   {
     id: 'kitchenwarehouse',
-    image: 'assets/kitchenwarehouse-two-up-v3.jpg',
+    image: 'assets/kitchenwarehouse-two-up-v4.jpg',
     /* Centre the pair of phones in the square card and the 9:10 phone hero. */
     cardPos: '49% 50%',
     heroPosNarrow: '49% 50%',
