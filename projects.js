@@ -409,7 +409,7 @@ export const PROJECTS = [
   {
     id: 'rebel',
     image: 'assets/rebel-hand-mockup-v10.jpg',
-    gallery: [null, 'assets/placeholder-tall-1.jpg'],
+    gallery: [null, 'assets/placeholder-tall-1.jpg', { src: 'assets/rebel-product-tablet.jpg', alt: 'Rebel NikeCourt product page on a tablet' }, { src: 'assets/rebel-home-tablet.jpg', alt: 'Rebel Home of Basketball page on a tablet', full: true }],
     name: 'Rebel',
     /* Home card title, one entry per line (the project page keeps `name`). */
     cardName: ['Rebel', 'Sport'],
