@@ -12,8 +12,8 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 /* ---------------- data ---------------- */
 const JOBS = [
   { yr: 'Now', co: 'Bupa', desc: 'Senior Visual & Interaction Designer' },
-  { yr: '2022', co: 'Super Retail Group', desc: 'UI Designer: Rebel Sport website' },
-  { yr: '2020', co: 'Telstra', desc: "Visual Designer: activation & recharge, Telstra 'Able' design system" },
+  { yr: '2022', co: 'Super Retail Group', pid: 'rebel', desc: 'UI Designer: Rebel Sport website' },
+  { yr: '2020', co: 'Telstra', pid: 'telstra', desc: "Visual Designer: activation & recharge, Telstra 'Able' design system" },
   { yr: '2015', co: 'TBWA \\ Tequila', desc: 'Senior Digital Designer: Nissan, ANZ, Medibank' },
   { yr: '2013', co: 'Sputnik Agency', desc: 'Digital Art Director: Westpac, Schweppes' },
   { yr: '2012', co: 'JWT', desc: 'Digital Creative Lead' },
@@ -63,7 +63,6 @@ function fillSlot(el, p) {
 }
 
 /* ---------------- hero + feature slots ---------------- */
-fillSlot($('#expSlot'), PROJECTS[2]);
 fillSlot($('#cSlot1'), PROJECTS[0]);
 fillSlot($('#cSlot2'), PROJECTS[2]);
 fillSlot($('#cSlot3'), PROJECTS[4]);
@@ -200,11 +199,37 @@ track.addEventListener('pointercancel', endDrag);
 /* ---------------- experience ---------------- */
 const jobs = $('#jobs');
 jobs.innerHTML = JOBS.map((j) => `
-  <article class="job">
+  <article class="job"${j.pid ? ` data-pid="${j.pid}"` : ""}>
     <span class="yr mono">${j.yr}</span>
     <h3>${j.co}</h3>
     <p>${j.desc}</p>
   </article>`).join('');
+
+/* Side image follows the role under the pointer; roles without a
+   project page fall back to the default image. */
+const expSlot = $('#expSlot');
+if (expSlot) {
+  const DEFAULT_PID = PROJECTS[2].id;
+  const pids = [DEFAULT_PID, ...JOBS.map((j) => j.pid).filter(Boolean)];
+  const layers = new Map();
+  [...new Set(pids)].forEach((id) => {
+    const p = PROJECTS.find((x) => x.id === id);
+    if (!p) return;
+    const el = coverEl(p);
+    el.classList.add('exp-layer');
+    if (id === DEFAULT_PID) el.classList.add('on');
+    expSlot.appendChild(el);
+    layers.set(id, el);
+  });
+  const show = (id) => {
+    const want = layers.has(id) ? id : DEFAULT_PID;
+    layers.forEach((el, k) => el.classList.toggle('on', k === want));
+  };
+  $$('.job', jobs).forEach((row) => {
+    row.addEventListener('pointerenter', () => show(row.dataset.pid));
+  });
+  jobs.addEventListener('pointerleave', () => show(DEFAULT_PID));
+}
 
 /* ---------------- method steps ---------------- */
 const stepsEl = $('#steps');

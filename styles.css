@@ -1271,3 +1271,24 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
 /* Project pages: Close pinned 16px in from the top right corner */
 [data-page="project"] .nav.wrap { padding: calc(var(--safe-top) + 16px) 16px 0; justify-content: flex-end; }
 [data-page="project"] .nav .d-close { margin: 0; }
+
+/* Experience: side image swaps per role, rows react on hover */
+#expSlot { position: sticky; }
+#expSlot .exp-layer {
+  position: absolute; inset: 0; height: 100%;
+  opacity: 0; transform: scale3d(1.04, 1.04, 1);
+  transition: opacity .5s ease, transform .9s cubic-bezier(.2, .7, .2, 1);
+}
+#expSlot .exp-layer.on { opacity: 1; transform: scale3d(1, 1, 1); }
+.job { transition: opacity .35s ease; cursor: default; }
+.job h3 { transition: transform .45s cubic-bezier(.2, .7, .2, 1), color .3s ease; }
+.job p { transition: color .3s ease; }
+@media (hover: hover) {
+  .roles-list:hover .job { opacity: .35; }
+  .roles-list:hover .job:hover { opacity: 1; }
+  .job:hover h3 { transform: translateX(14px); color: var(--red); }
+  .job:hover p { color: var(--bone); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #expSlot .exp-layer, .job h3 { transition: opacity .3s ease; transform: none; }
+}
