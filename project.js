@@ -170,6 +170,17 @@ nextA.innerHTML = `<span class="d-pn-t"><span class="mono">Next project</span><s
 addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') location.href = prevA.href;
   if (e.key === 'ArrowRight') location.href = nextA.href;
+  /* Down arrow from the hero jumps to the section below it. */
+  if (e.key === 'ArrowDown' && !e.repeat && !e.altKey && !e.metaKey && !e.ctrlKey) {
+    const hero = $('#pjHero');
+    const head = document.querySelector('.pj-head');
+    if (hero && head && scrollY < hero.offsetHeight * 0.5 && !document.querySelector('.mm.is-open, dialog[open]')) {
+      e.preventDefault();
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      scrollTo({ top: head.getBoundingClientRect().top + scrollY, behavior: reduce ? 'auto' : 'smooth' });
+      return;
+    }
+  }
   /* Escape = Close, via click() so it plays the same page transition.
      Ignore key-repeat and focused fields; if an overlay (mobile menu,
      dialog) already handled Escape, leave the project open. */
