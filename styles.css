@@ -1241,7 +1241,7 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
   z-index: 1;
 }
 .pj-tile > img.pj-hero-logo {
-  --pj-hl-h: clamp(30px, 3.6vw, 56px);
+  --pj-hl-h: clamp(44px, 5.6vw, 92px);
   position: absolute;
   z-index: 2;
   inset: auto auto auto 40px;
@@ -1264,3 +1264,6 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
 @media (max-width: 900px) {
   .pj-tile > img.pj-hero-logo { left: var(--gut); }
 }
+
+/* Project pages: the logo lives on the hero only, not in the header below */
+[data-page="project"] .pj-head h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
