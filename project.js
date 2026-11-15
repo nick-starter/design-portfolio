@@ -37,6 +37,15 @@ if (leadImage) {
 /* Crop of the full-bleed lead image (CSS object-position). */
 if (p.heroPos) document.documentElement.style.setProperty('--pj-pos', p.heroPos);
 if (p.heroPosNarrow) document.documentElement.style.setProperty('--pj-pos-narrow', p.heroPosNarrow);
+/* Client logo, white, at the bottom left of the lead image. */
+if (p.logo) {
+  const mark = document.createElement('img');
+  mark.className = 'pj-hero-logo';
+  mark.src = p.logo;
+  mark.alt = `${p.name} logo`;
+  if (p.logoScale) mark.style.setProperty('--pj-logo-s', p.logoScale);
+  $('#pjHero').appendChild(mark);
+}
 
 /* Card expand hand-off: the lead image is full-bleed at the top of the
    page, so its spot doesn't depend on the header any more; once the web

@@ -1229,3 +1229,38 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
 /* Project pages: no CHILD logo; Close stays at the right */
 [data-page="project"] .nav .logo { display: none; }
 [data-page="project"] .nav .d-close { margin-left: auto; }
+
+/* Project pages: the client logo at the bottom left of the hero,
+   white on a soft bottom shade, fading in with Close. */
+.pj-tile--hero::before {
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(8, 10, 12, .38), rgba(8, 10, 12, 0) clamp(140px, 22vh, 240px));
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.pj-tile > img.pj-hero-logo {
+  --pj-hl-h: clamp(30px, 3.6vw, 56px);
+  position: absolute;
+  z-index: 2;
+  inset: auto auto auto 40px;
+  bottom: clamp(24px, 4vw, 56px);
+  height: calc(var(--pj-hl-h) * var(--pj-logo-s, 1));
+  width: auto;
+  max-width: 45%;
+  object-fit: contain;
+  object-position: left bottom;
+  filter: brightness(0) invert(1);
+  transition: opacity .4s ease;
+}
+.pj-chrome-wait .pj-hero-logo,
+.pj-chrome-wait .pj-tile--hero::before { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .pj-hero-logo { transition: none; }
+  .pj-chrome-wait .pj-hero-logo,
+  .pj-chrome-wait .pj-tile--hero::before { opacity: 1; }
+}
+@media (max-width: 900px) {
+  .pj-tile > img.pj-hero-logo { left: var(--gut); }
+}
