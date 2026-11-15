@@ -478,7 +478,7 @@ body.work-scroll .track { scroll-snap-type: none; }
   padding-block: clamp(20px, 2.6vw, 34px);
   display: grid;
 }
-.job .yr { padding-top: .5rem; }
+.job .yr { color: var(--red); padding-top: .5rem; }
 .job h3 {
   font-family: var(--wide);
   text-transform: uppercase;
