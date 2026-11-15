@@ -1213,3 +1213,15 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
   .tools li { font-size: 1.3rem; }
   .tools li svg { height: 1.6em; }
 }
+
+/* Mobile: Close pill exactly 44px tall (touch target) */
+@media (max-width: 900px) {
+  .nav .d-close {
+    box-sizing: border-box;
+    height: 44px;
+    padding-block: 0;
+    display: inline-flex;
+    align-items: center;
+    margin-block: -8px;
+  }
+}
