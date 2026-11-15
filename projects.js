@@ -408,6 +408,8 @@ export function desktopScreen(p, W = 1400, H = 1860) {
 export const PROJECTS = [
   {
     id: 'rebel',
+    /* Project page body copy (Nick's, Nov 2026); overrides `story`. */
+    body: ["Redesigned the Rebel digital experience, creating a dynamic ecommerce platform that balances high-volume promotional activity with clear and intuitive user journeys. Simplified complex navigation across diverse categories, from footwear and apparel to fitness equipment, while structuring layered offers, member pricing and campaign-driven content into a cohesive and accessible experience. Brought the brand's energy to life through sport-led storytelling and “Home of” destinations, connecting product discovery with inspiration across key sporting categories."],
     image: 'assets/rebel-hand-mockup-v10.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg', { src: 'assets/rebel-flow-phones.jpg', alt: 'Rebel home page, product listing and Home of Basketball on three phones' }, { src: 'assets/rebel-product-tablet.jpg', alt: 'Rebel NikeCourt product page on a tablet', full: true }, { src: 'assets/rebel-home-tablet.jpg', alt: 'Rebel Home of Basketball page on a tablet', full: true }],
     name: 'Rebel',
@@ -483,6 +485,8 @@ export const PROJECTS = [
   },
   {
     id: 'telstra',
+    /* Project page body copy (Nick's, Nov 2026); overrides `story`. */
+    body: ["Designed the Telstra prepaid recharge experience, reimagining a critical utility flow for speed, clarity and flexibility across multiple recharge methods. Simplified complex product tiers, pricing options and verification steps into a streamlined journey, so customers can recharge in a few taps while staying confident and in control. Integrated pathways across app, web and voucher-based experiences, alongside features like auto recharge and saved payments, to create a cohesive, frictionless end-to-end experience."],
     image: 'assets/telstra-three-up-v4.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg', { src: 'assets/telstra-flow-phones.jpg', alt: 'Telstra activation flow on three phones: SIM serial, contact details and a prepaid plan' }, { src: 'assets/telstra-devices-collage.jpg', alt: 'Telstra recharge and activation screens across phones and a tablet', full: true }, { src: 'assets/telstra-recharge-tablet.jpg', alt: 'Telstra Select a recharge step on a tablet', full: true }],
     name: 'Telstra',
@@ -598,6 +602,8 @@ export const PROJECTS = [
   },
   {
     id: 'kitchenwarehouse',
+    /* Project page body copy (Nick's, Nov 2026); overrides `story`. */
+    body: ["A full ecommerce redesign for Kitchen Warehouse, reimagining the online experience for a vast and diverse catalogue spanning cookware, appliances and home essentials. Simplified complex promotional structures, including bundled offers, discounts and multi-buy incentives, through clear hierarchy and intuitive navigation, so customers can easily compare, evaluate and buy with confidence. Balanced inspiration and utility by integrating content, buying guides and category-led browsing into a cohesive, engaging end-to-end shopping experience."],
     image: 'assets/kitchenwarehouse-two-up-v4.jpg',
     /* Centre the pair of phones in the square card and the 9:10 phone hero. */
     cardPos: '49% 50%',
@@ -622,6 +628,8 @@ export const PROJECTS = [
   },
   {
     id: 'cargocrew',
+    /* Project page body copy (Nick's, Nov 2026); overrides `story`. */
+    body: ["Designed a new Cargo Crew ecommerce experience, a visually elevated platform that reflects the brand's balance of style and functionality. Simplified complex product ranges and bulk purchasing journeys through clear navigation and structured content, bringing the brand's design-led approach to life across every touchpoint. Built an experience that supports both individual and large-scale uniform ordering, reinforcing Cargo Crew's position as a global leader in modern workwear."],
     image: 'assets/cargocrew-hero-v7.jpg',
     cardPos: '50% 50%',
     heroPosNarrow: '50% 50%',
@@ -678,6 +686,8 @@ export const PROJECTS = [
   },
   {
     id: 'suzuki',
+    /* Project page body copy (Nick's, Nov 2026); overrides `story`. */
+    body: ["Design and art direction for the Suzuki Motorcycles Australia platform, a high-impact digital experience showcasing a broad and complex range, from road bikes to off-road and adventure models. Structured the site to guide riders from discovery through to configuration, integrating tools like “Build Your Bike” alongside finance, servicing and dealer pathways. Balanced performance-led storytelling with practical decision-making touchpoints, simplifying the journey from inspiration to ownership."],
     image: 'assets/suzuki-ipad-mockup-v10.jpg',
     /* Crops that keep the whole iPad in the square card and the 9:10
        phone hero; the 16:9 / 16:10 desktop hero stays centred. */

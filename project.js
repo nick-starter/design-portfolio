@@ -4,8 +4,8 @@
    case study and prev/next navigation.
 ================================================================== */
 
-import { PROJECTS } from './projects.js?v=55';
-import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=61';
+import { PROJECTS } from './projects.js?v=56';
+import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=62';
 
 const $ = (s, r = document) => r.querySelector(s);
 
@@ -112,7 +112,9 @@ $('#pjFacts').innerHTML = `
 /* Body text: the project's written story (challenge, approach,
    outcome) as running paragraphs, or the standard approach paragraph
    for projects that don't have one yet. */
-const bodyParas = p.story
+const bodyParas = p.body
+  ? p.body
+  : p.story
   ? [...p.story.challenge, ...p.story.approach, ...p.story.outcome]
   : [`Started with the constraint, not the canvas, mapping the states the product actually
     needed before drawing a single screen. Tokens, components and responsive rules were
