@@ -1245,7 +1245,7 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
   position: absolute;
   z-index: 2;
   inset: auto auto auto 40px;
-  bottom: clamp(24px, 4vw, 56px);
+  bottom: clamp(40px, 6vw, 88px);
   height: calc(var(--pj-hl-h) * var(--pj-logo-s, 1));
   width: auto;
   max-width: 45%;
@@ -1267,3 +1267,7 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
 
 /* Project pages: the logo lives on the hero only, not in the header below */
 [data-page="project"] .pj-head h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+
+/* Project pages: Close pinned 16px in from the top right corner */
+[data-page="project"] .nav.wrap { padding: calc(var(--safe-top) + 16px) 16px 0; justify-content: flex-end; }
+[data-page="project"] .nav .d-close { margin: 0; }
