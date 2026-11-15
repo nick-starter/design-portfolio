@@ -1312,3 +1312,5 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
 /* Project pages: no intro headline under the hero */
 [data-page="project"] .pj-headline { display: none; }
 [data-page="project"] .pj-head { padding: 0; gap: 0; }
+
+.pj-gallery[hidden] { display: none; }

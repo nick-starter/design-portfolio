@@ -122,23 +122,24 @@ const bodyParas = p.story
 $('#pjBody').innerHTML = bodyParas.map((t) => `<p>${t}</p>`).join('');
 
 /* ---------------- gallery ---------------- */
-/* Fixed rhythm of slots: a pair of tall tiles, then one full-width
-   tile, repeated. `p.gallery` lists an image per slot (a path, or `{ src, alt }`); any slot
-   without one shows the project's main image as a placeholder. */
-const SLOTS = ['half', 'half', 'full', 'half', 'half', 'full', 'half', 'half'];
+/* Only real images are shown: `p.gallery` lists a path or `{ src, alt }`
+   per tile; empty slots and placeholder art are skipped. Tiles are full
+   width unless an item sets `half: true`. */
 const galleryEl = $('#pjGallery');
 const escAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
-galleryEl.innerHTML = SLOTS.map((slotKind, i) => {
-  const item = p.gallery && p.gallery[i];
-  /* `{ src, full: true }` makes that slot a full-width tile. */
-  const kind = item && item.full ? 'full' : slotKind;
-  const src = (item && item.src) || item || p.image || 'assets/placeholder.png';
-  const real = Boolean(item);
-  const alt = real ? (item.alt || `${p.name}, image ${i + 1}`) : '';
-  return `<figure class="pj-tile pj-slot--${kind}${real ? '' : ' is-placeholder'}">
+const galleryItems = (p.gallery || []).filter((item) => {
+  const src = item && (item.src || item);
+  return typeof src === 'string' && !/placeholder/i.test(src);
+});
+galleryEl.innerHTML = galleryItems.map((item, i) => {
+  const src = item.src || item;
+  const kind = item.half ? 'half' : 'full';
+  const alt = item.alt || `${p.name}, image ${i + 1}`;
+  return `<figure class="pj-tile pj-slot--${kind}">
     <img src="${escAttr(src)}" alt="${escAttr(alt)}" loading="lazy" />
   </figure>`;
 }).join('');
+galleryEl.hidden = galleryItems.length === 0;
 
 /* Remember where the lead image sits on this project at this window
    size, so the gallery card's expand can aim straight at it. Measured
