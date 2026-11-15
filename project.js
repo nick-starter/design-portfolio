@@ -5,7 +5,7 @@
 ================================================================== */
 
 import { PROJECTS } from './projects.js?v=50';
-import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=55';
+import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=56';
 
 const $ = (s, r = document) => r.querySelector(s);
 
