@@ -21,6 +21,7 @@ const BRAND = {
   citrus: ['#eab308', '#f97316'],
   cargo: ['#0d9488', '#a3e635'],
   suzuki: ['#1d4ed8', '#facc15'],
+  langtons: ['#b91c1c', '#7f1d1d'],
 };
 
 /* Brand gradient for a project — used by the project page colour strip */
@@ -745,6 +746,26 @@ export const PROJECTS = [
       { k: 'DR-Z400', v: 'Off-road' },
       { k: 'Burgman 400', v: 'Scooter' },
     ],
+  },
+  {
+    id: 'langtons',
+    /* Project page body copy (Nick's, Nov 2026). */
+    body: ["Designed Langton's wine ordering and client management experience, a data-rich interface that supports the nuances of fine wine purchasing, auctions and account management. Simplified complex interactions across bidding, ordering and customer insights through clear hierarchy and structured layouts, so users can confidently navigate a sophisticated marketplace for collecting, buying and managing wine."],
+    image: 'assets/langtons-tablet.jpg',
+    gallery: [],
+    name: "Langton's",
+    /* No logo file yet, so the page title shows the name as text. */
+    client: "Langton's",
+    /* PLACEHOLDER: year and role are waiting on Nick. */
+    year: 'Copy coming soon',
+    role: 'Copy coming soon',
+    tags: ['UI', 'Visual design', 'E-commerce'],
+    platform: 'Web',
+    blurb: "Designed Langton's wine ordering and client management experience, a data-rich interface for fine wine purchasing, auctions and account management.",
+    outcome: 'Fine wine ordering, auctions and client management',
+    /* colour theme for the generated cover (not shown while there's an image) */
+    brand: 'langtons',
+    seed: 5.1,
   },
 ];
 
