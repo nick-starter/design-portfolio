@@ -1292,3 +1292,19 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   #expSlot .exp-layer, .job h3 { transition: opacity .3s ease; transform: none; }
 }
+
+/* Experience: company logo over the side image on hover */
+#expSlot { border-radius: 64px; overflow: hidden; }
+#expSlot .exp-shade {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: rgba(5, 8, 12, .55); opacity: 0; transition: opacity .4s ease;
+}
+#expSlot .exp-shade.on { opacity: 1; }
+#expSlot .exp-logo {
+  position: absolute; z-index: 3; left: 50%; top: 50%;
+  width: 56%; height: 34%; object-fit: contain; pointer-events: none;
+  filter: brightness(0) invert(1);
+  opacity: 0; transform: translate(-50%, calc(-50% + 14px));
+  transition: opacity .4s ease, transform .5s cubic-bezier(.2, .7, .2, 1);
+}
+#expSlot .exp-logo.on { opacity: 1; transform: translate(-50%, -50%); }

@@ -11,14 +11,14 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 /* ---------------- data ---------------- */
 const JOBS = [
-  { yr: 'Now', co: 'Bupa', desc: 'Senior Visual & Interaction Designer' },
-  { yr: '2022', co: 'Super Retail Group', pid: 'rebel', desc: 'UI Designer: Rebel Sport website' },
-  { yr: '2020', co: 'Telstra', pid: 'telstra', desc: "Visual Designer: activation & recharge, Telstra 'Able' design system" },
-  { yr: '2015', co: 'TBWA \\ Tequila', desc: 'Senior Digital Designer: Nissan, ANZ, Medibank' },
+  { yr: 'Now', co: 'Bupa', logo: 'bupa.png?v=2', desc: 'Senior Visual & Interaction Designer' },
+  { yr: '2022', co: 'Super Retail Group', pid: 'rebel', logo: 'rebel.png', desc: 'UI Designer: Rebel Sport website' },
+  { yr: '2020', co: 'Telstra', pid: 'telstra', logo: 'telstra.svg', desc: "Visual Designer: activation & recharge, Telstra 'Able' design system" },
+  { yr: '2015', co: 'TBWA \\ Tequila', logo: 'tbwa.png', desc: 'Senior Digital Designer: Nissan, ANZ, Medibank' },
   { yr: '2013', co: 'Sputnik Agency', desc: 'Digital Art Director: Westpac, Schweppes' },
-  { yr: '2012', co: 'JWT', desc: 'Digital Creative Lead' },
-  { yr: '2008', co: 'WCRS', desc: 'Senior Digital Designer: Lotus, PlayStation, BMW, 3 Mobile' },
-  { yr: '2005', co: 'Publicis', desc: 'Digital Designer: General Motors, Hewlett-Packard' },
+  { yr: '2012', co: 'JWT', logo: 'jwt.svg', desc: 'Digital Creative Lead' },
+  { yr: '2008', co: 'WCRS', logo: 'wcrs.svg', desc: 'Senior Digital Designer: Lotus, PlayStation, BMW, 3 Mobile' },
+  { yr: '2005', co: 'Publicis', logo: 'publicis.png', desc: 'Digital Designer: General Motors, Hewlett-Packard' },
 ];
 
 const METHOD = [
@@ -225,10 +225,28 @@ if (expSlot) {
     const want = layers.has(id) ? id : DEFAULT_PID;
     layers.forEach((el, k) => el.classList.toggle('on', k === want));
   };
-  $$('.job', jobs).forEach((row) => {
-    row.addEventListener('pointerenter', () => show(row.dataset.pid));
+  /* Company logo sits over the image while its role is hovered. */
+  const shade = document.createElement('span');
+  shade.className = 'exp-shade';
+  expSlot.appendChild(shade);
+  const logos = JOBS.map((j) => {
+    if (!j.logo) return null;
+    const img = document.createElement('img');
+    img.className = 'exp-logo';
+    img.src = `/assets/logos/${j.logo}`;
+    img.alt = '';
+    img.decoding = 'async';
+    expSlot.appendChild(img);
+    return img;
   });
-  jobs.addEventListener('pointerleave', () => show(DEFAULT_PID));
+  const showLogo = (i) => {
+    logos.forEach((img, k) => img && img.classList.toggle('on', k === i));
+    shade.classList.toggle('on', i >= 0 && !!logos[i]);
+  };
+  $$('.job', jobs).forEach((row, i) => {
+    row.addEventListener('pointerenter', () => { show(row.dataset.pid); showLogo(i); });
+  });
+  jobs.addEventListener('pointerleave', () => { show(DEFAULT_PID); showLogo(-1); });
 }
 
 /* ---------------- method steps ---------------- */
