@@ -415,7 +415,7 @@ export const PROJECTS = [
     cardName: ['Rebel', 'Sport'],
     logo: 'assets/logos/rebel.png',
     client: 'Super Retail Group',
-    year: '2022 — 2023',
+    year: '2022-2023',
     role: 'UI Designer',
     tags: ['E-commerce', 'UI', 'Visual design', 'Conversion'],
     platform: 'Web',
@@ -489,7 +489,7 @@ export const PROJECTS = [
     cardName: ['Telstra', 'Prepaid'],
     logo: 'assets/logos/telstra.svg',
     client: 'Telstra',
-    year: '2020 — 2022',
+    year: '2020-2022',
     role: 'Visual Designer',
     tags: ['Mobile', 'Accessibility', 'Design System'],
     blurb:
@@ -549,11 +549,11 @@ export const PROJECTS = [
     client: 'Officeworks',
     /* TODO: role, year, tags, blurb and outcome below still describe
        the old TBWA \\ Tequila entry. Replace with Officeworks details. */
-    year: '2015 — 2018',
+    year: '2015-2018',
     role: 'Senior Digital Designer',
     tags: ['Campaign', 'Digital', 'Motion'],
     blurb:
-      'Digital experiences and engaging digital advertising across Nissan, ANZ and Medibank — concept, craft and motion for large-scale integrated campaigns.',
+      'Digital experiences and engaging digital advertising across Nissan, ANZ and Medibank, bringing concept, craft and motion to large-scale integrated campaigns.',
     outcome: 'Integrated campaigns · Nissan, ANZ & Medibank',
     brand: 'violet',
     seed: 5.1,

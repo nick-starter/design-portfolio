@@ -3,7 +3,7 @@
    Work gallery, method step-through, nav spy.
 ================================================================== */
 
-import { PROJECTS, projectCover } from './projects.js?v=49';
+import { PROJECTS, projectCover } from './projects.js?v=50';
 import { armPageTransition, landFromProject, projectUrl } from './transition.js?v=55';
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -12,13 +12,13 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 /* ---------------- data ---------------- */
 const JOBS = [
   { yr: 'Now', co: 'Bupa', desc: 'Senior Visual & Interaction Designer' },
-  { yr: '2022', co: 'Super Retail Group', desc: 'UI Designer — Rebel Sport website' },
-  { yr: '2020', co: 'Telstra', desc: "Visual Designer — activation & recharge, Telstra 'Able' design system" },
-  { yr: '2015', co: 'TBWA \\ Tequila', desc: 'Senior Digital Designer — Nissan, ANZ, Medibank' },
-  { yr: '2013', co: 'Sputnik Agency', desc: 'Digital Art Director — Westpac, Schweppes' },
+  { yr: '2022', co: 'Super Retail Group', desc: 'UI Designer: Rebel Sport website' },
+  { yr: '2020', co: 'Telstra', desc: "Visual Designer: activation & recharge, Telstra 'Able' design system" },
+  { yr: '2015', co: 'TBWA \\ Tequila', desc: 'Senior Digital Designer: Nissan, ANZ, Medibank' },
+  { yr: '2013', co: 'Sputnik Agency', desc: 'Digital Art Director: Westpac, Schweppes' },
   { yr: '2012', co: 'JWT', desc: 'Digital Creative Lead' },
-  { yr: '2008', co: 'WCRS', desc: 'Senior Digital Designer — Lotus, PlayStation, BMW, 3 Mobile' },
-  { yr: '2005', co: 'Publicis', desc: 'Digital Designer — General Motors, Hewlett-Packard' },
+  { yr: '2008', co: 'WCRS', desc: 'Senior Digital Designer: Lotus, PlayStation, BMW, 3 Mobile' },
+  { yr: '2005', co: 'Publicis', desc: 'Digital Designer: General Motors, Hewlett-Packard' },
 ];
 
 const METHOD = [

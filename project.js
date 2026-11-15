@@ -4,7 +4,7 @@
    case study and prev/next navigation.
 ================================================================== */
 
-import { PROJECTS } from './projects.js?v=49';
+import { PROJECTS } from './projects.js?v=50';
 import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=55';
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -19,7 +19,7 @@ const prev = PROJECTS[(index - 1 + total) % total];
 const next = PROJECTS[(index + 1) % total];
 
 /* ---------------- document head ---------------- */
-document.title = `${p.name} — Nick Child`;
+document.title = `${p.name} | Nick Child`;
 const md = document.querySelector('meta[name="description"]');
 if (md) md.setAttribute('content', `${p.name}: ${p.blurb}`);
 
@@ -97,7 +97,7 @@ const platform = p.platform || p.tags.find((t) => PLATFORMS.includes(t)) || 'Web
 const contribution = p.tags.filter((t) => t !== platform).join(', ');
 $('#pjFacts').innerHTML = `
   <div><dt>Role:</dt><dd>${p.role}</dd></div>
-  <div><dt>Duration:</dt><dd>${p.year.replace(' — ', ' – ')}</dd></div>
+  <div><dt>Duration:</dt><dd>${p.year}</dd></div>
   <div><dt>Contribution:</dt><dd>${contribution}</dd></div>
   <div><dt>Platform:</dt><dd>${platform}</dd></div>`;
 /* Body text: the project's written story (challenge, approach,
@@ -105,7 +105,7 @@ $('#pjFacts').innerHTML = `
    for projects that don't have one yet. */
 const bodyParas = p.story
   ? [...p.story.challenge, ...p.story.approach, ...p.story.outcome]
-  : [`Started with the constraint, not the canvas — mapping the states the product actually
+  : [`Started with the constraint, not the canvas, mapping the states the product actually
     needed before drawing a single screen. Tokens, components and responsive rules were
     authored alongside the interface so the design survived implementation across phone,
     tablet and web, and motion was designed as part of the interaction rather than added
@@ -123,7 +123,7 @@ galleryEl.innerHTML = SLOTS.map((kind, i) => {
   const item = p.gallery && p.gallery[i];
   const src = (item && item.src) || item || p.image || 'assets/placeholder.png';
   const real = Boolean(item);
-  const alt = real ? (item.alt || `${p.name} — image ${i + 1}`) : '';
+  const alt = real ? (item.alt || `${p.name}, image ${i + 1}`) : '';
   return `<figure class="pj-tile pj-slot--${kind}${real ? '' : ' is-placeholder'}">
     <img src="${escAttr(src)}" alt="${escAttr(alt)}" loading="lazy" />
   </figure>`;

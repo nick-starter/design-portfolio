@@ -35,7 +35,7 @@ for (const f of await readdir(ROOT)) {
 for (const p of PROJECTS) {
   if (!/^[a-z0-9-]+$/.test(p.id) || RESERVED.has(p.id)) throw new Error(`Bad project id for a URL: "${p.id}"`);
   const url = `${SITE}/${p.id}`;
-  const title = `${p.name} — Nick Child`;
+  const title = `${p.name} | Nick Child`;
   const desc = `${p.name}: ${p.blurb || ''}`.trim();
   const meta = [
     GENERATED,
