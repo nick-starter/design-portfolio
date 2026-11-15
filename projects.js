@@ -602,7 +602,7 @@ export const PROJECTS = [
     /* Centre the pair of phones in the square card and the 9:10 phone hero. */
     cardPos: '49% 50%',
     heroPosNarrow: '49% 50%',
-    gallery: [null, 'assets/placeholder-tall-1.jpg'],
+    gallery: [null, 'assets/placeholder-tall-1.jpg', { src: 'assets/kitchenwarehouse-three-up.jpg', alt: 'Kitchen Warehouse mobile menu, product page and shopping cart' }],
     name: 'Kitchen Warehouse',
     logo: 'assets/logos/kitchenwarehouse.png',
     client: 'Kitchen Warehouse',
