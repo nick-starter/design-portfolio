@@ -1206,3 +1206,10 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
   .mm li, .mm-brand { opacity: 1; }
 }
 @media (min-width: 901px) { .mm { display: none !important; } }
+
+/* Phones: bigger Design Stack logos and names */
+@media (max-width: 760px) {
+  .tools ul { gap: 22px 24px; padding-top: 22px; }
+  .tools li { font-size: 1.3rem; }
+  .tools li svg { height: 1.6em; }
+}
