@@ -484,7 +484,7 @@ export const PROJECTS = [
   {
     id: 'telstra',
     image: 'assets/telstra-three-up-v4.jpg',
-    gallery: [null, 'assets/placeholder-tall-1.jpg'],
+    gallery: [null, 'assets/placeholder-tall-1.jpg', { src: 'assets/telstra-flow-phones.jpg', alt: 'Telstra activation flow on three phones: SIM serial, contact details and a prepaid plan' }, { src: 'assets/telstra-devices-collage.jpg', alt: 'Telstra recharge and activation screens across phones and a tablet', full: true }, { src: 'assets/telstra-recharge-tablet.jpg', alt: 'Telstra Select a recharge step on a tablet', full: true }],
     name: 'Telstra',
     cardName: ['Telstra', 'Prepaid'],
     logo: 'assets/logos/telstra.svg',
@@ -602,7 +602,7 @@ export const PROJECTS = [
     /* Centre the pair of phones in the square card and the 9:10 phone hero. */
     cardPos: '49% 50%',
     heroPosNarrow: '49% 50%',
-    gallery: [null, 'assets/placeholder-tall-1.jpg', { src: 'assets/kitchenwarehouse-three-up.jpg', alt: 'Kitchen Warehouse mobile menu, product page and shopping cart' }],
+    gallery: [null, 'assets/placeholder-tall-1.jpg', { src: 'assets/kitchenwarehouse-three-up.jpg', alt: 'Kitchen Warehouse mobile menu, product page and shopping cart' }, { src: 'assets/kitchenwarehouse-flow-phones.jpg', alt: 'Kitchen Warehouse cart, menu and product page on three phones', full: true }, { src: 'assets/kitchenwarehouse-product-tablet.jpg', alt: 'Kitchen Warehouse product page on a tablet', full: true }],
     name: 'Kitchen Warehouse',
     logo: 'assets/logos/kitchenwarehouse.png',
     client: 'Kitchen Warehouse',
@@ -625,7 +625,7 @@ export const PROJECTS = [
     image: 'assets/cargocrew-hero-v7.jpg',
     cardPos: '50% 50%',
     heroPosNarrow: '50% 50%',
-    gallery: [null, 'assets/placeholder-tall-1.jpg'],
+    gallery: [null, 'assets/placeholder-tall-1.jpg', { src: 'assets/cargocrew-flow-phones.jpg', alt: 'Cargo Crew product listing, shopping bag and Style it with screens on three phones' }, { src: 'assets/cargocrew-product-tablet.jpg', alt: 'Cargo Crew apron product page with embroidery and logo options on a tablet', full: true }],
     name: 'Cargo Crew',
     cardName: ['Cargo', 'Crew'],
     logo: 'assets/logos/cargocrew.png',

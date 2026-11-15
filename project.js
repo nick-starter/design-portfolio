@@ -4,8 +4,8 @@
    case study and prev/next navigation.
 ================================================================== */
 
-import { PROJECTS } from './projects.js?v=51';
-import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=57';
+import { PROJECTS } from './projects.js?v=52';
+import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=58';
 
 const $ = (s, r = document) => r.querySelector(s);
 
@@ -128,8 +128,10 @@ $('#pjBody').innerHTML = bodyParas.map((t) => `<p>${t}</p>`).join('');
 const SLOTS = ['half', 'half', 'full', 'half', 'half', 'full', 'half', 'half'];
 const galleryEl = $('#pjGallery');
 const escAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
-galleryEl.innerHTML = SLOTS.map((kind, i) => {
+galleryEl.innerHTML = SLOTS.map((slotKind, i) => {
   const item = p.gallery && p.gallery[i];
+  /* `{ src, full: true }` makes that slot a full-width tile. */
+  const kind = item && item.full ? 'full' : slotKind;
   const src = (item && item.src) || item || p.image || 'assets/placeholder.png';
   const real = Boolean(item);
   const alt = real ? (item.alt || `${p.name}, image ${i + 1}`) : '';
