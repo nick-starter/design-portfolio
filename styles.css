@@ -1241,7 +1241,7 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
   z-index: 1;
 }
 .pj-tile > img.pj-hero-logo {
-  --pj-hl-h: clamp(44px, 5.6vw, 92px);
+  --pj-hl-h: clamp(36px, 4.6vw, 74px);
   position: absolute;
   z-index: 2;
   inset: auto auto auto 40px;
