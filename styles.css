@@ -1225,3 +1225,7 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
     margin-block: -8px;
   }
 }
+
+/* Project pages: no CHILD logo; Close stays at the right */
+[data-page="project"] .nav .logo { display: none; }
+[data-page="project"] .nav .d-close { margin-left: auto; }
