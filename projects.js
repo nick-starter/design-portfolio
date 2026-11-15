@@ -683,7 +683,7 @@ export const PROJECTS = [
        phone hero; the 16:9 / 16:10 desktop hero stays centred. */
     cardPos: '43% 50%',
     heroPosNarrow: '44% 50%',
-    gallery: [null, 'assets/placeholder-tall-1.jpg'],
+    gallery: [{ src: 'assets/suzuki-flow-phones.jpg', alt: 'Suzuki build-your-bike journey on three phones: your new bike, parts and accessories, and model select' }, { src: 'assets/suzuki-colour-tablet.jpg', alt: 'Suzuki build-your-bike colour picker with live ride-away price on a tablet' }],
     name: 'Suzuki',
     cardName: ['Suzuki', 'Motorcycles'],
     logo: 'assets/logos/suzuki.svg',
