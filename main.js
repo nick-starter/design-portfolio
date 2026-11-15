@@ -11,14 +11,14 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 /* ---------------- data ---------------- */
 const JOBS = [
-  { yr: 'Now', co: 'Bupa', desc: 'Senior Visual & Interaction Designer · 2023 – Present' },
-  { yr: '2022', co: 'Super Retail Group', desc: 'UI Designer — Rebel Sport website · 2022 – 2023' },
-  { yr: '2020', co: 'Telstra', desc: "Visual Designer — activation & recharge, Telstra 'Able' design system · 2020 – 2022" },
-  { yr: '2015', co: 'TBWA \\ Tequila', desc: 'Senior Digital Designer — Nissan, ANZ, Medibank · 2015 – 2018' },
-  { yr: '2013', co: 'Sputnik Agency', desc: 'Digital Art Director — Westpac, Schweppes · 2013 – 2015' },
-  { yr: '2012', co: 'JWT', desc: 'Digital Creative Lead · 2012 – 2015' },
-  { yr: '2008', co: 'WCRS', desc: 'Senior Digital Designer — Lotus, PlayStation, BMW, 3 Mobile · 2008 – 2012' },
-  { yr: '2005', co: 'Publicis', desc: 'Digital Designer — General Motors, Hewlett-Packard · 2005 – 2008' },
+  { yr: 'Now', co: 'Bupa', desc: 'Senior Visual & Interaction Designer' },
+  { yr: '2022', co: 'Super Retail Group', desc: 'UI Designer — Rebel Sport website' },
+  { yr: '2020', co: 'Telstra', desc: "Visual Designer — activation & recharge, Telstra 'Able' design system" },
+  { yr: '2015', co: 'TBWA \\ Tequila', desc: 'Senior Digital Designer — Nissan, ANZ, Medibank' },
+  { yr: '2013', co: 'Sputnik Agency', desc: 'Digital Art Director — Westpac, Schweppes' },
+  { yr: '2012', co: 'JWT', desc: 'Digital Creative Lead' },
+  { yr: '2008', co: 'WCRS', desc: 'Senior Digital Designer — Lotus, PlayStation, BMW, 3 Mobile' },
+  { yr: '2005', co: 'Publicis', desc: 'Digital Designer — General Motors, Hewlett-Packard' },
 ];
 
 const METHOD = [
