@@ -1308,3 +1308,7 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
   transition: opacity .4s ease, transform .5s cubic-bezier(.2, .7, .2, 1);
 }
 #expSlot .exp-logo.on { opacity: 1; transform: translate(-50%, -50%); }
+
+/* Project pages: no intro headline under the hero */
+[data-page="project"] .pj-headline { display: none; }
+[data-page="project"] .pj-head { padding: 0; gap: 0; }
