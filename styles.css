@@ -737,7 +737,7 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   padding-block: clamp(36px, 6vw, 96px);
   display: grid;
 }
-.pj-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px var(--pj-g); margin: 0; display: grid; }
+.pj-meta { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px var(--pj-g); margin: 0; display: grid; }
 .pj-meta div { border-top: 1px solid var(--line); padding-top: 12px; align-content: start; display: grid; }
 .pj-meta dt, .pj-meta dd { margin: 0; font-size: clamp(1rem, 1.3vw, 1.2rem); line-height: 1.3; }
 .pj-meta dt { color: var(--mute); }
