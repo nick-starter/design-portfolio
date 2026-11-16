@@ -4,8 +4,8 @@
    case study and prev/next navigation.
 ================================================================== */
 
-import { PROJECTS } from './projects.js?v=59';
-import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=65';
+import { PROJECTS } from './projects.js?v=61';
+import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=67';
 
 const $ = (s, r = document) => r.querySelector(s);
 

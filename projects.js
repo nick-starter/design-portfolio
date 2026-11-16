@@ -751,8 +751,11 @@ export const PROJECTS = [
     id: 'langtons',
     /* Project page body copy (Nick's, Nov 2026). */
     body: ["Designed Langton's wine ordering and client management experience, a data-rich interface that supports the nuances of fine wine purchasing, auctions and account management. Simplified complex interactions across bidding, ordering and customer insights through clear hierarchy and structured layouts, so users can confidently navigate a sophisticated marketplace for collecting, buying and managing wine."],
-    image: 'assets/langtons-tablet.jpg',
-    gallery: [{ src: 'assets/langtons-recommendations-tablet.jpg', alt: 'Langton\'s wine recommendations for a client, filtered to Pinot Noir, on a tablet' }],
+    image: 'assets/langtons-hero.jpg',
+    /* Keep the monitor screen in the square card and the 9:10 phone hero. */
+    cardPos: '22% 50%',
+    heroPosNarrow: '30% 50%',
+    gallery: [{ src: 'assets/langtons-tablet.jpg', alt: 'Langton\'s client dashboard with orders, sales insights and customer notes on a tablet' }, { src: 'assets/langtons-recommendations-tablet.jpg', alt: 'Langton\'s wine recommendations for a client, filtered to Pinot Noir, on a tablet' }],
     name: "Langton's",
     /* No logo file yet, so the page title shows the name as text. */
     client: "Langton's",
