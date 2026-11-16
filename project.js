@@ -97,16 +97,15 @@ const showChrome = (delay) => setTimeout(() => document.documentElement.classLis
 })();
 
 /* ---------------- details ---------------- */
-/* Four facts, as on the reference: Role, Contribution, Duration,
+/* Three facts: Role, Contribution,
    Platform. Platform is the project's `platform`, or else the
    platform-like tag (Web / Mobile / Digital); the remaining tags
-   are the contribution. Duration is the project's years. */
+   are the contribution. (Duration/year removed, Nov 2026.) */
 const PLATFORMS = ['Web', 'Mobile', 'Digital'];
 const platform = p.platform || p.tags.find((t) => PLATFORMS.includes(t)) || 'Web';
 const contribution = p.tags.filter((t) => t !== platform).join(', ');
 $('#pjFacts').innerHTML = `
   <div><dt>Role:</dt><dd>${p.role}</dd></div>
-  <div><dt>Duration:</dt><dd>${p.year}</dd></div>
   <div><dt>Contribution:</dt><dd>${contribution}</dd></div>
   <div><dt>Platform:</dt><dd>${platform}</dd></div>`;
 /* Body text: the project's written story (challenge, approach,
