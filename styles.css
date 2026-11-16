@@ -465,7 +465,7 @@ body.work-scroll .track { scroll-snap-type: none; }
 .exp .sec-head .disp { font-size: clamp(1.76rem, 4.8vw, 5.2rem); }
 .exp-intro { color: var(--mute); max-width: 44rem; margin-top: 24px; text-wrap: pretty; }
 .exp-grid {
-  grid-template-columns: minmax(0, 1fr) clamp(140px, 24vw, 380px);
+  grid-template-columns: minmax(0, 1fr) clamp(140px, 40vw, 580px);
   gap: 24px;
   margin-top: clamp(40px, 6vw, 80px);
   display: grid;
@@ -489,7 +489,7 @@ body.work-scroll .track { scroll-snap-type: none; }
 }
 .job p { color: var(--mute); grid-column: 2; }
 .exp-lane { position: relative; }
-.exp-lane .slot { aspect-ratio: 1; width: 100%; position: sticky; top: 30svh; }
+.exp-lane .slot { aspect-ratio: 1; width: min(100%, 76svh); margin-left: auto; position: sticky; top: calc(50svh - min(20vw, 290px, 38svh) + 40px); }
 
 /* ---------------- method ---------------- */
 .method { height: 420svh; position: relative; }
