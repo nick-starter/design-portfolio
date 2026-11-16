@@ -343,7 +343,7 @@ body.work-scroll .work-pin {
 body.work-scroll .track { scroll-snap-type: none; }
 .work .sec-head { flex-wrap: nowrap; align-items: center; margin-bottom: 64px; }
 .work .sec-head .disp {
-  font-size: clamp(2.6rem, 7vw, 7.4rem);
+  font-size: clamp(2.08rem, 5.6vw, 5.92rem);
   padding-left: 64px;
   /* Cancel the P's left side bearing so its ink lines up with the
      About column edge above. */
@@ -462,7 +462,7 @@ body.work-scroll .track { scroll-snap-type: none; }
 }
 /* ---------------- experience ---------------- */
 .exp { padding-block: clamp(80px, 10vw, 140px); }
-.exp .sec-head .disp { font-size: clamp(2.2rem, 6vw, 6.5rem); }
+.exp .sec-head .disp { font-size: clamp(1.76rem, 4.8vw, 5.2rem); }
 .exp-intro { color: var(--mute); max-width: 44rem; margin-top: 24px; text-wrap: pretty; }
 .exp-grid {
   grid-template-columns: minmax(0, 1fr) clamp(140px, 24vw, 380px);
@@ -504,7 +504,7 @@ body.work-scroll .track { scroll-snap-type: none; }
   top: 0;
 }
 .m-text { align-content: center; gap: clamp(18px, 3svh, 36px); min-width: 0; display: grid; }
-.m-text .disp { font-size: clamp(2.4rem, 5.6vw, 6rem); }
+.m-text .disp { font-size: clamp(1.92rem, 4.48vw, 4.8rem); }
 .steps { border-top: 1px solid var(--line); display: grid; }
 .step {
   border-bottom: 1px solid var(--line);
@@ -555,7 +555,7 @@ body.work-scroll .track { scroll-snap-type: none; }
   line-height: .6;
   display: block;
 }
-.c-head .disp { font-size: clamp(2.4rem, 6.4vw, 7rem); }
+.c-head .disp { font-size: clamp(1.92rem, 5.12vw, 5.6rem); }
 .c-head p { color: var(--mute); max-width: 32rem; margin-top: 24px; }
 .trio { height: min(92svh, 860px); position: relative; }
 .trio .slot { width: 76%; position: absolute; left: 12%; }
@@ -890,7 +890,7 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
     border-radius: clamp(16px, 4vw, 28px);
   }
   .m-text { align-content: start; gap: 12px; padding-bottom: 16px; }
-  .m-text .disp { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+  .m-text .disp { font-size: clamp(1.28rem, 5.6vw, 1.92rem); }
   .step { padding-block: 9px; }
   .step h3 { font-size: .95rem; }
   .step p { font-size: .8125rem; }
