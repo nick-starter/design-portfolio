@@ -1329,7 +1329,7 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
   align-content: center;
   gap: 18px;
 }
-.c-box .big { flex-direction: column; align-items: flex-start; font-size: clamp(1.1rem, 1.9vw, 1.75rem); }
+.c-box .big { flex-direction: row; flex-wrap: wrap; align-items: center; font-size: clamp(1.1rem, 1.9vw, 1.75rem); }
 .c-box .big a { overflow-wrap: anywhere; }
 .card { grid-template-columns: minmax(0, 1fr); }
 @media (max-width: 900px) {
