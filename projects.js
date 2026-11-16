@@ -419,7 +419,7 @@ export const PROJECTS = [
     logo: 'assets/logos/rebel.png',
     client: 'Super Retail Group',
     year: '2022-2023',
-    role: 'UI Designer',
+    role: 'Product Designer',
     tags: ['E-commerce', 'UI', 'Visual design', 'Conversion'],
     platform: 'Web',
     /* `headline` is the one line under the title (the blurb is used
@@ -495,7 +495,7 @@ export const PROJECTS = [
     logo: 'assets/logos/telstra.svg',
     client: 'Telstra',
     year: '2020-2022',
-    role: 'Visual Designer',
+    role: 'Product Designer',
     tags: ['Mobile', 'Accessibility', 'Design System'],
     blurb:
       "Designed the prepaid flows behind 2.5 million Telstra recharges a month, from activation, choosing a plan and verifying ID through to complex journeys like international roaming, so customers can get connected on their own, accessibly, on any device. Shipped in fast agile squads and helped define Able, the design system Telstra's digital teams build with. A Telstra Design Awards winner.",
@@ -555,7 +555,7 @@ export const PROJECTS = [
     /* TODO: role, year, tags, blurb and outcome below still describe
        the old TBWA \\ Tequila entry. Replace with Officeworks details. */
     year: '2015-2018',
-    role: 'Senior Digital Designer',
+    role: 'Product Designer',
     tags: ['Campaign', 'Digital', 'Motion'],
     blurb:
       'Digital experiences and engaging digital advertising across Nissan, ANZ and Medibank, bringing concept, craft and motion to large-scale integrated campaigns.',
@@ -617,7 +617,7 @@ export const PROJECTS = [
        on Nick's copy; no story yet, so the page shows the standard
        approach paragraph. */
     year: 'Copy coming soon',
-    role: 'Copy coming soon',
+    role: 'Product Designer',
     tags: ['E-commerce', 'UI', 'Visual design'],
     platform: 'Web',
     headline: 'Copy coming soon.',
@@ -640,7 +640,7 @@ export const PROJECTS = [
     logo: 'assets/logos/cargocrew.png',
     client: 'Cargo Crew',
     year: '2024',
-    role: 'UX / UI Design',
+    role: 'Product Designer',
     tags: ['Web', 'E-commerce', 'Brand'],
     blurb:
       "Designed Cargo Crew's online store so teams can personalise uniforms right on the product page, adding name embroidery or their own logo, with wholesale pricing for corporate orders. Taken from research through to shipped UI for the Melbourne workwear brand.",    outcome: 'Customisation built into the product page',
@@ -694,14 +694,14 @@ export const PROJECTS = [
        phone hero; the 16:9 / 16:10 desktop hero stays centred. */
     cardPos: '43% 50%',
     heroPosNarrow: '44% 50%',
-    gallery: [{ src: 'assets/suzuki-flow-phones.jpg', alt: 'Suzuki build-your-bike journey on three phones: your new bike, parts and accessories, and model select' }, { src: 'assets/suzuki-colour-tablet.jpg', alt: 'Suzuki build-your-bike colour picker with live ride-away price on a tablet' }],
+    gallery: [{ src: 'assets/suzuki-flow-phones-v2.jpg', alt: 'Suzuki build-your-bike journey on three phones: your new bike, parts and accessories, and model select' }, { src: 'assets/suzuki-colour-tablet.jpg', alt: 'Suzuki build-your-bike colour picker with live ride-away price on a tablet' }],
     name: 'Suzuki',
     cardName: ['Suzuki', 'Motorcycles'],
     logo: 'assets/logos/suzuki.svg',
     logoScale: 0.8,
     client: 'Suzuki Motorcycles',
     year: '2021',
-    role: 'Digital Design',
+    role: 'Product Designer',
     tags: ['Web', 'Automotive', 'Campaign'],
     blurb:
       "Designed a build-your-bike journey for Suzuki Motorcycles: choose a colour, add parts, accessories and servicing, and watch the ride-away price and weekly finance update as you go, then send the build straight to a dealer.",
@@ -758,7 +758,7 @@ export const PROJECTS = [
     client: "Langton's",
     /* PLACEHOLDER: year and role are waiting on Nick. */
     year: 'Copy coming soon',
-    role: 'Copy coming soon',
+    role: 'Product Designer',
     tags: ['UI', 'Visual design', 'E-commerce'],
     platform: 'Web',
     blurb: "Designed Langton's wine ordering and client management experience, a data-rich interface for fine wine purchasing, auctions and account management.",
