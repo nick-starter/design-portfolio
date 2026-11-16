@@ -689,11 +689,11 @@ export const PROJECTS = [
     id: 'suzuki',
     /* Project page body copy (Nick's, Nov 2026); overrides `story`. */
     body: ["Design and art direction for the Suzuki Motorcycles Australia platform, a high-impact digital experience showcasing a broad and complex range, from road bikes to off-road and adventure models. Structured the site to guide riders from discovery through to configuration, integrating tools like “Build Your Bike” alongside finance, servicing and dealer pathways. Balanced performance-led storytelling with practical decision-making touchpoints, simplifying the journey from inspiration to ownership."],
-    image: 'assets/suzuki-ipad-mockup-v10.jpg',
+    image: 'assets/suzuki-hero-v3.jpg',
     /* Crops that keep the whole iPad in the square card and the 9:10
        phone hero; the 16:9 / 16:10 desktop hero stays centred. */
-    cardPos: '43% 50%',
-    heroPosNarrow: '44% 50%',
+    cardPos: '50% 50%',
+    heroPosNarrow: '50% 50%',
     gallery: [{ src: 'assets/suzuki-flow-phones-v2.jpg', alt: 'Suzuki build-your-bike journey on three phones: your new bike, parts and accessories, and model select' }, { src: 'assets/suzuki-colour-tablet.jpg', alt: 'Suzuki build-your-bike colour picker with live ride-away price on a tablet' }],
     name: 'Suzuki',
     cardName: ['Suzuki', 'Motorcycles'],
