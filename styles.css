@@ -147,8 +147,8 @@ button { font: inherit; }
   white-space: nowrap;
   z-index: 1;
   align-self: center;
-  /* Longest line (& PRODUCT DESIGNER) fills 80vw — 10% inset each side. */
-  font-size: clamp(1.75rem, 5.27vw, calc(80vw * 0.0659));
+  /* Longest line (& VISUAL DESIGNER) fills 80vw — 10% inset each side. */
+  font-size: clamp(1.75rem, 6.1vw, calc(80vw * 0.07621));
   line-height: .9;
   display: block;
   /* Shrink to the longest line and centre with 10% side padding;
@@ -157,11 +157,11 @@ button { font: inherit; }
   max-width: 80vw;
   justify-self: center;
   margin-inline: auto;
-  text-align: center;
+  text-align: right;
 }
 .hero h1 > span { display: block; }
-.hero h1 > span:first-child { padding-right: 0; }
-.hero h1 > span:nth-child(3) { padding-right: 0; }
+.hero h1 > span:first-child { padding-right: 56px; }
+.hero h1 > span:nth-child(3) { padding-right: 120px; }
 .hero h1 .red { display: inline; }
 /* Short viewports: keep the hero scrollable instead of clipping */
 @media (max-height: 620px) {
@@ -945,15 +945,15 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
 /* Phones: the hero heading as a centred stack. The desktop
    three-line, right-aligned setting has to shrink to ~27px to fit a
    phone and its stepped padding-right then reads as a misalignment,
-   so here it wraps to five same-size lines: Senior / Visual /
-   & Product / Designer / / Design Engineer. */
+   so here it wraps to five same-size lines: Senior / Product /
+   & Visual / Designer / / AI Engineer. */
 @media (max-width: 760px) {
   .hero h1 {
     white-space: normal;
     text-wrap: wrap;
     text-align: center;
-    /* DESIGN ENGINEER. is ~12.7em wide: fill the width less 2 x 16px */
-    font-size: calc((100vw - 32px) / 12.7);
+    /* AI ENGINEER. is ~8.8em wide: fill the width less 2 x 16px */
+    font-size: calc((100vw - 32px) / 8.8);
     line-height: .88;
     letter-spacing: -.015em;
     width: auto;
@@ -969,7 +969,7 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   .hero h1 > span:nth-child(3) { padding-right: 0; }
   .hero .slash { padding-right: .12em; }
   /* The red slash moves up to close the DESIGNER line, so the last
-     line is "DESIGN ENGINEER." on its own at the same size. That line is
+     line is "AI ENGINEER." on its own at the same size. That line is
      the longest, so it sets the size (see font-size above). */
   .hero h1 > span:nth-child(3) { white-space: nowrap; }
   .hero h1 > span:nth-child(3) .slash { display: none; }
@@ -1353,5 +1353,5 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
 .contact:has(.c-grid--solo) { margin-inline: auto; }
 .c-grid--solo .c-head { text-align: center; }
 .c-grid--solo .c-mail { justify-content: center; }
-.c-grid--solo .c-head .disp { font-size: clamp(1.75rem, 5.27vw, calc(80vw * 0.0659)); line-height: .9; letter-spacing: -.02em; }
-@media (max-width: 760px) { .c-grid--solo .c-head .disp { font-size: calc((100vw - 32px) / 12.7); line-height: .88; letter-spacing: -.015em; } }
+.c-grid--solo .c-head .disp { font-size: clamp(1.75rem, 6.1vw, calc(80vw * 0.07621)); line-height: .9; letter-spacing: -.02em; }
+@media (max-width: 760px) { .c-grid--solo .c-head .disp { font-size: calc((100vw - 32px) / 8.8); line-height: .88; letter-spacing: -.015em; } }
