@@ -473,7 +473,7 @@ body.work-scroll .track { scroll-snap-type: none; }
 .roles-list { border-top: 1px solid var(--line); }
 .job {
   border-bottom: 1px solid var(--line);
-  grid-template-columns: 7rem minmax(0, 1fr);
+  grid-template-columns: 4.5rem minmax(0, 1fr);
   gap: 8px 20px;
   padding-block: clamp(20px, 2.6vw, 34px);
   display: grid;
