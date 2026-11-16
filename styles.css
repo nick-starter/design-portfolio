@@ -1348,6 +1348,8 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
 .c-head .c-mail a:hover { color: var(--red); }
 .c-box .c-lede { color: var(--bone); font-size: clamp(1.1rem, 1.6vw, 1.5rem); line-height: 1.35; }
 .c-grid--solo { grid-template-columns: minmax(0, 1fr); }
+/* .wrap caps at 1600px but is not auto-centred, so on wider screens the solo contact block sat left of centre. */
+.contact:has(.c-grid--solo) { margin-inline: auto; }
 .c-grid--solo .c-head { text-align: center; }
 .c-grid--solo .c-mail { justify-content: center; }
 .c-grid--solo .c-head .disp { font-size: clamp(1.75rem, 5.27vw, calc(80vw * 0.0659)); line-height: .9; letter-spacing: -.02em; }
