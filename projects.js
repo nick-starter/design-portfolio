@@ -411,7 +411,7 @@ export const PROJECTS = [
     id: 'rebel',
     /* Project page body copy (Nick's, Nov 2026); overrides `story`. */
     body: ["Redesigned the Rebel digital experience, creating a dynamic ecommerce platform that balances high-volume promotional activity with clear and intuitive user journeys. Simplified complex navigation across diverse categories, from footwear and apparel to fitness equipment, while structuring layered offers, member pricing and campaign-driven content into a cohesive and accessible experience. Brought the brand's energy to life through sport-led storytelling and “Home of” destinations, connecting product discovery with inspiration across key sporting categories."],
-    image: 'assets/rebel-hand-mockup-v10.jpg',
+    image: 'assets/rebel-laptop-hero.jpg',
     gallery: [null, 'assets/placeholder-tall-1.jpg', { src: 'assets/rebel-flow-phones.jpg', alt: 'Rebel home page, product listing and Home of Basketball on three phones' }, { src: 'assets/rebel-product-tablet.jpg', alt: 'Rebel NikeCourt product page on a tablet', full: true }, { src: 'assets/rebel-home-tablet.jpg', alt: 'Rebel Home of Basketball page on a tablet', full: true }],
     name: 'Rebel',
     /* Home card title, one entry per line (the project page keeps `name`). */
