@@ -63,6 +63,9 @@ function fillSlot(el, p) {
 }
 
 /* ---------------- hero + feature slots ---------------- */
+fillSlot($('#cSlot1'), PROJECTS[0]);
+fillSlot($('#cSlot2'), PROJECTS[2]);
+fillSlot($('#cSlot3'), PROJECTS[4]);
 
 const mObjects = $('#mObjects');
 if (mObjects) {
