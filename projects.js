@@ -543,6 +543,7 @@ export const PROJECTS = [
   },
   {
     id: 'officeworks',
+    body: ['Coming soon.'],
     image: 'assets/officeworks-hero-v3.jpg',
     cardPos: '50% 50%',
     heroPosNarrow: '50% 50%',
@@ -552,14 +553,13 @@ export const PROJECTS = [
     logo: 'assets/logos/officeworks.png',
     logoScale: 0.85,
     client: 'Officeworks',
-    /* TODO: role, year, tags, blurb and outcome below still describe
-       the old TBWA \\ Tequila entry. Replace with Officeworks details. */
+    /* PLACEHOLDER: copy, tags and images are waiting on Nick. */
     year: '2015-2018',
     role: 'Product Designer',
-    tags: ['Campaign', 'Digital', 'Motion'],
-    blurb:
-      'Digital experiences and engaging digital advertising across Nissan, ANZ and Medibank, bringing concept, craft and motion to large-scale integrated campaigns.',
-    outcome: 'Integrated campaigns · Nissan, ANZ & Medibank',
+    tags: [],
+    platform: 'Coming soon',
+    blurb: 'Coming soon.',
+    outcome: 'Coming soon',
     brand: 'violet',
     seed: 5.1,
     nav: ['Campaigns', 'Nissan', 'ANZ', 'Medibank', 'Studio'],
@@ -616,13 +616,13 @@ export const PROJECTS = [
     /* PLACEHOLDER: year, role, headline, blurb and outcome are waiting
        on Nick's copy; no story yet, so the page shows the standard
        approach paragraph. */
-    year: 'Copy coming soon',
+    year: 'Coming soon',
     role: 'Product Designer',
     tags: ['E-commerce', 'UI', 'Visual design'],
     platform: 'Web',
-    headline: 'Copy coming soon.',
-    blurb: 'Copy coming soon.',
-    outcome: 'Copy coming soon',
+    headline: 'Coming soon.',
+    blurb: 'Coming soon.',
+    outcome: 'Coming soon',
     /* colour theme for the generated cover (not shown while there's an image) */
     brand: 'ember',
     seed: 3.4,
@@ -760,7 +760,7 @@ export const PROJECTS = [
     /* No logo file yet, so the page title shows the name as text. */
     client: "Langton's",
     /* PLACEHOLDER: year and role are waiting on Nick. */
-    year: 'Copy coming soon',
+    year: 'Coming soon',
     role: 'Product Designer',
     tags: ['UI', 'Visual design', 'E-commerce'],
     platform: 'Web',

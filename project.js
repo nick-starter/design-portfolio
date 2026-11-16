@@ -4,8 +4,8 @@
    case study and prev/next navigation.
 ================================================================== */
 
-import { PROJECTS } from './projects.js?v=62';
-import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=68';
+import { PROJECTS } from './projects.js?v=63';
+import { armPageTransition, leaveProject, fillTitle, projectUrl, slugOf } from './transition.js?v=69';
 
 const $ = (s, r = document) => r.querySelector(s);
 
@@ -103,7 +103,7 @@ const showChrome = (delay) => setTimeout(() => document.documentElement.classLis
    are the contribution. (Duration/year removed, Nov 2026.) */
 const PLATFORMS = ['Web', 'Mobile', 'Digital'];
 const platform = p.platform || p.tags.find((t) => PLATFORMS.includes(t)) || 'Web';
-const contribution = p.tags.filter((t) => t !== platform).join(', ');
+const contribution = p.tags.filter((t) => t !== platform).join(', ') || 'Coming soon';
 $('#pjFacts').innerHTML = `
   <div><dt>Role:</dt><dd>${p.role}</dd></div>
   <div><dt>Contribution:</dt><dd>${contribution}</dd></div>
@@ -115,11 +115,7 @@ const bodyParas = p.body
   ? p.body
   : p.story
   ? [...p.story.challenge, ...p.story.approach, ...p.story.outcome]
-  : [`Started with the constraint, not the canvas, mapping the states the product actually
-    needed before drawing a single screen. Tokens, components and responsive rules were
-    authored alongside the interface so the design survived implementation across phone,
-    tablet and web, and motion was designed as part of the interaction rather than added
-    afterwards.`];
+  : ['Coming soon.'];
 $('#pjBody').innerHTML = bodyParas.map((t) => `<p>${t}</p>`).join('');
 
 /* ---------------- gallery ---------------- */
@@ -140,7 +136,8 @@ galleryEl.innerHTML = galleryItems.map((item, i) => {
     <img src="${escAttr(src)}" alt="${escAttr(alt)}" loading="lazy" />
   </figure>`;
 }).join('');
-galleryEl.hidden = galleryItems.length === 0;
+/* No images yet: say so rather than leave a gap. */
+if (galleryItems.length === 0) galleryEl.innerHTML = '<p class="pj-gallery-soon mono">More images coming soon.</p>';
 
 /* Remember where the lead image sits on this project at this window
    size, so the gallery card's expand can aim straight at it. Measured
