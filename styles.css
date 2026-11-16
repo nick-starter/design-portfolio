@@ -147,8 +147,8 @@ button { font: inherit; }
   white-space: nowrap;
   z-index: 1;
   align-self: center;
-  /* Longest line (& VISUAL DESIGNER) fills 80vw — 10% inset each side. */
-  font-size: clamp(1.75rem, 6.1vw, calc(80vw * 0.07621));
+  /* Longest line (& INTERACTION DESIGNER) fills 80vw — 10% inset each side. */
+  font-size: clamp(1.75rem, 4.75vw, calc(80vw * 0.0594));
   line-height: .9;
   display: block;
   /* Shrink to the longest line and centre with 10% side padding;
@@ -945,8 +945,8 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
 /* Phones: the hero heading as a centred stack. The desktop
    three-line, right-aligned setting has to shrink to ~27px to fit a
    phone and its stepped padding-right then reads as a misalignment,
-   so here it wraps to five same-size lines: Senior / Product /
-   & Visual / Designer / / AI Engineer. */
+   so here it wraps to five same-size lines: Senior / Visual /
+   & Interaction / Designer / / AI Engineer. */
 @media (max-width: 760px) {
   .hero h1 {
     white-space: normal;
