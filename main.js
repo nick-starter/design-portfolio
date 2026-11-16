@@ -70,8 +70,6 @@ fillSlot($('#cSlot3'), PROJECTS[4]);
 const mObjects = $('#mObjects');
 if (mObjects) {
   fillSlot($('[data-slot="big"]', mObjects), PROJECTS[3]);
-  fillSlot($('[data-slot="tl"]', mObjects), PROJECTS[4]);
-  fillSlot($('[data-slot="br"]', mObjects), PROJECTS[5]);
 }
 
 /* ---------------- work gallery ---------------- */
