@@ -1335,3 +1335,15 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
 @media (max-width: 900px) {
   .c-box { aspect-ratio: auto; border-top: 1px solid var(--line); margin-top: 28px; }
 }
+.c-head .c-mail {
+  font-family: var(--mono);
+  letter-spacing: -.01em;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-top: 24px;
+  font-size: clamp(1.1rem, 1.9vw, 1.75rem);
+  display: flex;
+}
+.c-head .c-mail a:hover { color: var(--red); }
+.c-box .c-lede { color: var(--bone); font-size: clamp(1.1rem, 1.6vw, 1.5rem); line-height: 1.35; }
