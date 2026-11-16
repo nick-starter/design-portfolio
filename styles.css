@@ -1350,3 +1350,5 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
 .c-grid--solo { grid-template-columns: minmax(0, 1fr); }
 .c-grid--solo .c-head { text-align: center; }
 .c-grid--solo .c-mail { justify-content: center; }
+.c-grid--solo .c-head .disp { font-size: clamp(1.75rem, 6.1vw, calc(80vw * 0.07621)); line-height: .9; letter-spacing: -.02em; }
+@media (max-width: 760px) { .c-grid--solo .c-head .disp { font-size: calc((100vw - 32px) / 8.8); line-height: .88; letter-spacing: -.015em; } }
