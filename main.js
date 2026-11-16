@@ -355,7 +355,7 @@ addEventListener('pagehide', () => {
 });
 
 /* ---------------- misc ---------------- */
-$('#year').textContent = new Date().getFullYear();
+const yearEl = $('#year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 /* ---------------- deep-link landing ---------------- */
 /* Project pages link back to /#work etc. Make sure a full
