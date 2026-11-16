@@ -482,9 +482,10 @@ body.work-scroll .track { scroll-snap-type: none; }
 .job h3 {
   font-family: var(--wide);
   text-transform: uppercase;
-  font-size: clamp(1.6rem, 3.6vw, 3.3rem);
-  font-weight: 800;
-  font-stretch: 118%;
+  /* same size and weight as the project names on the work cards */
+  font-size: clamp(1.4rem, 2.8vw, 2.6rem);
+  font-weight: 900;
+  font-stretch: 125%;
   line-height: 1;
 }
 .job p { color: var(--mute); grid-column: 2; }
