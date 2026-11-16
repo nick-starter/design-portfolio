@@ -689,7 +689,7 @@ export const PROJECTS = [
     id: 'suzuki',
     /* Project page body copy (Nick's, Nov 2026); overrides `story`. */
     body: ["Design and art direction for the Suzuki Motorcycles Australia platform, a high-impact digital experience showcasing a broad and complex range, from road bikes to off-road and adventure models. Structured the site to guide riders from discovery through to configuration, integrating tools like “Build Your Bike” alongside finance, servicing and dealer pathways. Balanced performance-led storytelling with practical decision-making touchpoints, simplifying the journey from inspiration to ownership."],
-    image: 'assets/suzuki-hero-v3.jpg',
+    image: 'assets/suzuki-hero-v4.jpg',
     /* Crops that keep the whole iPad in the square card and the 9:10
        phone hero; the 16:9 / 16:10 desktop hero stays centred. */
     cardPos: '50% 50%',
