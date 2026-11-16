@@ -494,7 +494,7 @@ body.work-scroll .track { scroll-snap-type: none; }
 /* ---------------- method ---------------- */
 .method { height: 420svh; position: relative; }
 .m-stage {
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   align-items: center;
   gap: 24px;
   height: 100svh;
