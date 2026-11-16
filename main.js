@@ -16,7 +16,7 @@ const JOBS = [
   { yr: '2020', co: 'Telstra', pid: 'telstra', logo: 'telstra.svg', desc: "Visual Designer: activation & recharge, Telstra 'Able' design system" },
   { yr: '2015', co: 'TBWA \\ Tequila', logo: 'tbwa.png', desc: 'Senior Digital Designer: Nissan, ANZ, Medibank' },
   { yr: '2013', co: 'Sputnik Agency', desc: 'Digital Art Director: Westpac, Schweppes' },
-  { yr: '2012', co: 'JWT', logo: 'jwt.svg', desc: 'Digital Creative Lead' },
+  { yr: '2012', co: 'JWT', logo: 'jwt.svg', desc: 'Digital Creative Lead: Kraft, Ford, VicRoads' },
   { yr: '2008', co: 'WCRS', logo: 'wcrs.svg', desc: 'Senior Digital Designer: Lotus, PlayStation, BMW, 3 Mobile' },
   { yr: '2005', co: 'Publicis', logo: 'publicis.png', desc: 'Digital Designer: General Motors, Hewlett-Packard' },
 ];
