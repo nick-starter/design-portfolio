@@ -24,7 +24,7 @@ const JOBS = [
 const METHOD = [
   { t: 'Research & discovery', d: 'Start with the problem, the audience and the constraint. Interviews, analytics and competitive review before any pixels.' },
   { t: 'Concept & visual direction', d: 'Explore the widest range quickly, then commit to a direction with a clear point of view and the craft to sell it.' },
-  { t: 'Interaction & motion', d: 'Prototype the flow in Figma and Rive. Motion is designed with the interface, never layered on after the fact.' },
+  { t: 'Interaction & prototyping', d: 'Prototype the flow in Figma so interactions are designed with the interface, never layered on after the fact.' },
   { t: 'Systems & handover', d: 'Semantic tokens, component variants and specs authored so the design survives build across web and mobile.' },
 ];
 
