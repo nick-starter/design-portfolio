@@ -147,8 +147,8 @@ button { font: inherit; }
   white-space: nowrap;
   z-index: 1;
   align-self: center;
-  /* Longest line (/AI DESIGN ENGINEER.) fills about 80vw, 10% inset each side. */
-  font-size: clamp(1.75rem, 5.75vw, calc(80vw * 0.0723));
+  /* Longest lines (PRODUCT DESIGNER / and AI DESIGN ENGINEER.) fill about 80vw, 10% inset each side. */
+  font-size: clamp(1.75rem, 5.85vw, calc(80vw * 0.0736));
   line-height: .9;
   display: block;
   /* Shrink to the longest line and centre with 10% side padding;
@@ -972,8 +972,6 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
      line is "AI ENGINEER." on its own at the same size. That line is
      the longest, so it sets the size (see font-size above). */
   .hero h1 > span:nth-child(3) { white-space: normal; }
-  .hero h1 > span:nth-child(3) .slash { display: none; }
-  .hero h1 > span:nth-child(2)::after { content: "\00a0/"; color: var(--red); }
   /* Design journey: hide the sticky project still and drop the
      92px column it occupied under the 900px grid. */
   .exp-lane { display: none; }
