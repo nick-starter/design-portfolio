@@ -273,7 +273,7 @@ button { font: inherit; }
   text-wrap: balance;
   max-width: 24em;
   margin-top: 24px;
-  font-size: clamp(1.35rem, 2.5vw, 2.35rem);
+  font-size: clamp(1.485rem, 2.75vw, 2.585rem);
   font-weight: 900;
   font-stretch: 118%;
   line-height: 1.08;
