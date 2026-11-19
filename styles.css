@@ -147,8 +147,8 @@ button { font: inherit; }
   white-space: nowrap;
   z-index: 1;
   align-self: center;
-  /* Longest lines (PRODUCT DESIGNER / and AI DESIGN ENGINEER.) fill about 80vw, 10% inset each side. */
-  font-size: clamp(1.75rem, 5.85vw, calc(80vw * 0.0736));
+  /* Longest lines (PRODUCT DESIGNER / and AI DESIGN ENGINEER.) fill about 72vw (10% smaller than full 80vw). */
+  font-size: clamp(1.75rem, 5.265vw, calc(80vw * 0.06624));
   line-height: .9;
   display: block;
   /* Shrink to the longest line and centre with 10% side padding;
