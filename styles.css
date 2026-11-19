@@ -1347,6 +1347,39 @@ html.mm-lock, html.mm-lock body { overflow: hidden; }
   display: flex;
 }
 .c-head .c-mail a:hover { color: var(--red); }
+/* Email address as a copy button with a tooltip above it. */
+.mail-copy {
+  position: relative;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.mail-copy:hover, .mail-copy:focus-visible { color: var(--red); }
+.mail-copy::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translate(-50%, 4px);
+  font-family: var(--mono);
+  font-size: .75rem;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: #111;
+  background: var(--bone);
+  border-radius: 6px;
+  padding: 6px 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s ease, transform .15s ease;
+}
+.mail-copy:hover::after,
+.mail-copy:focus-visible::after,
+.mail-copy.is-copied::after { opacity: 1; transform: translate(-50%, 0); }
 .c-box .c-lede { color: var(--bone); font-size: clamp(1.1rem, 1.6vw, 1.5rem); line-height: 1.35; }
 .c-grid--solo { grid-template-columns: minmax(0, 1fr); }
 /* .wrap caps at 1600px but is not auto-centred, so on wider screens the solo contact block sat left of centre. */

@@ -289,17 +289,25 @@ const spy = new IntersectionObserver((entries) => {
 spyTargets.forEach((x) => spy.observe(x.el));
 
 /* ---------------- copy email ---------------- */
-const copyBtn = $('#copyEmail');
+/* The email address itself is the button; its tooltip says what a
+   click does and confirms the copy. */
+const copyBtn = $('#mail');
 if (copyBtn) {
+  let copyTimer;
   copyBtn.addEventListener('click', async () => {
-    const email = $('#mail')?.textContent?.trim() || '';
+    const email = copyBtn.textContent.trim();
     try {
       await navigator.clipboard.writeText(email);
-      copyBtn.textContent = 'Copied ✓';
-      setTimeout(() => { copyBtn.textContent = 'Copy email'; }, 1800);
+      copyBtn.dataset.tip = 'Copied ✓';
     } catch {
-      copyBtn.textContent = 'Copy failed';
+      copyBtn.dataset.tip = 'Copy failed';
     }
+    copyBtn.classList.add('is-copied');
+    clearTimeout(copyTimer);
+    copyTimer = setTimeout(() => {
+      copyBtn.classList.remove('is-copied');
+      copyBtn.dataset.tip = 'Copy email';
+    }, 1800);
   });
 }
 
