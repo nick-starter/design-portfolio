@@ -54,7 +54,7 @@ button { font: inherit; }
 .red { color: var(--red); }
 .hero .slash { padding-right: .25em; }
 /* Tilt the slash (12.8deg in Archivo) to the A's left stroke (25.8deg). */
-.hero .slash { display: inline-block; transform: rotate(13deg); transform-origin: 50% 55%; }
+.hero .slash { display: inline-block; transform: rotate(20deg); transform-origin: 50% 55%; }
 
 /* ---------------- ambient background ---------------- */
 .light {
