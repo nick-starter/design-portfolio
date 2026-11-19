@@ -221,14 +221,14 @@ button { font: inherit; }
 }
 .logo-slide li img {
   width: auto;
-  --logo-h: clamp(1.265rem, 1.87vw, 1.65rem);
+  --logo-h: clamp(1.39rem, 2.057vw, 1.815rem);
   display: block;
   height: calc(var(--logo-h) * var(--logo-scale, 1));
   max-width: none;
 }
 .logo-slide li img.logo-svg { filter: brightness(0) invert(1); }
 /* optical balance: wide marks shorter, compact marks taller */
-.logo-slide li { display: flex; align-items: center; height: calc(clamp(1.15rem, 1.7vw, 1.5rem) * 1.7); }
+.logo-slide li { display: flex; align-items: center; height: calc(clamp(1.265rem, 1.87vw, 1.65rem) * 1.7); }
 .logo-slide li img.logo-bupa        { --logo-scale: 1; }
 .logo-slide li img.logo-nissan      { --logo-scale: .68; }
 .logo-slide li img.logo-tbwa        { --logo-scale: .9; }
