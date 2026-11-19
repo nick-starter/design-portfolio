@@ -147,7 +147,7 @@ button { font: inherit; }
   white-space: nowrap;
   z-index: 1;
   align-self: center;
-  /* Longest line (& INTERACTION DESIGNER) fills 80vw — 10% inset each side. */
+  /* Longest line (& PRODUCT DESIGNER / AI DESIGN ENGINEER) fills 80vw — 10% inset each side. */
   font-size: clamp(1.75rem, 4.75vw, calc(80vw * 0.0594));
   line-height: .9;
   display: block;
@@ -946,7 +946,7 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
    three-line, right-aligned setting has to shrink to ~27px to fit a
    phone and its stepped padding-right then reads as a misalignment,
    so here it wraps to five same-size lines: Senior / Visual /
-   & Interaction / Designer / / AI Design Engineer. */
+   & Product / Designer / / AI Design Engineer. */
 @media (max-width: 760px) {
   .hero h1 {
     white-space: normal;
