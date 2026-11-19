@@ -52,7 +52,7 @@ button { font: inherit; }
   line-height: .9;
 }
 .red { color: var(--red); }
-.hero .slash { padding-right: 32px; }
+.hero .slash { padding-right: 0; }
 
 /* ---------------- ambient background ---------------- */
 .light {
@@ -967,8 +967,8 @@ body:has(.pj) .wrap { max-width: none; padding-inline: 40px; }
   .hero { padding-inline: 16px; }
   .hero h1 > span:first-child,
   .hero h1 > span:nth-child(3) { padding-right: 0; }
-  .hero .slash { padding-right: .12em; }
-  /* The red slash moves up to close the DESIGNER line, so the last
+  .hero .slash { padding-right: 0; }
+  /* The red slash leads the last line ("/AI DESIGN ENGINEER."), so the last
      line is "AI ENGINEER." on its own at the same size. That line is
      the longest, so it sets the size (see font-size above). */
   .hero h1 > span:nth-child(3) { white-space: normal; }
