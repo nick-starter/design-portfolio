@@ -11,7 +11,7 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 /* ---------------- data ---------------- */
 const JOBS = [
-  { yr: 'Now', co: 'Bupa', logo: 'bupa.png?v=2', desc: 'Senior Visual & Interaction Designer' },
+  { yr: 'Now', co: 'Bupa', logo: 'bupa.png?v=2', desc: 'Senior Visual & Interaction Designer: Bupa.co.au, myBupa app' },
   { yr: '2022', co: 'Super Retail Group', pid: 'rebel', logo: 'rebel.png', desc: 'UI Designer: Rebel Sport website' },
   { yr: '2020', co: 'Telstra', pid: 'telstra', logo: 'telstra.svg', desc: "Visual Designer: activation & recharge, Telstra 'Able' design system" },
   { yr: '2015', co: 'TBWA \\ Tequila', logo: 'tbwa.png', desc: 'Senior Digital Designer: Nissan, ANZ, Medibank' },
