@@ -604,7 +604,7 @@ export const PROJECTS = [
   {
     id: 'kitchenwarehouse',
     /* Project page body copy (Nick's, Nov 2026); overrides `story`. */
-    body: ["A full ecommerce redesign for Kitchen Warehouse, reimagining the online experience for a vast and diverse catalogue spanning cookware, appliances and home essentials. Simplified complex promotional structures, including bundled offers, discounts and multi-buy incentives, through clear hierarchy and intuitive navigation, so customers can easily compare, evaluate and buy with confidence. Balanced inspiration and utility by integrating content, buying guides and category-led browsing into a cohesive, engaging end-to-end shopping experience."],
+    body: ["Kitchen Warehouse is Australia’s number one kitchenware retailer, with 31 stores and more than 10,000 products online. A full ecommerce redesign for Kitchen Warehouse, reimagining the online experience for a vast and diverse catalogue spanning cookware, appliances and home essentials. Simplified complex promotional structures, including bundled offers, discounts and multi-buy incentives, through clear hierarchy and intuitive navigation, so customers can easily compare, evaluate and buy with confidence. Balanced inspiration and utility by integrating content, buying guides and category-led browsing into a cohesive, engaging end-to-end shopping experience."],
     image: 'assets/kitchenwarehouse-two-up-v4.jpg',
     /* Centre the pair of phones in the square card and the 9:10 phone hero. */
     cardPos: '49% 50%',
